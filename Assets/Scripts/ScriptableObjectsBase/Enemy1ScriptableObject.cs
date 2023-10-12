@@ -1,0 +1,18 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Enemy1", menuName = "ScriptableObjects/Enemy1ScriptableObject")]
+public class Enemy1ScriptableObject : ScriptableObject
+{
+    public int maxHealth = 20;
+    public int coinsDropOnDeath = 2;
+
+    public float rotateSpeed = 360f;
+    public float walkSpeed = 3f;
+    public float awarenessAwareRange = 40f;
+    public float awarenessChaseRange = 15f;
+    public float awarenessAttackRange = 2f;
+
+    public int attackDamage = 1;
+    public float attackRadius = 1f;
+
+}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2e1a8df64a8f543ad079b33c443c0c, type: 3}
+  m_Name: Enemy1ScriptableObject
+  m_EditorClassIdentifier: 
+  maxHealth: 4
+  coinsDropOnDeath: 4
+  rotateSpeed: 360
+  walkSpeed: 3
+  awarenessAwareRange: 40
+  awarenessChaseRange: 15
+  awarenessAttackRange: 1.5
+  attackDamage: 5
+  attackRadius: 0.5
