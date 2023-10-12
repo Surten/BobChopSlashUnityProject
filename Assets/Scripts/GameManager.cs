@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+
         playerGui.ShopDisappear();
 
         //reset playerPosition???
