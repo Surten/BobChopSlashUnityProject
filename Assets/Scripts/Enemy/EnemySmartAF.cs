@@ -81,6 +81,7 @@ public class EnemySmartAF : MonoBehaviour
                 break;
 
             case EnemyState.Walking:
+                renderTextureColor();
                 RotateToTarget();
                 Transition2Position(walkSpeed);
                 break;
@@ -125,7 +126,7 @@ public class EnemySmartAF : MonoBehaviour
     public void renderTextureColor() {
         // Ensure the object has a renderer component
         Renderer renderer = GetComponent<Renderer>();
-        if (renderer != null && isCharging)
+        if (renderer != null)
         {
             // Create a new material instance to avoid modifying the shared material
             Material material = renderer.material;
@@ -136,10 +137,14 @@ public class EnemySmartAF : MonoBehaviour
                 // Set the new color
                 newMaterial.color = Color.red;
             }
+            else if (isCharging)
+            {
+                newMaterial.color = Color.blue;
+            }
             else
             {
                 // Set the new color
-                newMaterial.color = Color.blue;
+                newMaterial.color = Color.green;
             }
 
             // Assign the new material to the renderer

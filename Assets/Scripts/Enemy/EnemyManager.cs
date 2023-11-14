@@ -95,6 +95,7 @@ public class EnemyManager : MonoBehaviour
                 {
                     e.SetEnemyState(EnemySmartAF.EnemyState.Idle);
                 }
+
                 continue;
             } 
             else if (targetDistance > enemyScriptableObject.awarenessChaseRange) // Rotate towards player
@@ -113,7 +114,6 @@ public class EnemyManager : MonoBehaviour
                 {
                     e.SetEnemyState(EnemySmartAF.EnemyState.Walking);
                 }
-               
 
                 continue;
             }
