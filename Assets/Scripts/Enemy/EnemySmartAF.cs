@@ -31,13 +31,13 @@ public class EnemySmartAF : MonoBehaviour
 
     public bool isCharging;
     public bool isIdleJumping;
-    public bool canExplode;
     private bool isGrounded;
 
-    private float spiralRadius;
-    private float currentSpiralAngle;
+    public bool canExplode;
+    private ParticleSystem explosionEffect;
 
-    public enum EnemyState{ Idle, Jumping, Rotating, Walking, Charging, Spiral, Attack, Explode, Dead }
+
+    public enum EnemyState{ Idle, Jumping, Rotating, Walking, Charging, Attack, Explode, Dead }
 
     /* Initialization and Updates per Frame */
     private void Start()
@@ -59,10 +59,9 @@ public class EnemySmartAF : MonoBehaviour
         isIdleJumping = (enemyScriptableObject.idleJumpProbability) > UnityEngine.Random.value;
 
         previousTargetPosition = target.position;
-        currentSpiralAngle = 0f;
-        spiralRadius = 0f;
 
         rb = GetComponent<Rigidbody>();
+        explosionEffect = GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -100,13 +99,7 @@ public class EnemySmartAF : MonoBehaviour
 
             case EnemyState.Explode:
                 RotateToTarget();
-                attackMelee.SwingSword();
-                currentState = EnemyState.Dead;
-                break;
-
-            case EnemyState.Spiral:
-                RotateToTarget();
-                SpiralMotion();
+                Explode();
                 break;
 
         }
@@ -154,9 +147,21 @@ public class EnemySmartAF : MonoBehaviour
         }
     }
 
-/* Action Functions */
+    private void Explode()
+    {
+        attackMelee.SwingSword();
+        if (GetComponent<ParticleSystem>() != null)
+        {
+            explosionEffect.Play();
 
-private void RotateToTarget(float inclinationAngle = 0)
+        }
+        currentState = EnemyState.Dead;
+    }
+
+
+    /* Action Functions */
+
+    private void RotateToTarget(float inclinationAngle = 0)
     {
         Vector3 v = target.position - transform.position;
         v.y = 0;
@@ -189,33 +194,6 @@ private void RotateToTarget(float inclinationAngle = 0)
         transform.position += transform.forward * Time.deltaTime * speed;
     }
 
-    private void SpiralMotion()
-    {
-        // Check if player's position has changed
-        if (Vector3.Distance(target.position, previousTargetPosition) > float.Epsilon)
-        {
-            previousTargetPosition = target.position;
-            spiralRadius = _calculateSpiralRadius();
-            currentSpiralAngle = 0f;
-            UnityEngine.Debug.Log("My spiral radius is: " + spiralRadius);
-        }
-
-        // Calculate the spiral position relative to the target's current position
-        float x = Mathf.Cos(currentSpiralAngle) * spiralRadius;
-        float z = Mathf.Sin(currentSpiralAngle) * spiralRadius;
-        Vector3 offset = new Vector3(x, 0f, z);
-
-        Vector3 spiralPosition = target.position + offset;
-
-        // Update the spiral angle for the next frame
-        currentSpiralAngle += Time.deltaTime * walkSpeed;
-
-        UnityEngine.Debug.Log("My current angle is: " + currentSpiralAngle);
-
-        // Move towards the calculated spiral position
-        transform.position = Vector3.MoveTowards(transform.position, spiralPosition, walkSpeed * Time.deltaTime);
-    }
-
     /* List of Subfunctions (functions that are used as tools for other functions)*/
 
     private float _calculateJumpVelocity(float jumpHeight, float angle = 0f)
@@ -234,13 +212,7 @@ private void RotateToTarget(float inclinationAngle = 0)
         float angleInRadians = Mathf.Deg2Rad * angleInDegrees;
 
         // Calculate sin^2(theta)
-        float sinSquared = Mathf.Sin(angleInRadians) * Mathf.Sin(angleInRadians);
-
-        return sinSquared;
-    }
-
-    private float _calculateSpiralRadius() { 
-        return Mathf.Sqrt(_squared(target.position.x - transform.position.x) + _squared(target.position.z - transform.position.z));
+        return _squared(Mathf.Sin(angleInRadians));
     }
 
     private float _squared(float value) {

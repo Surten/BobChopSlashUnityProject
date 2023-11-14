@@ -104,8 +104,6 @@ public class EnemyManager : MonoBehaviour
             }
             else if (targetDistance > enemyScriptableObject.awarenessAttackRange) // Chase Player
             {
-                //e.SetEnemyState(EnemySmartAF.EnemyState.Spiral);
-                
                 
                 if (e.isCharging)
                 {
