@@ -40,10 +40,10 @@ public class EnemyManager : MonoBehaviour
     public void SpawnEnemiesRandomly(int numEnemies)
     {
         float x, z;
-        for(int i = 0; i < numEnemies; i++)
+        for(int i0 = 0; i0 < numEnemies; i0++)
         {
-            x = (UnityEngine.Random.value - 0.5f) * arenaRadius * 2;
-            z = (UnityEngine.Random.value - 0.5f) * arenaRadius * 2;
+            x = 2 * arenaRadius * (UnityEngine.Random.value - 0.5f);
+            z = 2 * arenaRadius * (UnityEngine.Random.value - 0.5f);
             Vector3 v = new Vector3(x, 1f, z);
             SpawnEnemy(v);
         }
@@ -74,32 +74,62 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         if (spawnOneEnemy) spawnOnEditorDemand();
-        foreach (GameObject go in enemies)
+        foreach (GameObject go in enemies) // Loop through each enemy
         {
             EnemySmartAF e = go.GetComponent<EnemySmartAF>();
 
-            if (e.GetEnemyState() == EnemySmartAF.EnemyState.Dead)
+            if (e.GetEnemyState() == EnemySmartAF.EnemyState.Dead) // If dead, remove data and remove body
             {
                 onEnemyDeath(go);
                 return;
             }
 
-            float targetDistance = (playerTransform.position - e.transform.position).magnitude;
-            if (targetDistance > enemyScriptableObject.awarenessAwareRange)
+            float targetDistance = (playerTransform.position - e.transform.position).magnitude; // Check for the distance between player and enemy
+            if (targetDistance > enemyScriptableObject.awarenessAwareRange) // No movement
             {
-                e.SetEnemyState(EnemySmartAF.EnemyState.Idle);
+                if (e.isIdleJumping)
+                {
+                    e.SetEnemyState(EnemySmartAF.EnemyState.Jumping);
+                }
+                else
+                {
+                    e.SetEnemyState(EnemySmartAF.EnemyState.Idle);
+                }
+                continue;
             } 
-            else if (targetDistance > enemyScriptableObject.awarenessChaseRange)
+            else if (targetDistance > enemyScriptableObject.awarenessChaseRange) // Rotate towards player
             {
                 e.SetEnemyState(EnemySmartAF.EnemyState.Rotating);
+                continue;
             }
-            else if (targetDistance > enemyScriptableObject.awarenessAttackRange)
+            else if (targetDistance > enemyScriptableObject.awarenessAttackRange) // Chase Player
             {
-                e.SetEnemyState(EnemySmartAF.EnemyState.Walking);
+                //e.SetEnemyState(EnemySmartAF.EnemyState.Spiral);
+                
+                
+                if (e.isCharging)
+                {
+                    e.SetEnemyState(EnemySmartAF.EnemyState.Charging);
+                }
+                else
+                {
+                    e.SetEnemyState(EnemySmartAF.EnemyState.Walking);
+                }
+               
+
+                continue;
             }
-            else
+            else // Attack player
             {
-                e.SetEnemyState(EnemySmartAF.EnemyState.Attack);
+                if (e.canExplode)
+                {
+                    e.SetEnemyState(EnemySmartAF.EnemyState.Explode);
+                }
+                else {
+                    e.SetEnemyState(EnemySmartAF.EnemyState.Attack);
+                }
+
+                continue;
             }
         }
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,9 +7,12 @@ public class EnemySmartAF : MonoBehaviour
 {
     private float rotateSpeed;
     private float walkSpeed;
+    private float runSpeed;
     private float awarenessAwareRange;
     private float awarenessChaseRange;
     private float awarenessAttackRange;
+    private float groundDistance = 0.2f; //enemy's height from origin
+    private float jumpRange = 1.0f;
 
     private float attackRadius;
     private int attackDamage;
@@ -19,38 +23,97 @@ public class EnemySmartAF : MonoBehaviour
     public Transform target;
     public AttackMelee attackMelee;
 
+    private Vector3 previousTargetPosition;
 
-/*    public Transform groundCheck;
+    private Rigidbody rb;
+    public Transform groundCheck;
+    public LayerMask groundLayerMask;
 
-    private bool grounded = false;
+    public bool isCharging;
+    public bool isIdleJumping;
+    public bool canExplode;
+    private bool isGrounded;
 
-    public LayerMask groundLayerMask;*/
+    private float spiralRadius;
+    private float currentSpiralAngle;
 
+    public enum EnemyState{ Idle, Jumping, Rotating, Walking, Charging, Spiral, Attack, Explode, Dead }
 
-
-    public enum EnemyState{ Idle, Rotating, Walking, Attack, Dead }
+    /* Initialization and Updates per Frame */
     private void Start()
     {
         rotateSpeed = enemyScriptableObject.rotateSpeed;
         walkSpeed = enemyScriptableObject.walkSpeed;
+        runSpeed = enemyScriptableObject.runSpeed;
+
         awarenessAwareRange = enemyScriptableObject.awarenessAwareRange;
         awarenessChaseRange = enemyScriptableObject.awarenessChaseRange;
         awarenessAttackRange = enemyScriptableObject.awarenessAttackRange;
 
         attackMelee.attackRadius = attackRadius = enemyScriptableObject.attackRadius;
         attackMelee.attackDamage = attackDamage = enemyScriptableObject.attackDamage;
+
+        isCharging = enemyScriptableObject.chargeProbability > UnityEngine.Random.value;
+        canExplode = (enemyScriptableObject.kamikazeProbability > UnityEngine.Random.value) && isCharging;
+        if (canExplode) attackMelee.attackDamage *= 3;
+        isIdleJumping = (enemyScriptableObject.idleJumpProbability) > UnityEngine.Random.value;
+
+        previousTargetPosition = target.position;
+        currentSpiralAngle = 0f;
+        spiralRadius = 0f;
+
+        rb = GetComponent<Rigidbody>();
     }
 
-
-
-/*    void Jump()
+    private void Update()
     {
-        grounded = Physics.CheckSphere(groundCheck.position, 0.2f, groundLayerMask);
-        if (grounded)
+
+        switch (currentState)
         {
-            GetComponent<Rigidbody>().AddForce(Vector3.up * 4f, ForceMode.Impulse);
+            case EnemyState.Idle:
+                break;
+
+            case EnemyState.Jumping:
+                Jump();
+                break;
+
+            case EnemyState.Rotating:
+                RotateToTarget();
+                break;
+
+            case EnemyState.Walking:
+                RotateToTarget();
+                Transition2Position(walkSpeed);
+                break;
+
+            case EnemyState.Charging:
+                renderTextureColor();
+                if (canExplode) RotateToTarget(25f);
+                else RotateToTarget(-25f);
+                Transition2Position(runSpeed);
+                break;
+
+            case EnemyState.Attack:
+                RotateToTarget();
+                attackMelee.SwingSword();
+                break;
+
+            case EnemyState.Explode:
+                RotateToTarget();
+                attackMelee.SwingSword();
+                currentState = EnemyState.Dead;
+                break;
+
+            case EnemyState.Spiral:
+                RotateToTarget();
+                SpiralMotion();
+                break;
+
         }
-    }*/
+
+    }
+
+    /* Status Functions */
 
     public void SetNewTarget(Transform newTarget)
     {
@@ -66,47 +129,121 @@ public class EnemySmartAF : MonoBehaviour
         return currentState;
     }
 
-    private void Update()
-    {
-
-        switch (currentState)
+    public void renderTextureColor() {
+        // Ensure the object has a renderer component
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null && isCharging)
         {
-            case EnemyState.Idle:
-                break;
+            // Create a new material instance to avoid modifying the shared material
+            Material material = renderer.material;
+            Material newMaterial = new Material(material);
 
-            case EnemyState.Rotating:
-                RotateToTarget();
-                break;
+            if (canExplode)
+            {
+                // Set the new color
+                newMaterial.color = Color.red;
+            }
+            else
+            {
+                // Set the new color
+                newMaterial.color = Color.blue;
+            }
 
-            case EnemyState.Walking:
-                RotateToTarget();
-                WalkingToPosition();
-                break;
-
-            case EnemyState.Attack:
-                RotateToTarget();
-                attackMelee.SwingSword();
-                break;
-
+            // Assign the new material to the renderer
+            renderer.material = newMaterial;
         }
-
     }
 
+/* Action Functions */
 
-    private void WalkingToPosition()
-    {
-        transform.position += transform.forward * Time.deltaTime * walkSpeed;
-/*        if (transform.position.y < target.position.y - 0.5f)
-        {
-            Jump();
-        }*/
-    }
-
-    private void RotateToTarget()
+private void RotateToTarget(float inclinationAngle = 0)
     {
         Vector3 v = target.position - transform.position;
         v.y = 0;
         var q = Quaternion.LookRotation(v);
+
+        // Introduce a small inclination towards the target
+        Quaternion inclination = Quaternion.AngleAxis(inclinationAngle, -transform.right);
+
+        // Combine the original rotation with the inclination
+        q *= inclination;
+
         transform.rotation = Quaternion.RotateTowards(transform.rotation, q, rotateSpeed * Time.deltaTime);
+    }
+
+    private void Jump()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayerMask);
+        if (isGrounded)
+        {
+
+            float jumpVelocity = _calculateJumpVelocity(jumpRange, 90f); //Adquire the initial jump velocity according to the provided height
+            
+            // Set the rigidbody's velocity directly
+            rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
+        }
+    }
+
+    private void Transition2Position(float speed)
+    {
+        transform.position += transform.forward * Time.deltaTime * speed;
+    }
+
+    private void SpiralMotion()
+    {
+        // Check if player's position has changed
+        if (Vector3.Distance(target.position, previousTargetPosition) > float.Epsilon)
+        {
+            previousTargetPosition = target.position;
+            spiralRadius = _calculateSpiralRadius();
+            currentSpiralAngle = 0f;
+            UnityEngine.Debug.Log("My spiral radius is: " + spiralRadius);
+        }
+
+        // Calculate the spiral position relative to the target's current position
+        float x = Mathf.Cos(currentSpiralAngle) * spiralRadius;
+        float z = Mathf.Sin(currentSpiralAngle) * spiralRadius;
+        Vector3 offset = new Vector3(x, 0f, z);
+
+        Vector3 spiralPosition = target.position + offset;
+
+        // Update the spiral angle for the next frame
+        currentSpiralAngle += Time.deltaTime * walkSpeed;
+
+        UnityEngine.Debug.Log("My current angle is: " + currentSpiralAngle);
+
+        // Move towards the calculated spiral position
+        transform.position = Vector3.MoveTowards(transform.position, spiralPosition, walkSpeed * Time.deltaTime);
+    }
+
+    /* List of Subfunctions (functions that are used as tools for other functions)*/
+
+    private float _calculateJumpVelocity(float jumpHeight, float angle = 0f)
+    {
+        // Calculate the Straight Up Jump Velocity: v_0 = sqrt(2 * g * h / sin^2(angle))
+        float sinSquared = _calculateSinSquared(angle);
+        if (sinSquared < 1e-3) return 0f;
+        float gravity = Mathf.Abs(Physics.gravity.y);
+        float jumpVelocity = Mathf.Sqrt(2f * gravity * jumpHeight / sinSquared);
+        return jumpVelocity;
+    }
+
+    private float _calculateSinSquared(float angleInDegrees)
+    {
+        // Convert angle to radians since Mathf.Sin uses radians
+        float angleInRadians = Mathf.Deg2Rad * angleInDegrees;
+
+        // Calculate sin^2(theta)
+        float sinSquared = Mathf.Sin(angleInRadians) * Mathf.Sin(angleInRadians);
+
+        return sinSquared;
+    }
+
+    private float _calculateSpiralRadius() { 
+        return Mathf.Sqrt(_squared(target.position.x - transform.position.x) + _squared(target.position.z - transform.position.z));
+    }
+
+    private float _squared(float value) {
+        return value * value;
     }
 }

@@ -8,11 +8,16 @@ public class Enemy1ScriptableObject : ScriptableObject
 
     public float rotateSpeed = 360f;
     public float walkSpeed = 3f;
+    public float runSpeed = 9f;
     public float awarenessAwareRange = 40f;
     public float awarenessChaseRange = 15f;
     public float awarenessAttackRange = 2f;
 
     public int attackDamage = 1;
     public float attackRadius = 1f;
+
+    public float chargeProbability = 0.25f;
+    public float idleJumpProbability = 0.25f;
+    public float kamikazeProbability = 0.25f;
 
 }
