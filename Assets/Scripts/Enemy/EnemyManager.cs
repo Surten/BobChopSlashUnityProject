@@ -1,9 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.CullingGroup;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -64,11 +65,11 @@ public class EnemyManager : MonoBehaviour
 
     }
 
-    public void onEnemyDeath(GameObject enemy)
+    public void onEnemyDeath(GameObject enemy, float despawnTime)
     {
         ShopManager.Instance.AddCoins(enemyScriptableObject.coinsDropOnDeath);
         enemies.Remove(enemy);
-        Destroy(enemy, 3f);
+        Destroy(enemy, despawnTime);
     }
 
     void Update()
@@ -78,9 +79,24 @@ public class EnemyManager : MonoBehaviour
         {
             EnemySmartAF e = go.GetComponent<EnemySmartAF>();
 
+            bool isStateChanged = e.GetIsStateChanged();
+            float textSizeMult = 2f;
+            Color textColor = Color.black;
+            bool showflg = true;
+
             if (e.GetEnemyState() == EnemySmartAF.EnemyState.Dead) // If dead, remove data and remove body
             {
-                onEnemyDeath(go);
+                if (isStateChanged) {
+                    e.ShowFloatingText("(✖╭╮✖)", textColor, textSizeMult, showflg);
+                    e.ResetIsStateChanged();
+                }
+                e.renderTextureColor();
+                onEnemyDeath(go, e.GetDespawnTime());
+                return;
+            }
+
+            if (e.GetEnemyState() == EnemySmartAF.EnemyState.Staggering) { // If the enemy is staggering, do nothing;
+                if (isStateChanged) e.ResetIsStateChanged();
                 return;
             }
 
@@ -89,10 +105,20 @@ public class EnemyManager : MonoBehaviour
             {
                 if (e.isIdleJumping)
                 {
+                    if (isStateChanged)
+                    {
+                        e.ShowFloatingText("♪(┌・。・)┌", textColor, textSizeMult * 4f, showflg);
+                        e.ResetIsStateChanged();
+                    }
                     e.SetEnemyState(EnemySmartAF.EnemyState.Jumping);
                 }
                 else
                 {
+                    if (isStateChanged)
+                    {
+                        e.ShowFloatingText("ヽ(•‿•)ノ", textColor, textSizeMult * 4f, showflg);
+                        e.ResetIsStateChanged();
+                    }
                     e.SetEnemyState(EnemySmartAF.EnemyState.Idle);
                 }
 
@@ -100,12 +126,21 @@ public class EnemyManager : MonoBehaviour
             } 
             else if (targetDistance > enemyScriptableObject.awarenessChaseRange) // Rotate towards player
             {
+                if (isStateChanged)
+                {
+                    e.ShowFloatingText("(☉_☉)", textColor, textSizeMult * 2f, showflg);
+                    e.ResetIsStateChanged();
+                }
                 e.SetEnemyState(EnemySmartAF.EnemyState.Rotating);
                 continue;
             }
             else if (targetDistance > enemyScriptableObject.awarenessAttackRange) // Chase Player
             {
-                
+                if (isStateChanged)
+                {
+                    e.ShowFloatingText("ヽ(ಠ_ಠ)ノ", textColor, textSizeMult , showflg);
+                    e.ResetIsStateChanged();
+                }
                 if (e.isCharging)
                 {
                     e.SetEnemyState(EnemySmartAF.EnemyState.Charging);
@@ -119,6 +154,11 @@ public class EnemyManager : MonoBehaviour
             }
             else // Attack player
             {
+                if (isStateChanged)
+                {
+                    e.ResetIsStateChanged();
+                }
+
                 if (e.canExplode)
                 {
                     e.SetEnemyState(EnemySmartAF.EnemyState.Explode);

@@ -275,6 +275,7 @@ MonoBehaviour:
   isCharging: 0
   isIdleJumping: 0
   canExplode: 0
+  FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
 --- !u!114 &2243029562777809383
 MonoBehaviour:
   m_ObjectHideFlags: 0

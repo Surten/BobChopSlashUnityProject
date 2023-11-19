@@ -15,10 +15,21 @@ public class EnemyHitable : Hitable
 
     public override void TakeDamage(int value)
     {
+        float textSizeMult = 1f;
+        Color textColor = Color.white;
+        bool showflg = false;
 
         //sound effect
         base.TakeDamage(value);
-        if (currentHealth <= 0) Die();
+        if (currentHealth <= 0) {
+            GetComponent<EnemySmartAF>().ShowFloatingText("0", textColor, textSizeMult, showflg);
+            Die();
+            return;
+        }
+        GetComponent<EnemySmartAF>().ShowFloatingText(currentHealth.ToString(), textColor, textSizeMult, showflg);
+
+        EnemySmartAF.EnemyState currentState = GetComponent<EnemySmartAF>().GetEnemyState();
+        if (currentState != EnemySmartAF.EnemyState.Dead) GetComponent<EnemySmartAF>().StaggerCoinFlip();
     }
 
     public override void Heal(int value)

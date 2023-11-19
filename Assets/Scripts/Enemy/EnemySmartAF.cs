@@ -1,7 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
+using static UnityEngine.CullingGroup;
 
 public class EnemySmartAF : MonoBehaviour
 {
@@ -13,6 +16,7 @@ public class EnemySmartAF : MonoBehaviour
     private float awarenessAttackRange;
     private float groundDistance = 0.2f; //enemy's height from origin
     private float jumpRange = 1.0f;
+    private float staggerProb = 0.0f;
 
     private float attackRadius;
     private int attackDamage;
@@ -32,12 +36,21 @@ public class EnemySmartAF : MonoBehaviour
     public bool isCharging;
     public bool isIdleJumping;
     private bool isGrounded;
+    private bool isStaggering;
+    private bool isStateChanged;
 
     public bool canExplode;
     private ParticleSystem explosionEffect;
 
+    private float staggerTimeMax;
+    private float staggerTime;
+    private float despawnTime;
+    private float quickDespawnTime;
+    private float stateChangeTime;
 
-    public enum EnemyState{ Idle, Jumping, Rotating, Walking, Charging, Attack, Explode, Dead }
+    public GameObject FloatingTextPrefab;
+
+    public enum EnemyState{ Idle, Staggering, Jumping, Rotating, Walking, Charging, Attack, Explode, Dead }
 
     /* Initialization and Updates per Frame */
     private void Start()
@@ -58,7 +71,19 @@ public class EnemySmartAF : MonoBehaviour
         if (canExplode) attackMelee.attackDamage *= 3;
         isIdleJumping = (enemyScriptableObject.idleJumpProbability) > UnityEngine.Random.value;
 
+        isStateChanged = false;
+
+        isStaggering = false;
+        staggerProb = enemyScriptableObject.staggerProbability;
+        staggerTimeMax = enemyScriptableObject.staggerTime;
+        staggerTime = 0;
+
+        despawnTime = enemyScriptableObject.despawnTime;
+        quickDespawnTime = enemyScriptableObject.quickDespawnTime;
+
         previousTargetPosition = target.position;
+
+        stateChangeTime = 0;
 
         rb = GetComponent<Rigidbody>();
         explosionEffect = GetComponent<ParticleSystem>();
@@ -66,10 +91,16 @@ public class EnemySmartAF : MonoBehaviour
 
     private void Update()
     {
+        stateChangeTime += Time.deltaTime;
 
         switch (currentState)
         {
             case EnemyState.Idle:
+                break;
+
+            case EnemyState.Staggering:
+                renderTextureColor();
+                UpdateStaggerTime();
                 break;
 
             case EnemyState.Jumping:
@@ -116,51 +147,80 @@ public class EnemySmartAF : MonoBehaviour
 
     public void SetEnemyState(EnemyState state)
     {
+        if (currentState == state) return;
+        if (stateChangeTime > 1f) { 
+            isStateChanged = true;
+            stateChangeTime = 0;
+        }
+
         currentState = state;
     }
+
+    public bool GetIsStateChanged() { 
+        return isStateChanged; 
+    
+    }
+
+    public void ResetIsStateChanged() 
+    {
+        isStateChanged = false;
+    }
+
     public EnemyState GetEnemyState()
     {
         return currentState;
     }
 
+    public float GetDespawnTime()
+    {
+        return despawnTime;
+    }
+
+    public void ShowFloatingText(string text, Color textColor, float sizeMult = 1f, bool showflg = true) {
+        if (FloatingTextPrefab == null) return;
+        if (!showflg) return;
+        var go = Instantiate(FloatingTextPrefab, transform.position, target.rotation, transform);
+        go.GetComponent<TextMesh>().text = text;
+        go.GetComponent<TextMesh>().characterSize *= sizeMult;
+        go.GetComponent<TextMesh>().color = textColor;
+    }
+
+
     public void renderTextureColor() {
         // Ensure the object has a renderer component
         Renderer renderer = GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            // Create a new material instance to avoid modifying the shared material
-            Material material = renderer.material;
-            Material newMaterial = new Material(material);
+        if (renderer == null) return;
 
-            if (canExplode)
-            {
-                // Set the new color
-                newMaterial.color = Color.red;
-            }
-            else if (isCharging)
-            {
-                newMaterial.color = Color.blue;
-            }
-            else
-            {
-                // Set the new color
-                newMaterial.color = Color.green;
-            }
+        // Create a new material instance to avoid modifying the shared material
+        Material material = renderer.material;
+        Material newMaterial = new Material(material);
 
-            // Assign the new material to the renderer
-            renderer.material = newMaterial;
+        if (currentState == EnemyState.Dead) {
+            // Set the new color
+            newMaterial.color = Color.black; // Dead
         }
-    }
-
-    private void Explode()
-    {
-        attackMelee.SwingSword();
-        if (GetComponent<ParticleSystem>() != null)
+        else if (isStaggering)
         {
-            explosionEffect.Play();
-
+            // Set the new color
+            newMaterial.color = Color.yellow; // Staggering
         }
-        currentState = EnemyState.Dead;
+        else if (canExplode)
+        {
+            // Set the new color
+            newMaterial.color = Color.red; // Rushing to Explode
+        }
+        else if (isCharging)
+        {
+            newMaterial.color = Color.blue; // Rushing
+        }
+        else
+        {
+            // Set the new color
+            newMaterial.color = Color.green; // Walking
+        }
+
+        // Assign the new material to the renderer
+        renderer.material = newMaterial;
     }
 
 
@@ -197,6 +257,49 @@ public class EnemySmartAF : MonoBehaviour
     private void Transition2Position(float speed)
     {
         transform.position += transform.forward * Time.deltaTime * speed;
+    }
+
+
+    public void StaggerCoinFlip()
+    {
+        if (staggerProb > UnityEngine.Random.value)
+        {
+            SetStagger();
+        }
+    }
+
+    private void SetStagger()
+    {
+        SetEnemyState(EnemyState.Staggering);
+        staggerTime = staggerTimeMax;
+        isStaggering = true;
+
+    }
+
+    private void UpdateStaggerTime()
+    {
+        staggerTime -= Time.deltaTime;
+        if (staggerTime < 0)
+        {
+            SetEnemyState(EnemyState.Idle);
+            isStaggering = false;
+            return;
+        }
+    }
+
+    private void Explode()
+    {
+        attackMelee.SwingSword();
+        if (GetComponent<ParticleSystem>() != null) // Play explosion particles
+        {
+            explosionEffect.Play();
+
+        }
+
+        SetEnemyState(EnemyState.Dead); // Change Enemy State to dead
+        despawnTime = quickDespawnTime; // Speed up removal from scene
+
+        ShowFloatingText("0", Color.white, 1f, false);
     }
 
     /* List of Subfunctions (functions that are used as tools for other functions)*/

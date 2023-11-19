@@ -104,14 +104,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 9107392748529271900}
+  playerInfo: {fileID: 0}
   groundCheck: {fileID: 3664621616406123648}
-  groundDistance: 0.2
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 8
-  sprintMultiplier: 2
-  resetYHeightTreshold: -200
+  groundDistance: 0.2
 --- !u!114 &921311878424000449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,9 +125,10 @@ MonoBehaviour:
   anim: {fileID: 9107392748529271900}
   attackPoint: {fileID: 1329374540679650051}
   attackRadius: 1
-  enemyLayerMask:
+  attackDamage: 5
+  layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   swingingSwordCR: 0
 --- !u!114 &1680799165718280784
 MonoBehaviour:
@@ -143,10 +142,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc9bef2270c8084ba563b31d3b3b6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
-  currentHealth: 0
   bloodParticle: {fileID: 8936737025924419503, guid: 422120f37b9ad264bbaa3d1220eb8d13, type: 3}
-  playerManager: {fileID: 0}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  playerScriptableObject: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!114 &3055698509395155349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9921c38d8ccb643b33872b96a37953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScriptableObject: {fileID: 11400000, guid: 99360efc98b82024a8b2e755a7a343ff, type: 2}
   playerGui: {fileID: 0}
 --- !u!1 &2497481070516534681
 GameObject:
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ff6e568c0c6bf4c81f495ab37f1ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
+  mouseSensitivity: 400
   playerBody: {fileID: 5389079292198007113}
   playerHead: {fileID: 1330225520404254611}
   xRotation: 0
