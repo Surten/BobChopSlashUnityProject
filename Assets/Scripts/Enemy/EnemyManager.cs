@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static EnemySmartAF;
 using static UnityEngine.CullingGroup;
 
 public class EnemyManager : MonoBehaviour
@@ -82,7 +83,7 @@ public class EnemyManager : MonoBehaviour
             bool isStateChanged = e.GetIsStateChanged();
             float textSizeMult = 2f;
             Color textColor = Color.black;
-            bool showflg = true;
+            bool showflg = false;
 
             if (e.GetEnemyState() == EnemySmartAF.EnemyState.Dead) // If dead, remove data and remove body
             {
@@ -129,6 +130,7 @@ public class EnemyManager : MonoBehaviour
                 if (isStateChanged)
                 {
                     e.ShowFloatingText("(☉_☉)", textColor, textSizeMult * 2f, showflg);
+                    e.LoadWavFile(e.soundpath[EnemySmartAF.SoundState.Detection]);
                     e.ResetIsStateChanged();
                 }
                 e.SetEnemyState(EnemySmartAF.EnemyState.Rotating);
@@ -139,6 +141,7 @@ public class EnemyManager : MonoBehaviour
                 if (isStateChanged)
                 {
                     e.ShowFloatingText("ヽ(ಠ_ಠ)ノ", textColor, textSizeMult , showflg);
+                    e.LoadWavFile(e.soundpath[EnemySmartAF.SoundState.Charge]);
                     e.ResetIsStateChanged();
                 }
                 if (e.isCharging)
@@ -162,6 +165,7 @@ public class EnemyManager : MonoBehaviour
                 if (e.canExplode)
                 {
                     e.SetEnemyState(EnemySmartAF.EnemyState.Explode);
+                    e.LoadWavFile(e.soundpath[EnemySmartAF.SoundState.Explosion]);
                 }
                 else {
                     e.SetEnemyState(EnemySmartAF.EnemyState.Attack);

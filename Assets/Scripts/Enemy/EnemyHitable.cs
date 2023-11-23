@@ -17,7 +17,7 @@ public class EnemyHitable : Hitable
     {
         float textSizeMult = 1f;
         Color textColor = Color.white;
-        bool showflg = false;
+        bool showflg = true;
 
         //sound effect
         base.TakeDamage(value);

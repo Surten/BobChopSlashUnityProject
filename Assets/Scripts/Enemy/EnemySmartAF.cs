@@ -5,6 +5,10 @@ using UnityEngine.UIElements;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 using static UnityEngine.CullingGroup;
+using System.Net;
+using static WavUtility;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 
 public class EnemySmartAF : MonoBehaviour
 {
@@ -49,8 +53,12 @@ public class EnemySmartAF : MonoBehaviour
     private float stateChangeTime;
 
     public GameObject FloatingTextPrefab;
+    public AudioSource audioSource;
+    public AudioClip clip;
 
     public enum EnemyState{ Idle, Staggering, Jumping, Rotating, Walking, Charging, Attack, Explode, Dead }
+    public enum SoundState { Explosion, Detection, Charge }
+    public Dictionary<SoundState, string> soundpath = new Dictionary<SoundState, string>();
 
     /* Initialization and Updates per Frame */
     private void Start()
@@ -87,6 +95,20 @@ public class EnemySmartAF : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         explosionEffect = GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            UnityEngine.Debug.LogError("AudioSource not found or assigned!");
+            return;
+        }
+
+        // Use utility function to add multiple entries
+        _addEntries(soundpath, new Dictionary<SoundState, string>
+        {
+            {SoundState.Explosion, "/Sounds/Bomb Explosion.wav"},
+            {SoundState.Charge, "/Sounds/Yaaa.wav"},
+            {SoundState.Detection, "/Sounds/Enemy Detected.wav"}
+        });
     }
 
     private void Update()
@@ -302,7 +324,25 @@ public class EnemySmartAF : MonoBehaviour
         ShowFloatingText("0", Color.white, 1f, false);
     }
 
+    /* Sound Functions */
+    public void LoadWavFile(string filename)
+    {
+        string path = string.Format("{0}/{1}", UnityEngine.Application.dataPath, filename);
+        AudioClip audioClip = WavUtility.ToAudioClip(path);
+        audioSource.clip = audioClip;
+        audioSource.PlayOneShot(audioSource.clip, 1);
+    }
+
     /* List of Subfunctions (functions that are used as tools for other functions)*/
+
+    // Utility function to add multiple entries to a dictionary
+    private static void _addEntries<TKey, TValue>(Dictionary<TKey, TValue> dictionary, Dictionary<TKey, TValue> entries)
+    {
+        foreach (var entry in entries)
+        {
+            dictionary[entry.Key] = entry.Value;
+        }
+    }
 
     private float _calculateJumpVelocity(float jumpHeight, float angle = 0f)
     {
