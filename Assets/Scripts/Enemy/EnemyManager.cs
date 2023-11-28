@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour
 
     public bool spawnOneEnemy = false;
 
-    private float arenaRadius = 30f;
+    public float arenaRadius = 13f;
 
     private void spawnOnEditorDemand()
     {

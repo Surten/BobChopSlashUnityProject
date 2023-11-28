@@ -17,6 +17,9 @@ public class Item : ScriptableObject
     public int bonusArmor = 0;
     public int bonusAttackDamage = 0;
 
+    public int addFireBallDamage = 0;
+    public float reduceFireBallCooldownbyPercent = 0;
+
 
 
     public int price;

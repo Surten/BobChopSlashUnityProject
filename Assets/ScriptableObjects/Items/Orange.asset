@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ce3c654daa0a7a478f59a3be0de0841, type: 3}
-  m_Name: ItemTest
+  m_Name: Orange
   m_EditorClassIdentifier: 
-  itemName: Helmet Of Protection
+  itemName: Orange
   id: 0
-  icon: {fileID: 21300000, guid: e9c8524560fb26a488e361a68399e826, type: 3}
-  description: 'HP: +2
-
-    Armor: +1'
+  icon: {fileID: 21300000, guid: 814b8cf0e744453429e620ec121962fa, type: 3}
+  description: Health + 3
   bonusMovementSpeed: 0
-  bonusMaxHealth: 2
-  bonusArmor: 1
+  bonusMaxHealth: 3
+  bonusArmor: 0
   bonusAttackDamage: 0
+  addFireBallDamage: 0
+  reduceFireBallCooldownbyPercent: 70
   price: 2
