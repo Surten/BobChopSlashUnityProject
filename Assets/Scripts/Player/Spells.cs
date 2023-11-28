@@ -5,11 +5,18 @@ using UnityEngine.UIElements;
 
 public class Spells : MonoBehaviour
 {
-    public bool hasFireball = false;
+    private bool hasFireball = false;
     public GameObject fireballPrefab;
-    public float fireballCooldown = 1;
+    private float fireballCooldown = 2;
     private int fireballDamage = 2;
-    private float lastCastTime = 0;
+    private float lastCastTimeFireball = -5;
+
+    private bool hasFreeze = false;
+    public GameObject freezeSpellPrefab;
+    private float freezeCooldown = 5;
+    private int freezeDamage = 2;
+    private float lastCastTimeFreeze = -5;
+
 
     private void Start()
     {
@@ -30,14 +37,28 @@ public class Spells : MonoBehaviour
         //a.y = 0.2f;
         fireball.GetComponent<Rigidbody>().AddForce(a * 100);
 
-        lastCastTime = Time.time;
+        lastCastTimeFireball = Time.time;
+
+    }
+
+    public void CastFreeze()
+    {
+        GameObject freezeObj = Instantiate(freezeSpellPrefab, transform.position, Quaternion.identity);
+        freezeObj.GetComponent<FireballSpell>().damage = freezeDamage;
+
+        lastCastTimeFreeze = Time.time;
 
     }
 
     private void Update()
     {
 
-        if (hasFireball && Input.GetKeyDown(KeyCode.F) && lastCastTime + fireballCooldown < Time.time)
+        if (hasFireball && Input.GetKeyDown(KeyCode.F) && lastCastTimeFireball + fireballCooldown < Time.time)
+        {
+            CastFireball();
+        }
+
+        if (hasFireball && Input.GetKeyDown(KeyCode.F) && lastCastTimeFireball + fireballCooldown < Time.time)
         {
             CastFireball();
         }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5389079292198007113}
-  - component: {fileID: 6123688319176060312}
+  - component: {fileID: 1408745780096829440}
   - component: {fileID: 7433186396808012913}
   - component: {fileID: 2505052611102317502}
   - component: {fileID: 921311878424000449}
@@ -42,8 +42,8 @@ Transform:
   - {fileID: 3173130667106750342}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6123688319176060312
-CapsuleCollider:
+--- !u!65 &1408745780096829440
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -60,10 +60,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7433186396808012913
 Rigidbody:
@@ -174,8 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357e46e7c8f83d8418fc37696c407498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasFireball: 0
   fireballPrefab: {fileID: 0}
-  rb: {fileID: 0}
+  fireballCooldown: 1
 --- !u!1 &2497481070516534681
 GameObject:
   m_ObjectHideFlags: 0
