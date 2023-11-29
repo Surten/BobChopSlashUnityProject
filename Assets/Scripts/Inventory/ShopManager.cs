@@ -10,6 +10,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class ShopManager : MonoBehaviour
 {
     public List<Item> avaliableItems = new List<Item>();
+    private List<Item> currentlySoldItems;
     public Dictionary<Item, int> ownedItems = new Dictionary<Item, int>();
     public ShopButtonBuy b1, b2, b3;
     System.Random rnd;
@@ -45,10 +46,15 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         rnd = new System.Random();
+        currentlySoldItems = new List<Item>(avaliableItems);
         LoadNewItemsToShop();
-
         inventorySlots = ownedItemsParent.GetComponentsInChildren<InventorySlot>();
 
+    }
+
+    public void RemoveItemFromSoldItems(Item item)
+    {
+        currentlySoldItems.Remove(item);
     }
 
     public void AddItem(Item item)
@@ -103,9 +109,9 @@ public class ShopManager : MonoBehaviour
 
     private void LoadNewItemsToShop()
     {
-        b1.LoadNewItem(avaliableItems[rnd.Next(avaliableItems.Count)]);
-        b2.LoadNewItem(avaliableItems[rnd.Next(avaliableItems.Count)]);
-        b3.LoadNewItem(avaliableItems[rnd.Next(avaliableItems.Count)]);
+        b1.LoadNewItem(currentlySoldItems[rnd.Next(currentlySoldItems.Count)]);
+        b2.LoadNewItem(currentlySoldItems[rnd.Next(currentlySoldItems.Count)]);
+        b3.LoadNewItem(currentlySoldItems[rnd.Next(currentlySoldItems.Count)]);
     }
 
 

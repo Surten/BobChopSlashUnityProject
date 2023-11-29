@@ -20,4 +20,7 @@ MonoBehaviour:
   bonusMaxHealth: 0
   bonusArmor: 0
   bonusAttackDamage: 0
+  addFireBallDamage: 0
+  reduceFireBallCooldownbyPercent: 0
+  freezeSpell: 1
   price: 5

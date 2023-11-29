@@ -20,6 +20,8 @@ public class Item : ScriptableObject
     public int addFireBallDamage = 0;
     public float reduceFireBallCooldownbyPercent = 0;
 
+    public bool freezeSpell = false;
+
 
 
     public int price;

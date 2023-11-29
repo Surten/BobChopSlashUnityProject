@@ -28,6 +28,9 @@ public class Spells : MonoBehaviour
         fireballDamage += item.addFireBallDamage;
         hasFireball = (fireballDamage > 0);
         fireballCooldown -= fireballCooldown * (item.reduceFireBallCooldownbyPercent / 100);
+
+        if (!hasFreeze) hasFreeze = item.freezeSpell;
+        if (item.freezeSpell) ShopManager.Instance.RemoveItemFromSoldItems(item);
     }
     public void CastFireball()
     {
@@ -43,9 +46,7 @@ public class Spells : MonoBehaviour
 
     public void CastFreeze()
     {
-        GameObject freezeObj = Instantiate(freezeSpellPrefab, transform.position, Quaternion.identity);
-        freezeObj.GetComponent<FireballSpell>().damage = freezeDamage;
-
+        GameObject freezeObj = Instantiate(freezeSpellPrefab, transform.position, transform.rotation);
         lastCastTimeFreeze = Time.time;
 
     }
@@ -58,9 +59,9 @@ public class Spells : MonoBehaviour
             CastFireball();
         }
 
-        if (hasFireball && Input.GetKeyDown(KeyCode.F) && lastCastTimeFireball + fireballCooldown < Time.time)
+        if (hasFreeze && Input.GetKeyDown(KeyCode.G) && lastCastTimeFreeze + freezeCooldown < Time.time)
         {
-            CastFireball();
+            CastFreeze();
         }
     }
 }
