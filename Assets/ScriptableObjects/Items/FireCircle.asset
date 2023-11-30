@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: FireCircle
   id: 0
-  icon: {fileID: 21300000, guid: f319ad19baaf4d0439205248cdbfc43e, type: 3}
+  icon: {fileID: 21300000, guid: 14c1b81f138d7c648943052651206390, type: 3}
   description: Adds FireBall spell
   bonusMovementSpeed: 0
   bonusMaxHealth: 0
@@ -22,4 +22,5 @@ MonoBehaviour:
   bonusAttackDamage: 0
   addFireBallDamage: 2
   reduceFireBallCooldownbyPercent: 0
+  freezeSpell: 0
   price: 5

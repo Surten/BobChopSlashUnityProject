@@ -30,7 +30,7 @@ public class EnemySmartAF2 : MonoBehaviour
 
     public Enemy2ScriptableObject enemyScriptableObject;
     public Transform target;
-    public ZombieAttack attackMelee;
+    private ZombieAttack attackMelee;
 
     private Vector3 previousTargetPosition;
 
@@ -56,7 +56,7 @@ public class EnemySmartAF2 : MonoBehaviour
     public enum SoundState { Explosion, Detection, Charge }
     public Dictionary<SoundState, string> soundpath = new Dictionary<SoundState, string>();
 
-    public Animator anim;
+    private Animator anim;
 
     /* Initialization and Updates per Frame */
     private void Start()
@@ -69,6 +69,7 @@ public class EnemySmartAF2 : MonoBehaviour
         awarenessChaseRange = enemyScriptableObject.awarenessChaseRange;
         awarenessAttackRange = enemyScriptableObject.awarenessAttackRange;
 
+        attackMelee = GetComponent<ZombieAttack>();
         attackMelee.attackRadius = attackRadius = enemyScriptableObject.attackRadius;
         attackMelee.attackDamage = attackDamage = enemyScriptableObject.attackDamage;
         isBiting = enemyScriptableObject.biteProbability > UnityEngine.Random.value;
@@ -89,6 +90,7 @@ public class EnemySmartAF2 : MonoBehaviour
         stateChangeTime = 0;
 
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
@@ -159,7 +161,7 @@ public class EnemySmartAF2 : MonoBehaviour
     public void SetEnemyState(EnemyState state)
     {
         if (currentState == state) return;
-        if (stateChangeTime > 1f) { 
+        if (stateChangeTime > 0f) { 
             isStateChanged = true;
             stateChangeTime = 0;
         }

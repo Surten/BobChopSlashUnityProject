@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Worm
   id: 1
-  icon: {fileID: 21300000, guid: 84a8188e6447621409567349d24747d1, type: 3}
+  icon: {fileID: 21300000, guid: 7f4772a3d94517249ae282a2c2f4c865, type: 3}
   description: MoveSpeed + 5%
   bonusMovementSpeed: 5
   bonusMaxHealth: 0
   bonusArmor: 0
   bonusAttackDamage: 0
+  addFireBallDamage: 0
+  reduceFireBallCooldownbyPercent: 0
+  freezeSpell: 0
   price: 2

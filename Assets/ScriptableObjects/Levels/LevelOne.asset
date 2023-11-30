@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4483f7de88cb544a9a13711c5e34c3, type: 3}
   m_Name: LevelOne
   m_EditorClassIdentifier: 
-  waveTime: 20
-  enemyOneLimit: 20
+  waveTime: 100
+  enemyOneLimit: 0
   spawnSpeed: 2
