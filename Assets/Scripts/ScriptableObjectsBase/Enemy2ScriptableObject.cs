@@ -18,12 +18,9 @@ public class Enemy2ScriptableObject : ScriptableObject
 
     public float biteProbability = 0.25f;
     public float chargeProbability = 0.25f;
-    public float idleJumpProbability = 0.25f;
-    public float kamikazeProbability = 0.25f;
     public float staggerProbability = 0.50f;
 
     public float despawnTime = 1f;
-    public float quickDespawnTime = 0.2f;
-    public float staggerTime = 3f;
+    public float staggerTime = 1f;
 
 }
