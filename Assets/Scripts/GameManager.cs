@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
         // enter shop
         playerGui.ShopAppear();
+        ShopManager.Instance.LoadNewItemsToShop();
         enemyManager.DespawnAllEnemies();
 
     }

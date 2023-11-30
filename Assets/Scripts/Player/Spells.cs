@@ -7,8 +7,8 @@ public class Spells : MonoBehaviour
 {
     private bool hasFireball = false;
     public GameObject fireballPrefab;
-    private float fireballCooldown = 2;
-    private int fireballDamage = 2;
+    private float fireballCooldown = 3;
+    private int fireballDamage = 0;
     private float lastCastTimeFireball = -5;
 
     private bool hasFreeze = false;
@@ -36,9 +36,8 @@ public class Spells : MonoBehaviour
     {
         GameObject fireball = Instantiate(fireballPrefab, transform.position + transform.forward, Quaternion.identity);
         fireball.GetComponent<FireballSpell>().damage = fireballDamage;
-        Vector3 a = transform.forward;
-        //a.y = 0.2f;
-        fireball.GetComponent<Rigidbody>().AddForce(a * 100);
+
+        fireball.GetComponent<Rigidbody>().AddForce(transform.forward * 100);
 
         lastCastTimeFireball = Time.time;
 

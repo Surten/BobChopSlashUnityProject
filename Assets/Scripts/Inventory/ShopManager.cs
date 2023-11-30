@@ -107,7 +107,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private void LoadNewItemsToShop()
+    public void LoadNewItemsToShop()
     {
         b1.LoadNewItem(currentlySoldItems[rnd.Next(currentlySoldItems.Count)]);
         b2.LoadNewItem(currentlySoldItems[rnd.Next(currentlySoldItems.Count)]);
@@ -117,9 +117,6 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            AddCoins(2);
-        }
+
     }
 }
