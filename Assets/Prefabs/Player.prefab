@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 9107392748529271900}
-  playerInfo: {fileID: 0}
+  playerInfo: {fileID: 11400000, guid: 99360efc98b82024a8b2e755a7a343ff, type: 2}
   groundCheck: {fileID: 3664621616406123648}
   groundLayerMask:
     serializedVersion: 2
@@ -145,7 +145,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  playerScriptableObject: {fileID: 0}
+  playerScriptableObject: {fileID: 11400000, guid: 99360efc98b82024a8b2e755a7a343ff, type: 2}
   healthBar: {fileID: 0}
 --- !u!114 &3055698509395155349
 MonoBehaviour:
@@ -172,9 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357e46e7c8f83d8418fc37696c407498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasFireball: 0
-  fireballPrefab: {fileID: 0}
-  fireballCooldown: 1
+  fireballPrefab: {fileID: 3721908151162862907, guid: 7faf8eb169f65c94b800c4e1b3cb716d, type: 3}
+  freezeSpellPrefab: {fileID: 4190919126261003461, guid: 7f764b67227f3384197a875b1c182fa4, type: 3}
 --- !u!1 &2497481070516534681
 GameObject:
   m_ObjectHideFlags: 0
