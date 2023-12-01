@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadcd6c07d2e368458927aedf7b5a0f3, type: 3}
+  m_Script: {fileID: 11500000, guid: a358487295990ed4d887fab35703376b, type: 3}
   m_Name: Enemy2ScriptableObject
   m_EditorClassIdentifier: 
   maxHealth: 20
@@ -26,4 +26,4 @@ MonoBehaviour:
   chargeProbability: 0.25
   staggerProbability: 1
   despawnTime: 1
-  staggerTime: 3
+  staggerTime: 1
