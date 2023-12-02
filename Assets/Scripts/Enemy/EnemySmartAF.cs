@@ -340,7 +340,6 @@ public class EnemySmartAF : MonoBehaviour
                 audioSource.Play();*/
 
         audioSource.clip = clips[clipNum];
-        UnityEngine.Debug.Log(audioSource.clip.length);
         audioSource.Play();
     }
 

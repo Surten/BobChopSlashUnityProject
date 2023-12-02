@@ -97,10 +97,10 @@ public class EnemySmartAF2 : MonoBehaviour
             UnityEngine.Debug.LogError("AudioSource not found or assigned!");
             return;
         }
-
+/*
         clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Bomb Explosion.wav"));
         clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Yaaa.wav"));
-        clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Enemy Detected.wav"));
+        clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Enemy Detected.wav"));*/
 
 /*        // Use utility function to add multiple entries
         _addEntries(soundpath, new Dictionary<SoundState, string>
@@ -289,7 +289,6 @@ public class EnemySmartAF2 : MonoBehaviour
 /*        string path = string.Format("{0}/{1}", UnityEngine.Application.dataPath, filename);
         AudioClip audioClip = WavUtility.ToAudioClip(path);*/
         audioSource.clip = clips[clipNum];
-        UnityEngine.Debug.Log(audioSource.clip.length);
         audioSource.PlayOneShot(audioSource.clip, 1);
     }
 
