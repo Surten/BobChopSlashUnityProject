@@ -50,7 +50,7 @@ public class EnemySmartAF2 : MonoBehaviour
 
     public GameObject FloatingTextPrefab;
     public AudioSource audioSource;
-    public AudioClip clip;
+    public List<AudioClip> clips;
 
     public enum EnemyState{ Idle, Jumping, Staggering, Rotating, Walking, Running, Attack, Biting, Dead }
     public enum SoundState { Explosion, Detection, Charge }
@@ -98,15 +98,18 @@ public class EnemySmartAF2 : MonoBehaviour
             return;
         }
 
-        // Use utility function to add multiple entries
-        /*
+        clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Bomb Explosion.wav"));
+        clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Yaaa.wav"));
+        clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Enemy Detected.wav"));
+
+/*        // Use utility function to add multiple entries
         _addEntries(soundpath, new Dictionary<SoundState, string>
         {
             {SoundState.Explosion, "/Sounds/Bomb Explosion.wav"},
             {SoundState.Charge, "/Sounds/Yaaa.wav"},
             {SoundState.Detection, "/Sounds/Enemy Detected.wav"}
-        });
-        */
+        });*/
+        
     }
 
     private void Update()
@@ -281,11 +284,12 @@ public class EnemySmartAF2 : MonoBehaviour
     }
 
     /* Sound Functions */
-    public void LoadWavFile(string filename)
+    public void LoadWavFile(int clipNum)
     {
-        string path = string.Format("{0}/{1}", UnityEngine.Application.dataPath, filename);
-        AudioClip audioClip = WavUtility.ToAudioClip(path);
-        audioSource.clip = audioClip;
+/*        string path = string.Format("{0}/{1}", UnityEngine.Application.dataPath, filename);
+        AudioClip audioClip = WavUtility.ToAudioClip(path);*/
+        audioSource.clip = clips[clipNum];
+        UnityEngine.Debug.Log(audioSource.clip.length);
         audioSource.PlayOneShot(audioSource.clip, 1);
     }
 

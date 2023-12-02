@@ -278,7 +278,10 @@ MonoBehaviour:
   canExplode: 0
   FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
   audioSource: {fileID: 0}
-  clip: {fileID: 0}
+  clips:
+  - {fileID: 8300000, guid: b34ee26e8843693419fdecc0cfd4fdae, type: 3}
+  - {fileID: 8300000, guid: 8bfbf482decdfe047a7282fc9102e46b, type: 3}
+  - {fileID: 8300000, guid: d7e8e5badd25b934b9adeb7c59fd348b, type: 3}
 --- !u!114 &2243029562777809383
 MonoBehaviour:
   m_ObjectHideFlags: 0
