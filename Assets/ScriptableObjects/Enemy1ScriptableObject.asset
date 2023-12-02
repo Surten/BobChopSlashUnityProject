@@ -17,8 +17,8 @@ MonoBehaviour:
   rotateSpeed: 360
   walkSpeed: 3
   runSpeed: 9
-  awarenessAwareRange: 40
-  awarenessChaseRange: 15
+  awarenessAwareRange: 20
+  awarenessChaseRange: 5
   awarenessAttackRange: 1.5
   attackDamage: 5
   attackRadius: 0.5

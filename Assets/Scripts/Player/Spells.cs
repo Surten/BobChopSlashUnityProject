@@ -11,16 +11,20 @@ public class Spells : MonoBehaviour
     private int fireballDamage = 0;
     private float lastCastTimeFireball = -5;
 
-    private bool hasFreeze = false;
+    private bool hasFreeze = true;
     public GameObject freezeSpellPrefab;
     private float freezeCooldown = 5;
     private int freezeDamage = 2;
     private float lastCastTimeFreeze = -5;
 
+    private AudioSource audioSource;
+    public AudioClip[] audioClips;
+
 
     private void Start()
     {
         ShopManager.Instance.onItemPickUpEvent += OnItemPickUp;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnItemPickUp(Item item)
@@ -41,6 +45,8 @@ public class Spells : MonoBehaviour
 
         lastCastTimeFireball = Time.time;
 
+        audioSource.clip = audioClips[0];
+        audioSource.Play();
     }
 
     public void CastFreeze()
@@ -48,6 +54,8 @@ public class Spells : MonoBehaviour
         GameObject freezeObj = Instantiate(freezeSpellPrefab, transform.position, transform.rotation);
         lastCastTimeFreeze = Time.time;
 
+        audioSource.clip = audioClips[1];
+        audioSource.Play();
     }
 
     private void Update()

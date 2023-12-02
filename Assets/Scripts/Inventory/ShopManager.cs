@@ -24,6 +24,9 @@ public class ShopManager : MonoBehaviour
 
     public event Action<Item> onItemPickUpEvent;
 
+    private AudioSource audioSource;
+    public AudioClip[] audioClips;
+
     #region Singleton
     private static ShopManager mInstance;
 
@@ -49,6 +52,7 @@ public class ShopManager : MonoBehaviour
         currentlySoldItems = new List<Item>(avaliableItems);
         LoadNewItemsToShop();
         inventorySlots = ownedItemsParent.GetComponentsInChildren<InventorySlot>();
+        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -63,6 +67,7 @@ public class ShopManager : MonoBehaviour
         {
             ownedItems[item] += 1;
         }
+        audioSource.PlayOneShot(audioClips[0]);
         onItemPickUpEvent?.Invoke(item);
         UpdateOwnedItems();
     }
@@ -117,6 +122,9 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            AddCoins(1);
+        }
     }
 }

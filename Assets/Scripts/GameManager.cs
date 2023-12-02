@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
 
 public class GameManager : MonoBehaviour
 {
@@ -9,13 +12,20 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timeLeftText;
     public GuiControl playerGui;
     public EnemyManager enemyManager;
+    private AudioSource audioSource;
+    public AudioClip[] soundtracks;
+
+    private Coroutine gameLoopCoroutine;
 
     int currentLevel;
     int timeLeft;
     int spawnSpeed;
+    public static float masterVolume;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = masterVolume;
         currentLevel = 0;
         StartWave();
     }
@@ -25,7 +35,10 @@ public class GameManager : MonoBehaviour
         timeLeft = levelScriptableObjects[currentLevel].waveTime;
         spawnSpeed = levelScriptableObjects[currentLevel].spawnSpeed;
 
-        StartCoroutine(LoopTimer());
+        audioSource.clip = soundtracks[0];
+        audioSource.Play();
+
+        gameLoopCoroutine = StartCoroutine(LoopTimer());
     }
 
     IEnumerator LoopTimer()
@@ -39,6 +52,8 @@ public class GameManager : MonoBehaviour
         }
 
         // enter shop
+        audioSource.clip = soundtracks[1];
+        audioSource.Play();
         playerGui.ShopAppear();
         ShopManager.Instance.LoadNewItemsToShop();
         enemyManager.DespawnAllEnemies();
@@ -72,6 +87,24 @@ public class GameManager : MonoBehaviour
         {
             enemyManager.SpawnEnemiesRandomly(spawnSpeed);
         }
+    }
+
+    public void OnPlayerDeath()
+    {
+        StartCoroutine(afterDeathTimer());
+    }
+
+    private IEnumerator afterDeathTimer()
+    {
+        enemyManager.DespawnAllEnemies();
+        StopCoroutine(gameLoopCoroutine);
+        yield return new WaitForSeconds(3f);
+        BackToMainMenu();
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
 }
