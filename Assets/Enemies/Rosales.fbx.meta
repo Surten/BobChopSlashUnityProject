@@ -3,7 +3,37 @@ guid: f83b1cabd57fce04bb6abd5f440adfa7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kachujin_MAT
+    second: {fileID: 2100000, guid: b890187cdd9579744963fbd9d94472dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kachujin_MAT_
+    second: {fileID: 2100000, guid: 5fc91964809754f4fb36161c3263244b, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kachujin_diffuse
+    second: {fileID: 2800000, guid: aa74e33ba49ca274cb25846908eb8452, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kachujin_diffuse_body
+    second: {fileID: 2800000, guid: 4b227de54e61e9d42881881b7224ada3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kachujin_normal
+    second: {fileID: 2800000, guid: 01249a912025be24b8d27c77edfd529a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kachujin_specular
+    second: {fileID: 2800000, guid: cbe577abf4501284cb16dee019563f1a, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -24,7 +54,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -93,13 +123,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
