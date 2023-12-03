@@ -130,7 +130,7 @@ public class EnemyManager : MonoBehaviour
                 if (isStateChanged)
                 {
                     e.ShowFloatingText("(☉_☉)", textColor, textSizeMult * 2f, showflg);
-                    e.LoadWavFile(2);
+                    e.LoadWavFile(EnemySmartAF.SoundState.Alert);
                     e.ResetIsStateChanged();
                 }
                 e.SetEnemyState(EnemySmartAF.EnemyState.Rotating);
@@ -141,7 +141,7 @@ public class EnemyManager : MonoBehaviour
                 if (isStateChanged)
                 {
                     e.ShowFloatingText("ヽ(ಠ_ಠ)ノ", textColor, textSizeMult , showflg);
-                    e.LoadWavFile(1);
+                    if (e.isCharging) e.LoadWavFile(EnemySmartAF.SoundState.Charging);
                     e.ResetIsStateChanged();
                 }
                 if (e.isCharging)

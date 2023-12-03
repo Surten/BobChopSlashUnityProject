@@ -52,9 +52,21 @@ public class EnemySmartAF2 : MonoBehaviour
     public AudioSource audioSource;
     public List<AudioClip> clips;
 
-    public enum EnemyState{ Idle, Jumping, Staggering, Rotating, Walking, Running, Attack, Biting, Dead }
-    public enum SoundState { Explosion, Detection, Charge }
-    public Dictionary<SoundState, string> soundpath = new Dictionary<SoundState, string>();
+    public enum EnemyState{ Idle, Jumping, Staggering, Rotating, Walking, Running, Attack, Biting, Dead, Frozen}
+    public enum SoundState
+    {
+        Idle = 1,
+        Alert = 0,
+        Staggering = 2,
+        Jumping = 0,
+        Rotating = 0,
+        Walking = 3,
+        Running = 3,
+        Attack = 4,
+        Biting = 4,
+        Dead = 0,
+        Frozen = 0,
+    }
 
     private Animator anim;
 
@@ -97,18 +109,6 @@ public class EnemySmartAF2 : MonoBehaviour
             UnityEngine.Debug.LogError("AudioSource not found or assigned!");
             return;
         }
-/*
-        clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Bomb Explosion.wav"));
-        clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Yaaa.wav"));
-        clips.Add(WavUtility.ToAudioClip(UnityEngine.Application.dataPath + "/Sounds/Enemy Detected.wav"));*/
-
-/*        // Use utility function to add multiple entries
-        _addEntries(soundpath, new Dictionary<SoundState, string>
-        {
-            {SoundState.Explosion, "/Sounds/Bomb Explosion.wav"},
-            {SoundState.Charge, "/Sounds/Yaaa.wav"},
-            {SoundState.Detection, "/Sounds/Enemy Detected.wav"}
-        });*/
         
     }
 
@@ -169,38 +169,7 @@ public class EnemySmartAF2 : MonoBehaviour
             stateChangeTime = 0;
         }
 
-        switch (currentState)
-        {
-            case EnemyState.Idle:
-                anim.SetTrigger("Idle");
-                break;
-
-            case EnemyState.Staggering:
-                anim.SetTrigger("Reaction Hit");
-                break;
-
-            case EnemyState.Rotating:
-                anim.SetTrigger("Rotate");
-                break;
-
-            case EnemyState.Walking:
-                anim.SetTrigger("Walk");
-                break;
-
-            case EnemyState.Running:
-                anim.SetTrigger("Run");
-                break;
-
-            case EnemyState.Dead:
-                anim.SetTrigger("Run");
-                break;
-
-            default:
-                break;
-
-        }
-
-        currentState = state;
+        animate();
     }
 
     public bool GetIsStateChanged() { 
@@ -284,22 +253,86 @@ public class EnemySmartAF2 : MonoBehaviour
     }
 
     /* Sound Functions */
-    public void LoadWavFile(int clipNum)
+    public void LoadWavFile(SoundState state)
     {
-/*        string path = string.Format("{0}/{1}", UnityEngine.Application.dataPath, filename);
-        AudioClip audioClip = WavUtility.ToAudioClip(path);*/
+        int clipNum = (int)state;
+        if (clipNum == 0) return;
         audioSource.clip = clips[clipNum];
-        audioSource.PlayOneShot(audioSource.clip, 1);
+        audioSource.Play();
+    }
+
+    /* Animation Functions */
+    private void ResetTriggers()
+    {
+        anim.ResetTrigger("Idle");
+        anim.ResetTrigger("Reaction Hit");
+        anim.ResetTrigger("Rotate");
+        anim.ResetTrigger("Walk");
+        anim.ResetTrigger("Run");
+        anim.ResetTrigger("Attack");
+        anim.ResetTrigger("Bite");
+        anim.ResetTrigger("Death");
+    }
+
+    void animate()
+    {
+        switch (currentState)
+        {
+            case EnemyState.Idle:
+                anim.SetTrigger("Idle");
+                LoadWavFile(SoundState.Idle);
+                break;
+
+            case EnemyState.Staggering:
+                anim.SetTrigger("Reaction Hit");
+                LoadWavFile(SoundState.Staggering);
+                break;
+
+            case EnemyState.Rotating:
+                anim.SetTrigger("Rotate");
+                LoadWavFile(SoundState.Rotating);
+                break;
+
+            case EnemyState.Walking:
+                anim.SetTrigger("Walk");
+                LoadWavFile(SoundState.Walking);
+                break;
+
+            case EnemyState.Running:
+                anim.SetTrigger("Walk");
+                anim.SetTrigger("Run");
+                LoadWavFile(SoundState.Running);
+                break;
+
+            case EnemyState.Attack:
+                anim.SetTrigger("Idle");
+                anim.SetTrigger("Attack");
+                LoadWavFile(SoundState.Attack);
+                break;
+
+            case EnemyState.Biting:
+                anim.SetTrigger("Idle");
+                anim.SetTrigger("Bite");
+                LoadWavFile(SoundState.Biting);
+                break;
+
+            case EnemyState.Dead:
+                anim.SetTrigger("Death");
+                LoadWavFile(SoundState.Dead);
+                break;
+
+            case EnemyState.Frozen:
+                anim.SetTrigger("Frozen");
+                LoadWavFile(SoundState.Frozen);
+                break;
+
+            default:
+                currentState = EnemyState.Idle;
+                stateChangeTime = 0;
+                break;
+
+        }
     }
 
     /* List of Subfunctions (functions that are used as tools for other functions)*/
-
-    // Utility function to add multiple entries to a dictionary
-    private static void _addEntries<TKey, TValue>(Dictionary<TKey, TValue> dictionary, Dictionary<TKey, TValue> entries)
-    {
-        foreach (var entry in entries)
-        {
-            dictionary[entry.Key] = entry.Value;
-        }
-    }
 }

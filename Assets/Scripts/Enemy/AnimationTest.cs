@@ -32,6 +32,7 @@ public class AnimationTest : MonoBehaviour
     {
         if (stateChangeTime < 5f) return;
         stateChangeTime = 0;
+        ResetTriggers();
         UpdateState();
     }
 
@@ -79,8 +80,7 @@ public class AnimationTest : MonoBehaviour
 
     private void ResetTriggers()
     {
-        //anim.ResetTrigger("Idle");
-        anim.SetTrigger("Idle");
+        anim.ResetTrigger("Idle");
         anim.ResetTrigger("Reaction Hit");
         anim.ResetTrigger("Rotate");
         anim.ResetTrigger("Walk");
@@ -100,18 +100,21 @@ public class AnimationTest : MonoBehaviour
 
             case EnemyState.Staggering:
                 anim.SetTrigger("Reaction Hit");
+                anim.SetTrigger("Idle");
                 break;
 
             case EnemyState.Rotating:
                 anim.SetTrigger("Rotate");
+                anim.SetTrigger("Idle");
                 break;
 
             case EnemyState.Walking:
+                anim.SetTrigger("Idle");
                 anim.SetTrigger("Walk");
                 break;
 
             case EnemyState.Running:
-                anim.SetTrigger("Walk");
+                anim.SetTrigger("Idle");
                 anim.SetTrigger("Run");
                 break;
 

@@ -306,7 +306,12 @@ MonoBehaviour:
   isCharging: 0
   FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
   audioSource: {fileID: 0}
-  clips: []
+  clips:
+  - {fileID: 0}
+  - {fileID: 8300000, guid: cd8b002d20eeb1d4e8b5c1dd2f71529e, type: 3}
+  - {fileID: 8300000, guid: 9de996077b329bf45a574163a97b85bc, type: 3}
+  - {fileID: 8300000, guid: b99797294c937294f8ade8aeeefed6d2, type: 3}
+  - {fileID: 8300000, guid: 45f9d594e64295e498c7bc300264d87a, type: 3}
 --- !u!1001 &5244326790726503951
 PrefabInstance:
   m_ObjectHideFlags: 0

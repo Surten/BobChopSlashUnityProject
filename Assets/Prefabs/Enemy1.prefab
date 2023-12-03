@@ -279,9 +279,13 @@ MonoBehaviour:
   FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
   audioSource: {fileID: 0}
   clips:
-  - {fileID: 8300000, guid: b34ee26e8843693419fdecc0cfd4fdae, type: 3}
-  - {fileID: 8300000, guid: 8bfbf482decdfe047a7282fc9102e46b, type: 3}
-  - {fileID: 8300000, guid: d7e8e5badd25b934b9adeb7c59fd348b, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 72a56b052af3cbc47a29448a23bc4ff8, type: 3}
+  - {fileID: 8300000, guid: db360f797653bdb4ba7680faa797266b, type: 3}
+  - {fileID: 8300000, guid: 6e612a129e6f4c147b5d62db150d3b94, type: 3}
+  - {fileID: 8300000, guid: 5c0f23336247334408065988d13b55b2, type: 3}
+  - {fileID: 8300000, guid: 45e87874ed496374d911e1118d09a2c0, type: 3}
+  - {fileID: 8300000, guid: 795ef758d4dad0a4a883fa6b72385702, type: 3}
 --- !u!114 &2243029562777809383
 MonoBehaviour:
   m_ObjectHideFlags: 0

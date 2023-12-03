@@ -57,9 +57,21 @@ public class EnemySmartAF : MonoBehaviour
     public List<AudioClip> clips;
 
 
-    public enum EnemyState{ Idle, Staggering, Jumping, Rotating, Walking, Charging, Attack, Explode, Dead }
-    public enum SoundState { Explosion, Detection, Charge }
-    //public Dictionary<SoundState, string> soundpath = new Dictionary<SoundState, string>();
+    public enum EnemyState{ Idle, Staggering, Jumping, Rotating, Walking, Charging, Attack, Explode, Dead, Frozen}
+    public enum SoundState 
+    { 
+        Idle = 1,
+        Alert = 2, 
+        Staggering = 3, 
+        Jumping = 0, 
+        Rotating = 0, 
+        Walking = 0, 
+        Charging = 4, 
+        Attack = 0, 
+        Explode = 5, 
+        Dead = 6, 
+        Frozen = 3
+    }
 
     /* Initialization and Updates per Frame */
     private void Start()
@@ -299,6 +311,7 @@ public class EnemySmartAF : MonoBehaviour
     private void SetStagger()
     {
         SetEnemyState(EnemyState.Staggering);
+        LoadWavFile(SoundState.Staggering);
         staggerTime = staggerTimeMax;
         isStaggering = true;
 
@@ -321,6 +334,7 @@ public class EnemySmartAF : MonoBehaviour
         if (GetComponent<ParticleSystem>() != null) // Play explosion particles
         {
             explosionEffect.Play();
+            LoadWavFile(SoundState.Explode);
 
         }
 
@@ -331,28 +345,15 @@ public class EnemySmartAF : MonoBehaviour
     }
 
     /* Sound Functions */
-    public void LoadWavFile(int clipNum)
+    public void LoadWavFile(SoundState state)
     {
-        /*        string path = string.Format("{0}/{1}", UnityEngine.Application.dataPath, filename);
-                AudioClip audioClip = WavUtility.ToAudioClip(path);
-                audioSource.clip = audioClip;
-                UnityEngine.Debug.Log(audioSource.clip.length);
-                audioSource.Play();*/
-
+        int clipNum = (int)state;
+        if (clipNum == 0) return;
         audioSource.clip = clips[clipNum];
         audioSource.Play();
     }
 
     /* List of Subfunctions (functions that are used as tools for other functions)*/
-
-    // Utility function to add multiple entries to a dictionary
-    private static void _addEntries<TKey, TValue>(Dictionary<TKey, TValue> dictionary, Dictionary<TKey, TValue> entries)
-    {
-        foreach (var entry in entries)
-        {
-            dictionary[entry.Key] = entry.Value;
-        }
-    }
 
     private float _calculateJumpVelocity(float jumpHeight, float angle = 0f)
     {

@@ -27,6 +27,7 @@ public class EnemyHitable2 : Hitable
             return;
         }
         GetComponent<EnemySmartAF2>().ShowFloatingText(currentHealth.ToString(), textColor, textSizeMult, showflg);
+        GetComponent<EnemySmartAF2>().LoadWavFile(EnemySmartAF2.SoundState.Staggering);
 
         EnemySmartAF2.EnemyState currentState = GetComponent<EnemySmartAF2>().GetEnemyState();
         if (currentState != EnemySmartAF2.EnemyState.Dead) GetComponent<EnemySmartAF2>().StaggerCoinFlip();
