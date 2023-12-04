@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
     public List<GameObject> enemies = new List<GameObject>();
 
     public Transform playerTransform;
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefab;
     public Enemy1ScriptableObject enemy1ScriptableObject;
     public Enemy2ScriptableObject enemy2ScriptableObject;
 
@@ -34,10 +34,25 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnEnemy(Vector3 position)
     {
-        GameObject newEnemy = Instantiate(enemyPrefab, position, Quaternion.identity);
-        newEnemy.transform.parent = transform;
-        newEnemy.GetComponent<EnemySmart>().SetNewTarget(playerTransform);
-        enemies.Add(newEnemy);
+        // Check if the list is not empty
+        if (enemyPrefab.Count > 0)
+        {
+            // Generate a random index
+            int randomIndex = Random.Range(0, enemyPrefab.Count);
+
+            // Access the randomly selected GameObject
+            GameObject randomEnemyPrefab = enemyPrefab[randomIndex];
+
+            // Instantiate or use the selected prefab
+            GameObject newEnemy = Instantiate(randomEnemyPrefab, position, Quaternion.identity);
+            newEnemy.transform.parent = transform;
+            newEnemy.GetComponent<EnemySmart>().SetNewTarget(playerTransform);
+            enemies.Add(newEnemy);
+        }
+        else
+        {
+            Debug.LogError("Enemy Prefab list is empty. Add prefabs to the list.");
+        }
     }
 
     public void SpawnEnemiesRandomly(int numEnemies)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -390,6 +390,14 @@ PrefabInstance:
     - target: {fileID: 5368187608776937889, guid: 8666c2f72fc6f8941aed85993e3894f6, type: 3}
       propertyPath: m_Name
       value: Gui
+      objectReference: {fileID: 0}
+    - target: {fileID: 8107503944201971163, guid: 8666c2f72fc6f8941aed85993e3894f6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8107503944201971163, guid: 8666c2f72fc6f8941aed85993e3894f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9160005812984278485, guid: 8666c2f72fc6f8941aed85993e3894f6, type: 3}
       propertyPath: m_Pivot.x
@@ -1031,6 +1039,10 @@ PrefabInstance:
       propertyPath: arenaRadius
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 1040062155800328837, guid: cccb6d714a92d4a44b865a183243156d, type: 3}
     - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
       propertyPath: playerTransform
       value: 
