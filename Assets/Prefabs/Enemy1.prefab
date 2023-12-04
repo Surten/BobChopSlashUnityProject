@@ -266,7 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a83599d37e8b654e91ad1e4f5672a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyScriptableObject: {fileID: 11400000, guid: 439847fd52f421e4683920f769c42591, type: 2}
   target: {fileID: 0}
   attackMelee: {fileID: 8641910739825661456}
   groundCheck: {fileID: 8694882785508843062}
@@ -274,8 +273,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isCharging: 0
-  isIdleJumping: 0
-  canExplode: 0
   FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
   audioSource: {fileID: 0}
   clips:
@@ -286,6 +283,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5c0f23336247334408065988d13b55b2, type: 3}
   - {fileID: 8300000, guid: 45e87874ed496374d911e1118d09a2c0, type: 3}
   - {fileID: 8300000, guid: 795ef758d4dad0a4a883fa6b72385702, type: 3}
+  enemyScriptableObject: {fileID: 11400000, guid: d3edeab79edba6149a2ba53b2e98e7f1, type: 2}
+  attackMelee: {fileID: 8641910739825661456}
+  isIdleJumping: 0
+  canExplode: 0
 --- !u!114 &2243029562777809383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +303,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  enemyInfo: {fileID: 11400000, guid: 439847fd52f421e4683920f769c42591, type: 2}
+  enemyInfo: {fileID: 11400000, guid: d3edeab79edba6149a2ba53b2e98e7f1, type: 2}
 --- !u!54 &8817201514410182763
 Rigidbody:
   m_ObjectHideFlags: 0

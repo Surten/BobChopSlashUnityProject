@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2e1a8df64a8f543ad079b33c443c0c, type: 3}
   m_Name: Enemy1ScriptableObject
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  coinsDropOnDeath: 4
+  maxHealth: 20
+  coinsDropOnDeath: 2
   rotateSpeed: 360
   walkSpeed: 3
   runSpeed: 9
-  awarenessAwareRange: 20
-  awarenessChaseRange: 5
-  awarenessAttackRange: 1.5
-  attackDamage: 5
-  attackRadius: 0.5
-  chargeProbability: 0.5
+  awarenessAwareRange: 40
+  awarenessChaseRange: 15
+  awarenessAttackRange: 2
+  attackDamage: 1
+  attackRadius: 1
+  chargeProbability: 0.25
   idleJumpProbability: 0.25
-  kamikazeProbability: 0.5
-  staggerProbability: 1
+  kamikazeProbability: 0.25
+  staggerProbability: 0.5
   despawnTime: 1
   quickDespawnTime: 0.2
   staggerTime: 3

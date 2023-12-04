@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6132060073441486734}
   - component: {fileID: 5569150114067174668}
   - component: {fileID: 9071059039099200809}
-  - component: {fileID: 8935650383162457818}
-  - component: {fileID: 3737388509733431150}
   - component: {fileID: 4345802905936592906}
+  - component: {fileID: 8935650383162457818}
   - component: {fileID: 1571338176742499519}
+  - component: {fileID: 5775628136772466116}
   m_Layer: 7
   m_Name: Enemy2 - Woman
   m_TagString: Untagged
@@ -187,43 +187,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8935650383162457818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1040062155800328837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45dcc5a6f1309cf47b30f01e004baedd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  attackPoint: {fileID: 723109918374678671}
-  attackRadius: 1
-  attackDamage: 5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  attackMelee: 0
---- !u!114 &3737388509733431150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1040062155800328837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e668a0f8fd3ec9f49bb85c61fba1a4b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bloodParticle: {fileID: 8936737025924419503, guid: 422120f37b9ad264bbaa3d1220eb8d13, type: 3}
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []
-  enemyInfo: {fileID: 11400000, guid: e8cc4ac6716bedd4db70e68ef3b307ae, type: 2}
 --- !u!114 &4345802905936592906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ea60ef7ba0906418128775bbf7c53a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyScriptableObject: {fileID: 11400000, guid: e8cc4ac6716bedd4db70e68ef3b307ae, type: 2}
   target: {fileID: 0}
   groundCheck: {fileID: 6470850915060898013}
   groundLayerMask:
@@ -251,7 +213,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9de996077b329bf45a574163a97b85bc, type: 3}
   - {fileID: 8300000, guid: b99797294c937294f8ade8aeeefed6d2, type: 3}
   - {fileID: 8300000, guid: 45f9d594e64295e498c7bc300264d87a, type: 3}
---- !u!114 &1571338176742499519
+  enemyScriptableObject: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
+--- !u!114 &8935650383162457818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,10 +223,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 1040062155800328837}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45dcc5a6f1309cf47b30f01e004baedd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  attackPoint: {fileID: 723109918374678671}
+  attackRadius: 0.9
+  attackDamage: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  isAttacking: 0
+--- !u!114 &1571338176742499519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040062155800328837}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 005066f338256064bbac9fee2f1f13df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+--- !u!114 &5775628136772466116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040062155800328837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff02d95615a6b8a47ac0b889f26417ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodParticle: {fileID: 8936737025924419503, guid: 422120f37b9ad264bbaa3d1220eb8d13, type: 3}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  enemyInfo: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
 --- !u!1 &2857833144700827781
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyHitable : Hitable
 {
-    public Enemy1ScriptableObject enemyInfo;
+    public EnemyBaseScriptableObject enemyInfo;
 
     private void Start()
     {
@@ -22,14 +22,14 @@ public class EnemyHitable : Hitable
         //sound effect
         base.TakeDamage(value);
         if (currentHealth <= 0) {
-            GetComponent<EnemySmartAF>().ShowFloatingText("0", textColor, textSizeMult, showflg);
+            GetComponent<EnemySmart>().ShowFloatingText("0", textColor, textSizeMult, showflg);
             Die();
             return;
         }
-        GetComponent<EnemySmartAF>().ShowFloatingText(currentHealth.ToString(), textColor, textSizeMult, showflg);
+        GetComponent<EnemySmart>().ShowFloatingText(currentHealth.ToString(), textColor, textSizeMult, showflg);
 
-        EnemySmartAF.EnemyState currentState = GetComponent<EnemySmartAF>().GetEnemyState();
-        if (currentState != EnemySmartAF.EnemyState.Dead) GetComponent<EnemySmartAF>().StaggerCoinFlip();
+        EnemySmart.EnemyState currentState = GetComponent<EnemySmart>().GetEnemyState();
+        if (currentState != EnemySmart.EnemyState.Dead) GetComponent<EnemySmart>().StaggerCoinFlip();
     }
 
     public override void Heal(int value)
@@ -41,9 +41,11 @@ public class EnemyHitable : Hitable
     protected override void Die()
     {
         base.Die();
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        GetComponent<Rigidbody>().mass = 0.1f;
-        GetComponent<EnemySmartAF>().SetEnemyState(EnemySmartAF.EnemyState.Dead);
+        Rigidbody rb = GetComponent<Rigidbody>();
+        EnemySmart e = GetComponent<EnemySmart>();
+        rb.constraints = RigidbodyConstraints.None;
+        rb.mass = 0.1f;
+        e.SetEnemyState(EnemySmart.EnemyState.Dead);
     }
 
 

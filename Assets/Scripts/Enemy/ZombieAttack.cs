@@ -12,12 +12,12 @@ public class ZombieAttack : MonoBehaviour
 
     public LayerMask layerMask;
 
-    public bool attackMelee = false;
+    public bool isAttacking = false;
 
 
     public void SwingArm()
     {
-        if (!attackMelee)
+        if (!isAttacking)
         {
             StartCoroutine(Attacking());
         }
@@ -26,7 +26,7 @@ public class ZombieAttack : MonoBehaviour
 
     public void Bite()
     {
-        if (!attackMelee)
+        if (!isAttacking)
         {
             StartCoroutine(Biting());
         }
@@ -38,11 +38,11 @@ public class ZombieAttack : MonoBehaviour
         anim.SetTrigger("Transition I");
         yield return new WaitForSeconds(0.5f);
         anim.SetTrigger("Attack");
-        attackMelee = true;
+        isAttacking = true;
         yield return new WaitForSeconds(0.7f);
         ResolveHit();
         yield return new WaitForSeconds(0.3f);
-        attackMelee = false;
+        isAttacking = false;
         anim.SetTrigger("Transition II");
         yield return new WaitForSeconds(0.5f);
 
@@ -53,11 +53,11 @@ public class ZombieAttack : MonoBehaviour
         anim.SetTrigger("Transition I");
         yield return new WaitForSeconds(0.5f);
         anim.SetTrigger("Bite");
-        attackMelee = true;
+        isAttacking = true;
         yield return new WaitForSeconds(0.7f);
         ResolveHit();
         yield return new WaitForSeconds(0.3f);
-        attackMelee = false;
+        isAttacking = false;
         anim.SetTrigger("Transition II");
         yield return new WaitForSeconds(0.5f);
 

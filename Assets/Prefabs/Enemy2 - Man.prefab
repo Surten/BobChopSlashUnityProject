@@ -71,12 +71,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9150266381642438515}
-  - component: {fileID: 1551547872553279154}
   - component: {fileID: 5718392944966894081}
+  - component: {fileID: 1551547872553279154}
   - component: {fileID: 3269640281515607823}
-  - component: {fileID: 8881705601630458511}
-  - component: {fileID: 7895774688339510404}
   - component: {fileID: 4509806802019541907}
+  - component: {fileID: 8881705601630458511}
+  - component: {fileID: 8101298489185841088}
   m_Layer: 7
   m_Name: Enemy2 - Man
   m_TagString: Untagged
@@ -102,6 +102,29 @@ Transform:
   - {fileID: 5714274162582497764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5718392944966894081
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875268921558836089}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &1551547872553279154
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -129,29 +152,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &5718392944966894081
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875268921558836089}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &3269640281515607823
 AudioSource:
   m_ObjectHideFlags: 0
@@ -248,6 +248,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4509806802019541907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875268921558836089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ea60ef7ba0906418128775bbf7c53a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  groundCheck: {fileID: 5169371600381652724}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  isCharging: 0
+  FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
+  audioSource: {fileID: 0}
+  clips:
+  - {fileID: 0}
+  - {fileID: 8300000, guid: cd8b002d20eeb1d4e8b5c1dd2f71529e, type: 3}
+  - {fileID: 8300000, guid: 9de996077b329bf45a574163a97b85bc, type: 3}
+  - {fileID: 8300000, guid: b99797294c937294f8ade8aeeefed6d2, type: 3}
+  - {fileID: 8300000, guid: 45f9d594e64295e498c7bc300264d87a, type: 3}
+  enemyScriptableObject: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
 --- !u!114 &8881705601630458511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,9 +293,9 @@ MonoBehaviour:
   attackDamage: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
-  attackMelee: 0
---- !u!114 &7895774688339510404
+    m_Bits: 256
+  isAttacking: 0
+--- !u!114 &8101298489185841088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,41 +304,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1875268921558836089}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e668a0f8fd3ec9f49bb85c61fba1a4b6, type: 3}
+  m_Script: {fileID: 11500000, guid: ff02d95615a6b8a47ac0b889f26417ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bloodParticle: {fileID: 8936737025924419503, guid: 422120f37b9ad264bbaa3d1220eb8d13, type: 3}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  enemyInfo: {fileID: 11400000, guid: e8cc4ac6716bedd4db70e68ef3b307ae, type: 2}
---- !u!114 &4509806802019541907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875268921558836089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83ea60ef7ba0906418128775bbf7c53a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyScriptableObject: {fileID: 11400000, guid: e8cc4ac6716bedd4db70e68ef3b307ae, type: 2}
-  target: {fileID: 0}
-  groundCheck: {fileID: 5169371600381652724}
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  isCharging: 0
-  FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
-  audioSource: {fileID: 0}
-  clips:
-  - {fileID: 0}
-  - {fileID: 8300000, guid: cd8b002d20eeb1d4e8b5c1dd2f71529e, type: 3}
-  - {fileID: 8300000, guid: 9de996077b329bf45a574163a97b85bc, type: 3}
-  - {fileID: 8300000, guid: b99797294c937294f8ade8aeeefed6d2, type: 3}
-  - {fileID: 8300000, guid: 45f9d594e64295e498c7bc300264d87a, type: 3}
+  enemyInfo: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
 --- !u!1001 &5244326790726503951
 PrefabInstance:
   m_ObjectHideFlags: 0

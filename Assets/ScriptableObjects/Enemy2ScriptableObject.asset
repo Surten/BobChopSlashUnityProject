@@ -24,6 +24,6 @@ MonoBehaviour:
   attackRadius: 1
   biteProbability: 0.25
   chargeProbability: 0.25
-  staggerProbability: 1
+  staggerProbability: 0.5
   despawnTime: 1
   staggerTime: 1
