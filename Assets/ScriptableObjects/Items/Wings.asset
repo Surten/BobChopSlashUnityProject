@@ -19,6 +19,8 @@ MonoBehaviour:
   bonusMaxHealth: 0
   bonusArmor: 0
   bonusAttackDamage: 0
+  bonusAttackSpeedPercentage: 0
+  bonusAttackRadiusPercentage: 0
   addFireBallDamage: 0
   reduceFireBallCooldownbyPercent: 0
   freezeSpell: 0
