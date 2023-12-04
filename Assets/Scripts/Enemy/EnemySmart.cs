@@ -42,7 +42,7 @@ public class EnemySmart : MonoBehaviour
     private bool isStateChanged;
 
     private float staggerTimeMax;
-    private float staggerTime;
+    protected float staggerTime;
     private float despawnTime;
     private float stateChangeTime;
 
@@ -225,7 +225,7 @@ public class EnemySmart : MonoBehaviour
 
     }
 
-    public void UpdateStaggerTime()
+    public virtual void UpdateStaggerTime()
     {
         staggerTime -= Time.deltaTime;
         if (staggerTime < 0)

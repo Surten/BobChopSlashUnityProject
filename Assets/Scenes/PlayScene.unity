@@ -631,6 +631,14 @@ PrefabInstance:
       propertyPath: timeLeftText
       value: 
       objectReference: {fileID: 650312301}
+    - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
+      propertyPath: levelScriptableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
+      propertyPath: levelScriptableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 22f6b8f9cc2dcf846958950b886aef9d, type: 2}
     - target: {fileID: 7647200129415517790, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1047,6 +1055,18 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 853851068}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: enemyPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 1040062155800328837, guid: cccb6d714a92d4a44b865a183243156d, type: 3}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: enemyPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 1875268921558836089, guid: 438e5ba5bc353e748a50f842aa56c855, type: 3}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: enemyPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5330491977413527683, guid: bc287e098d5894d4c8ac5e2442d90c07, type: 3}
     - target: {fileID: 8196960741328756857, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

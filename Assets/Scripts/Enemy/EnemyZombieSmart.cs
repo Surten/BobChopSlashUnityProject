@@ -32,6 +32,7 @@ public class EnemyZombieSmart : EnemySmart
     }
 
     private Animator anim;
+    private AnimatorStateInfo animState;
 
     /* Initialization and Updates per Frame */
     protected override void Start()
@@ -68,44 +69,80 @@ public class EnemyZombieSmart : EnemySmart
     protected override void Update()
     {
         base.Update();
-
+        
+        animState = anim.GetCurrentAnimatorStateInfo(0);
         switch (currentState)
         {
             case EnemyState.Idle:
                 break;
 
             case EnemyState.Staggering:
-                UpdateStaggerTime();
+                if (animState.IsName("Reaction Hit")) UpdateStaggerTime();
                 break;
 
             case EnemyState.Rotating:
-                RotateToTarget();
+                if (animState.IsName("Rotate")) RotateToTarget();
                 break;
 
             case EnemyState.Walking:
-                RotateToTarget();
-                anim.SetTrigger("Walk");
-                Transition2Position(GetWalkSpeed());
+                if (animState.IsName("Walk"))
+                {
+                    RotateToTarget();
+                    Transition2Position(GetWalkSpeed());
+                }
                 break;
 
             case EnemyState.Running:
-                RotateToTarget();
-                anim.SetTrigger("Run");
-                Transition2Position(GetRunSpeed());
+                if (animState.IsName("Run"))
+                {
+                    RotateToTarget();
+                    Transition2Position(GetRunSpeed());
+                }
                 break;
 
             case EnemyState.Attack:
-                RotateToTarget();
-                if (isBiting) attackMelee.Bite();
-                else attackMelee.SwingArm();
+                if (animState.IsName("Attack"))
+                {
+                    RotateToTarget();
+                    attackMelee.SwingArm();
+
+                    if (!IsPlaying("Attack")) PlayAnimation("Attack");
+                    
+                }
                 break;
 
+            case EnemyState.Biting:
+                if (animState.IsName("Bite"))
+                {
+                    RotateToTarget();
+                    attackMelee.Bite();
+
+                    if (!IsPlaying("Bite")) PlayAnimation("Bite");
+
+                }
+                break;
             default:
                 break;
 
         }
 
+        if (GetIsStateChanged() | (animState.normalizedTime >= 1.0f)) {
+            animate();
+        }
     }
+    bool IsPlaying(string stateName)
+    {
+        // Check if the specified animation is currently playing
+        AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+        return currentState.IsName(stateName) && currentState.normalizedTime < 1.0f;
+    }
+
+    void PlayAnimation(string stateName)
+    {
+        // Play the specified animation
+        anim.Play(stateName, 0, 0f);
+    }
+
     public void SetAtackRadius(float val) { attackMelee.attackRadius = attackRadius = val; }
 
     public float GetAtackRadius() { return attackRadius; }
@@ -117,8 +154,7 @@ public class EnemyZombieSmart : EnemySmart
     public override void SetEnemyState(EnemyState state)
     {
         base.SetEnemyState(state);
-
-        animate();
+        ResetTriggers();
     }
 
     public new EnemyState GetEnemyState()
@@ -131,6 +167,57 @@ public class EnemyZombieSmart : EnemySmart
         SetEnemyState(EnemyState.Staggering);
         LoadWavFile(Sound2Int(SoundState.Staggering));
         base.SetStagger();
+    }
+
+    public override void UpdateStaggerTime()
+    {
+        staggerTime -= Time.deltaTime;
+        if (staggerTime < 0)
+        {
+            SetEnemyState(EnemyState.Idle);
+            SetIsStaggering(false);
+            return;
+        }
+    }
+
+    /* Action Functions */
+    public void Behaviour()
+    {
+        bool isStateChanged = GetIsStateChanged();
+
+        if (GetEnemyState() == EnemyState.Staggering)
+        { // If the enemy is staggering, do nothing;
+            if (isStateChanged) ResetIsStateChanged();
+            return;
+        }
+
+        float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
+        if (targetDistance > enemyScriptableObject.awarenessAwareRange) // No movement
+        {
+            if (isStateChanged) ResetIsStateChanged();
+            SetEnemyState(EnemyState.Idle);
+            return;
+        }
+        else if (targetDistance > enemyScriptableObject.awarenessChaseRange) // Rotate towards player
+        {
+            if (isStateChanged) ResetIsStateChanged();
+            SetEnemyState(EnemyState.Rotating);
+            return;
+        }
+        else if (targetDistance > enemyScriptableObject.awarenessAttackRange) // Chase Player
+        {
+            if (isStateChanged) ResetIsStateChanged();
+            if (isCharging) SetEnemyState(EnemyState.Running);
+            else SetEnemyState(EnemyState.Walking);
+            return;
+        }
+        else // Attack player
+        {
+            if (isStateChanged) ResetIsStateChanged();
+            if (isBiting) SetEnemyState(EnemyState.Biting);
+            else SetEnemyState(EnemyState.Attack);
+            return;
+        }
     }
 
     /* Animation Functions */
@@ -146,7 +233,7 @@ public class EnemyZombieSmart : EnemySmart
         anim.ResetTrigger("Death");
     }
 
-    void animate()
+    public void animate()
     {
         switch (currentState)
         {
@@ -157,11 +244,13 @@ public class EnemyZombieSmart : EnemySmart
 
             case EnemyState.Staggering:
                 anim.SetTrigger("Reaction Hit");
+                anim.SetTrigger("Idle");
                 LoadWavFile(Sound2Int(SoundState.Staggering));
                 break;
 
             case EnemyState.Rotating:
                 anim.SetTrigger("Rotate");
+                anim.SetTrigger("Idle");
                 LoadWavFile(Sound2Int(SoundState.Rotating));
                 break;
 
@@ -171,6 +260,7 @@ public class EnemyZombieSmart : EnemySmart
                 break;
 
             case EnemyState.Running:
+                anim.SetTrigger("Idle");
                 anim.SetTrigger("Walk");
                 anim.SetTrigger("Run");
                 LoadWavFile(Sound2Int(SoundState.Running));
@@ -195,6 +285,7 @@ public class EnemyZombieSmart : EnemySmart
 
             case EnemyState.Frozen:
                 anim.SetTrigger("Frozen");
+                anim.SetTrigger("Idle");
                 LoadWavFile(Sound2Int(SoundState.Frozen));
                 break;
 

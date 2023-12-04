@@ -167,6 +167,93 @@ public class EnemyCapsuleSmart : EnemySmart
 
 
     /* Action Functions */
+    public void Behaviour()
+    {
+        bool isStateChanged = GetIsStateChanged();
+        float textSizeMult = 2f;
+        Color textColor = Color.black;
+        bool showflg = false;
+
+        if (currentState == EnemyState.Staggering)
+        { // If the enemy is staggering, do nothing;
+            if (isStateChanged) ResetIsStateChanged();
+            return;
+        }
+
+        float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
+        if (targetDistance > enemyScriptableObject.awarenessAwareRange) // No movement
+        {
+            if (isIdleJumping)
+            {
+                if (isStateChanged)
+                {
+                    ShowFloatingText("♪(┌・。・)┌", textColor, textSizeMult * 4f, showflg);
+                    ResetIsStateChanged();
+                }
+                SetEnemyState(EnemyState.Jumping);
+            }
+            else
+            {
+                if (isStateChanged)
+                {
+                    ShowFloatingText("ヽ(•‿•)ノ", textColor, textSizeMult * 4f, showflg);
+                    ResetIsStateChanged();
+                }
+                SetEnemyState(EnemyState.Idle);
+            }
+
+            return;
+        }
+        else if (targetDistance > enemyScriptableObject.awarenessChaseRange) // Rotate towards player
+        {
+            if (isStateChanged)
+            {
+                ShowFloatingText("(☉_☉)", textColor, textSizeMult * 2f, showflg);
+                LoadWavFile(Sound2Int(SoundState.Alert));
+                ResetIsStateChanged();
+            }
+            SetEnemyState(EnemyState.Rotating);
+            return;
+        }
+        else if (targetDistance > enemyScriptableObject.awarenessAttackRange) // Chase Player
+        {
+            if (isStateChanged)
+            {
+                ShowFloatingText("ヽ(ಠ_ಠ)ノ", textColor, textSizeMult, showflg);
+                if (isCharging) LoadWavFile(Sound2Int(SoundState.Running));
+                ResetIsStateChanged();
+            }
+            if (isCharging)
+            {
+                SetEnemyState(EnemyState.Running);
+            }
+            else
+            {
+                SetEnemyState(EnemyState.Walking);
+            }
+
+            return;
+        }
+        else // Attack player
+        {
+            if (isStateChanged)
+            {
+                ResetIsStateChanged();
+            }
+
+            if (canExplode)
+            {
+                SetEnemyState(EnemyState.Explode);
+                LoadWavFile(0);
+            }
+            else
+            {
+                SetEnemyState(EnemyState.Attack);
+            }
+
+            return;
+        }
+    }
 
     public void RotateToTarget(float inclinationAngle = 0)
     {
