@@ -49,7 +49,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !playerAttack.swingingSwordCR)
         {
             rb.AddForce(Vector3.up * 4f, ForceMode.Impulse);
-            anim.SetTrigger("jump");            
+            anim.SetTrigger("jump");
         }
     }
 
@@ -81,10 +81,13 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+
     private void OnItemPickUp(Item item)
     {
         moveSpeed += item.bonusMovementSpeed;
         playerAttack.attackDamage += item.bonusAttackDamage;
+        playerAttack.UpdateAttackSpeed(item.bonusAttackSpeedPercentage);
+        playerAttack.UpdateAttackRadius(item.bonusAttackRadiusPercentage);
     }
 
     public void OnPlayerDeath()

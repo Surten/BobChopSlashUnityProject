@@ -9,10 +9,24 @@ public class AttackMelee : MonoBehaviour
     public Transform attackPoint;
     public float attackRadius = 1f;
     public int attackDamage = 5;
+    public float attackSpeed = 1f;
 
     public LayerMask layerMask;
 
     public bool swingingSwordCR = false;
+
+    public void UpdateAttackSpeed(float percentageAdded)
+    {
+        attackSpeed += (percentageAdded * attackSpeed * 0.01f);
+        anim.SetFloat("AttackSpeed", attackSpeed);
+    }
+
+    public void UpdateAttackRadius(float percentageAdded)
+    {
+        float volume = 4.0f / 3.0f * Mathf.PI * Mathf.Pow(attackRadius, 3);
+        volume = volume + (percentageAdded * 0.01f * volume);
+        attackRadius = Mathf.Pow((3.0f * volume)/(4 * Mathf.PI), 1.0f / 3.0f);
+    }
 
 
     public void SwingSword()
@@ -29,9 +43,9 @@ public class AttackMelee : MonoBehaviour
     {
         anim.SetTrigger("swordSlash");
         swingingSwordCR = true;
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds((1 / attackSpeed) * 0.6f);
         ResolveSwordHit();
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds((1 / attackSpeed) * 0.4f);
         swingingSwordCR = false;
     }
 
