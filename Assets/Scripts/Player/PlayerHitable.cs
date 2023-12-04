@@ -17,6 +17,7 @@ public class PlayerHitable : Hitable
         healthBar.value = currentHealth;
 
         ShopManager.Instance.onItemPickUpEvent += OnItemPickUp;
+        PlayerLeveler.Instance.onLevelUpEvent += OnLevelUp;
     }
 
     public override void TakeDamage(int value)
@@ -75,6 +76,11 @@ public class PlayerHitable : Hitable
     private void IncreaseArmor(int increaseValue)
     {
         armor += increaseValue;
+    }
+
+    private void OnLevelUp()
+    {
+        IncreaseMaxHealth(5);
     }
 
 }

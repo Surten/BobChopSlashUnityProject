@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ce3c654daa0a7a478f59a3be0de0841, type: 3}
-  m_Name: FireCircle
+  m_Name: Equation
   m_EditorClassIdentifier: 
-  itemName: Fire Circle
-  icon: {fileID: 21300000, guid: f319ad19baaf4d0439205248cdbfc43e, type: 3}
-  description: Adds FireBall spell
+  itemName: Equation
+  icon: {fileID: 21300000, guid: 1c675462e2ccf0f45b56f978a2ea2e3c, type: 3}
+  description: Nothing Yet
   bonusMovementSpeed: 0
   bonusMaxHealth: 0
   bonusArmor: 0
   bonusAttackDamage: 0
-  addFireBallDamage: 2
+  addFireBallDamage: 0
   reduceFireBallCooldownbyPercent: 0
   freezeSpell: 0
-  price: 5
+  price: 1

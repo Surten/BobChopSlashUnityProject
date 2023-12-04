@@ -5,7 +5,6 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string itemName = "newItem";
-    public int id = 0;
     public Sprite icon;
     
     [TextArea]
