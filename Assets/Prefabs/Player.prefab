@@ -41,6 +41,7 @@ Transform:
   - {fileID: 3664621616406123648}
   - {fileID: 1329374540679650051}
   - {fileID: 3173130667106750342}
+  - {fileID: 4927238568653252993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1408745780096829440
@@ -126,10 +127,14 @@ MonoBehaviour:
   attackPoint: {fileID: 1329374540679650051}
   attackRadius: 1
   attackDamage: 5
+  attackRadiusHeavy: 3
+  attackDamageHeavy: 15
+  attackSpeed: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 128
-  swingingSwordCR: 0
+  swingingSword: 0
+  swingingSwordHeavy: 0
 --- !u!114 &1680799165718280784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe8e1d235da0cb429d4adcac3043287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expLevelScalingLinear: 5
+  expSlider: {fileID: 0}
 --- !u!114 &3398331192866106361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,8 +387,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 400
   playerBody: {fileID: 5389079292198007113}
-  playerHead: {fileID: 1330225520404254611}
+  playerHead: {fileID: 4927238568653252993}
   xRotation: 0
+--- !u!1 &3692608470340972778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4927238568653252993}
+  m_Layer: 8
+  m_Name: CameraLookAtPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4927238568653252993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692608470340972778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.629, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5389079292198007113}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6126612026374825181
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,11 +551,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d018fb05edcf4fc47829befb919e8edf, type: 3}
---- !u!4 &1330225520404254611 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 413513767858984412, guid: d018fb05edcf4fc47829befb919e8edf, type: 3}
-  m_PrefabInstance: {fileID: 1713885210206870095}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5733968371052934250 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6366915998976732709, guid: d018fb05edcf4fc47829befb919e8edf, type: 3}

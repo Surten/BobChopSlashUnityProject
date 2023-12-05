@@ -23,7 +23,7 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerAttack = GetComponent<AttackMelee>();
 
-        moveSpeed = playerInfo.moveSpeed;
+        moveSpeed = playerInfo.moveSpeed * 0.01f;
         playerAttack.attackDamage = playerInfo.attackDamage;
         
         ShopManager.Instance.onItemPickUpEvent += OnItemPickUp;
@@ -36,7 +36,11 @@ public class PlayerMove : MonoBehaviour
         Move();
         if (Input.GetKeyDown(KeyCode.Mouse0) && isGrounded)
         {
-            playerAttack.SwingSword();
+            playerAttack.MeleeAttackLight();
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && isGrounded)
+        {
+            playerAttack.MeleeAttackHeavy();
         }
     }
 
@@ -46,7 +50,7 @@ public class PlayerMove : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !playerAttack.swingingSwordCR)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !playerAttack.swingingSword)
         {
             rb.AddForce(Vector3.up * 4f, ForceMode.Impulse);
             anim.SetTrigger("jump");
@@ -57,8 +61,8 @@ public class PlayerMove : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-
         
+
         Vector3 move = transform.right * x + transform.forward * y;
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -74,7 +78,7 @@ public class PlayerMove : MonoBehaviour
 
         move.Normalize();
 
-        transform.position += move * Time.deltaTime * moveSpeed;
+        transform.position += move * Time.deltaTime * (moveSpeed * 5f);
         if(transform.position.y < resetYHeightTreshold)
         {
             transform.position += Vector3.up * (resetYHeightTreshold + 20f);
@@ -84,7 +88,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnItemPickUp(Item item)
     {
-        moveSpeed += item.bonusMovementSpeed;
+        moveSpeed += (item.bonusMovementSpeed * 0.01f * moveSpeed);
         playerAttack.attackDamage += item.bonusAttackDamage;
         playerAttack.UpdateAttackSpeed(item.bonusAttackSpeedPercentage);
         playerAttack.UpdateAttackRadius(item.bonusAttackRadiusPercentage);

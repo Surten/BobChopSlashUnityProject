@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerScriptableObject
   m_EditorClassIdentifier: 
   maxHealth: 100
-  moveSpeed: 5
+  moveSpeed: 100
   attackDamage: 4

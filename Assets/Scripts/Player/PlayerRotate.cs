@@ -24,6 +24,7 @@ public class PlayerRotate : MonoBehaviour
         Vector3 playerDir = playerHead.position - transform.position;
         Vector3 futureCameraPosition = transform.position + playerDir* mouseWheel;
 
+
         if ((playerHead.position - futureCameraPosition).magnitude > 1f && (playerHead.position - futureCameraPosition).magnitude < 6f)
             transform.position = futureCameraPosition;
 
@@ -31,10 +32,12 @@ public class PlayerRotate : MonoBehaviour
         if (xRotation + mouseY > -40f && xRotation + mouseY < 90f)
         {
             transform.RotateAround(playerHead.position, playerBody.right, mouseY);
-            xRotation += mouseY;
+            xRotation = transform.eulerAngles.x;
+            if (xRotation > 180f) xRotation -= 360f;
         }
 
         /*transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);*/
+        transform.LookAt(playerHead.position);
         playerBody.Rotate(Vector3.up * mouseX);
     }
 }

@@ -7,13 +7,18 @@ public class AttackMelee : MonoBehaviour
 
     public Animator anim;
     public Transform attackPoint;
+
     public float attackRadius = 1f;
     public int attackDamage = 5;
-    public float attackSpeed = 1f;
 
+    public float attackRadiusHeavy = 3f;
+    public int attackDamageHeavy = 15;
+
+    public float attackSpeed = 1f;
     public LayerMask layerMask;
 
-    public bool swingingSwordCR = false;
+    public bool swingingSword = false;
+    public bool swingingSwordHeavy = false;
 
     public void UpdateAttackSpeed(float percentageAdded)
     {
@@ -29,32 +34,52 @@ public class AttackMelee : MonoBehaviour
     }
 
 
-    public void SwingSword()
+    public void MeleeAttackLight()
     {
-        if (!swingingSwordCR)
+        if (!swingingSword)
         {
-            StartCoroutine(Attacking());
+            StartCoroutine(LightAttackCoroutine());
         }
-
-
     }
 
-    IEnumerator Attacking()
+    IEnumerator LightAttackCoroutine()
     {
         anim.SetTrigger("swordSlash");
-        swingingSwordCR = true;
+        swingingSword = true;
         yield return new WaitForSeconds((1 / attackSpeed) * 0.6f);
-        ResolveSwordHit();
+        Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, attackRadius, layerMask);
+        ResolveSwordHit(enemiesHit, attackDamage);
         yield return new WaitForSeconds((1 / attackSpeed) * 0.4f);
-        swingingSwordCR = false;
+        swingingSword = false;
     }
 
-    void ResolveSwordHit()
+
+    public void MeleeAttackHeavy()
     {
-        Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, attackRadius, layerMask);
+        if (!swingingSword)
+        {
+            StartCoroutine(HeavyAttackCoroutine());
+        }
+    }
+
+    IEnumerator HeavyAttackCoroutine()
+    {
+        anim.SetTrigger("swordSlashHeavy");
+        swingingSword = true;
+        swingingSwordHeavy = true;
+        yield return new WaitForSeconds((1 / attackSpeed) * 2.3f);
+        Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, attackRadiusHeavy, layerMask);
+        ResolveSwordHit(enemiesHit, attackDamageHeavy);
+        yield return new WaitForSeconds((1 / attackSpeed) * 1.5f);
+        swingingSword = false;
+        swingingSwordHeavy = false;
+    }
+
+    void ResolveSwordHit(Collider[] enemiesHit, int damage)
+    {
         foreach (Collider enemy in enemiesHit)
         {
-            enemy.GetComponent<Hitable>().TakeDamage(attackDamage);
+            enemy.GetComponent<Hitable>().TakeDamage(damage);
         }
     }
 

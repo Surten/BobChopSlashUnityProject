@@ -109,7 +109,7 @@ public class EnemyCapsuleSmart : EnemySmart
 
             case EnemyState.Attack:
                 RotateToTarget();
-                attackMelee.SwingSword();
+                attackMelee.MeleeAttackLight();
                 break;
 
             case EnemyState.Explode:
@@ -279,7 +279,7 @@ public class EnemyCapsuleSmart : EnemySmart
 
     public void Explode()
     {
-        attackMelee.SwingSword();
+        attackMelee.MeleeAttackLight();
         if (GetComponent<ParticleSystem>() != null) // Play explosion particles
         {
             explosionEffect.Play();
