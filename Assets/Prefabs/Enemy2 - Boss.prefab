@@ -266,7 +266,7 @@ MonoBehaviour:
   attackDamage: 10
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   isAttacking: 0
 --- !u!114 &5277722351157461546
 MonoBehaviour:
@@ -295,6 +295,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b99797294c937294f8ade8aeeefed6d2, type: 3}
   - {fileID: 8300000, guid: 45f9d594e64295e498c7bc300264d87a, type: 3}
   enemyScriptableObject: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
+  anim: {fileID: 0}
 --- !u!114 &7492936425186309022
 MonoBehaviour:
   m_ObjectHideFlags: 0

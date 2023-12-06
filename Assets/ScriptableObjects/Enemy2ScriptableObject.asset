@@ -22,8 +22,10 @@ MonoBehaviour:
   awarenessAttackRange: 2
   attackDamage: 1
   attackRadius: 1
-  biteProbability: 0.25
   chargeProbability: 0.25
+  kamikazeProbability: 0.25
   staggerProbability: 0.5
-  despawnTime: 1
-  staggerTime: 1
+  despawnTime: 3
+  quickDespawnTime: 0.2
+  staggerTime: 2
+  biteProbability: 0.25
