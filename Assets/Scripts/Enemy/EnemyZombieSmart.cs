@@ -31,13 +31,16 @@ public class EnemyZombieSmart : EnemySmart
         Frozen = 0,
     }
 
-    private Animator anim;
+    public Animator anim;
     private AnimatorStateInfo animState;
 
     /* Initialization and Updates per Frame */
     protected override void Start()
     {
         base.Start();
+
+        SetCoins(enemyScriptableObject.coinsDropOnDeath);
+
         SetRotateSpeed(enemyScriptableObject.rotateSpeed);
         SetWalkSpeed(enemyScriptableObject.walkSpeed);
         SetRunSpeed(enemyScriptableObject.runSpeed);
@@ -71,63 +74,52 @@ public class EnemyZombieSmart : EnemySmart
         base.Update();
         
         animState = anim.GetCurrentAnimatorStateInfo(0);
+        
+        if (GetIsStateChanged())
+        {
+            animate();
+        }
+
         switch (currentState)
         {
             case EnemyState.Idle:
                 break;
 
             case EnemyState.Staggering:
-                if (animState.IsName("Reaction Hit")) UpdateStaggerTime();
+                if (!animState.IsName("Reaction Hit") && !animState.IsName("Dead")) animate();
+                UpdateStaggerTime();
                 break;
 
             case EnemyState.Rotating:
-                if (animState.IsName("Rotate")) RotateToTarget();
+                RotateToTarget();
                 break;
 
             case EnemyState.Walking:
-                if (animState.IsName("Walk"))
-                {
-                    RotateToTarget();
-                    Transition2Position(GetWalkSpeed());
-                }
+                RotateToTarget();
+                Transition2Position(GetWalkSpeed());
                 break;
 
             case EnemyState.Running:
-                if (animState.IsName("Run"))
-                {
-                    RotateToTarget();
-                    Transition2Position(GetRunSpeed());
-                }
+                RotateToTarget();
+                Transition2Position(GetRunSpeed());
                 break;
 
             case EnemyState.Attack:
-                if (animState.IsName("Attack"))
-                {
-                    RotateToTarget();
-                    attackMelee.SwingArm();
-
-                    if (!IsPlaying("Attack")) PlayAnimation("Attack");
-                    
-                }
+                RotateToTarget();
+                attackMelee.SwingArm();
                 break;
 
             case EnemyState.Biting:
-                if (animState.IsName("Bite"))
-                {
-                    RotateToTarget();
-                    attackMelee.Bite();
-
-                    if (!IsPlaying("Bite")) PlayAnimation("Bite");
-
-                }
+                RotateToTarget();
+                attackMelee.Bite();
                 break;
+
+            //case EnemyState.Dead:
+            //    if (!animState.IsName("Death")) animate();
+            //    break;
+
             default:
                 break;
-
-        }
-
-        if (GetIsStateChanged() | (animState.normalizedTime >= 1.0f)) {
-            animate();
         }
     }
     bool IsPlaying(string stateName)
@@ -233,59 +225,52 @@ public class EnemyZombieSmart : EnemySmart
         anim.ResetTrigger("Death");
     }
 
-    public void animate()
+    public override void animate()
     {
         switch (currentState)
         {
             case EnemyState.Idle:
-                anim.SetTrigger("Idle");
+                PlayAnimation("Idle");
                 LoadWavFile(Sound2Int(SoundState.Idle));
                 break;
 
             case EnemyState.Staggering:
-                anim.SetTrigger("Reaction Hit");
-                anim.SetTrigger("Idle");
+                PlayAnimation("Reaction Hit");
                 LoadWavFile(Sound2Int(SoundState.Staggering));
                 break;
 
             case EnemyState.Rotating:
-                anim.SetTrigger("Rotate");
-                anim.SetTrigger("Idle");
+                PlayAnimation("Rotate");
                 LoadWavFile(Sound2Int(SoundState.Rotating));
                 break;
 
             case EnemyState.Walking:
-                anim.SetTrigger("Walk");
+                PlayAnimation("Walk");
                 LoadWavFile(Sound2Int(SoundState.Walking));
                 break;
 
             case EnemyState.Running:
-                anim.SetTrigger("Idle");
-                anim.SetTrigger("Walk");
-                anim.SetTrigger("Run");
+                PlayAnimation("Run");
                 LoadWavFile(Sound2Int(SoundState.Running));
                 break;
 
             case EnemyState.Attack:
-                anim.SetTrigger("Idle");
-                anim.SetTrigger("Attack");
+                PlayAnimation("Attack");
                 LoadWavFile(Sound2Int(SoundState.Attack));
                 break;
 
             case EnemyState.Biting:
-                anim.SetTrigger("Idle");
-                anim.SetTrigger("Bite");
+                PlayAnimation("Bite");
                 LoadWavFile(Sound2Int(SoundState.Biting));
                 break;
 
             case EnemyState.Dead:
-                anim.SetTrigger("Death");
+                PlayAnimation("Death");
                 LoadWavFile(Sound2Int(SoundState.Dead));
                 break;
 
             case EnemyState.Frozen:
-                anim.SetTrigger("Frozen");
-                anim.SetTrigger("Idle");
+                PlayAnimation("Frozen");
                 LoadWavFile(Sound2Int(SoundState.Frozen));
                 break;
 

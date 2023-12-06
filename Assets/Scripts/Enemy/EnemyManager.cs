@@ -13,7 +13,6 @@ public class EnemyManager : MonoBehaviour
 
     public Transform playerTransform;
     public List<GameObject> enemyPrefab;
-    private EnemyBaseScriptableObject enemyScriptableObject;
 
     public bool spawnOneEnemy = false;
 
@@ -81,9 +80,9 @@ public class EnemyManager : MonoBehaviour
 
     }
 
-    public void onEnemyDeath(GameObject enemy, float despawnTime)
+    public void onEnemyDeath(GameObject enemy, float despawnTime, int addedCoins)
     {
-        ShopManager.Instance.AddCoins(enemyScriptableObject.coinsDropOnDeath);
+        ShopManager.Instance.AddCoins(addedCoins);
         enemies.Remove(enemy);
         Destroy(enemy, despawnTime);
     }
@@ -106,9 +105,9 @@ public class EnemyManager : MonoBehaviour
                         bool showflg = true;
                         e1.ShowFloatingText("(✖╭╮✖)", textColor, textSizeMult, showflg);
                         e1.ResetIsStateChanged();
-                        e1.renderTextureColor();
+                        e1.animate();
                     }
-                    onEnemyDeath(go, e1.GetDespawnTime());
+                    onEnemyDeath(go, e1.GetDespawnTime(), e1.GetCoins());
                     continue;
                 }
 
@@ -124,8 +123,9 @@ public class EnemyManager : MonoBehaviour
                 if (e2.GetEnemyState() == EnemySmart.EnemyState.Dead) // If dead, remove data and remove body
                 {
                     if (isStateChanged) e2.ResetIsStateChanged();
+                    //UnityEngine.Debug.Log("Despawn Time" + e2.GetDespawnTime());
                     e2.animate();
-                    onEnemyDeath(go, e2.GetDespawnTime());
+                    onEnemyDeath(go, e2.GetDespawnTime(), e2.GetCoins());
                     continue;
                 }
 

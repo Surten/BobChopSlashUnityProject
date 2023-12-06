@@ -25,6 +25,8 @@ public class EnemySmart : MonoBehaviour
     protected float attackRadius;
     protected int attackDamage;
 
+    protected int coins;
+
     protected EnemyState currentState = EnemyState.Idle;
 
     public Transform target;
@@ -145,7 +147,9 @@ public class EnemySmart : MonoBehaviour
 
     public Rigidbody GetRigidbody() { return rb; }
 
+    public void SetCoins(int val) { coins = val; }
 
+    public int GetCoins() { return coins;}
 
     /* Status Functions */
 
@@ -181,6 +185,9 @@ public class EnemySmart : MonoBehaviour
         go.GetComponent<TextMesh>().color = textColor;
     }
 
+    public virtual void animate() {
+        return;
+    }
 
     /* Action Functions */
 

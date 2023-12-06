@@ -9,66 +9,65 @@ public class AnimationTest : MonoBehaviour
     public Animator anim;
     public enum EnemyState { Idle, Staggering, Rotating, Walking, Running, Attack, Biting, Dead };
     private EnemyState currentState;
-    private float stateChangeTime;
+    bool playStarted = false;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
         currentState = EnemyState.Idle;
-        UnityEngine.Debug.Log("Hello, Unity!");
     }
 
     // Update is called once per frame
     void Update()
     {
-        stateChangeTime += Time.deltaTime;
-        SetState();
-        ResetTriggers();
-        animate();
-    }
-
-    public void SetState()
-    {
-        if (stateChangeTime < 5f) return;
-        stateChangeTime = 0;
-        ResetTriggers();
         UpdateState();
     }
 
     void UpdateState()
     {
+
+        if (IsPlaying()) return;
+
         switch (currentState)
         {
             case EnemyState.Idle:
+                UnityEngine.Debug.Log("Transition to Stagger!");
                 currentState = EnemyState.Staggering;
                 break;
 
             case EnemyState.Staggering:
+                UnityEngine.Debug.Log("Transition to Rotate!");
                 currentState = EnemyState.Rotating;
                 break;
 
             case EnemyState.Rotating:
+                UnityEngine.Debug.Log("Transition to Walk!");
                 currentState = EnemyState.Walking;
                 break;
 
             case EnemyState.Walking:
+                UnityEngine.Debug.Log("Transition to Run!");
                 currentState = EnemyState.Running;
                 break;
 
             case EnemyState.Running:
+                UnityEngine.Debug.Log("Transition to Attack!");
                 currentState = EnemyState.Attack;
                 break;
 
             case EnemyState.Attack:
+                UnityEngine.Debug.Log("Transition to Bite!");
                 currentState = EnemyState.Biting;
                 break;
 
             case EnemyState.Biting:
+                UnityEngine.Debug.Log("Transition to Dead!");
                 currentState = EnemyState.Dead;
                 break;
 
             case EnemyState.Dead:
+                UnityEngine.Debug.Log("Transition to Idle!");
                 currentState = EnemyState.Idle;
                 break;
 
@@ -76,66 +75,61 @@ public class AnimationTest : MonoBehaviour
                 currentState = EnemyState.Idle;
                 break;
         }
+
+        animate();
     }
 
-    private void ResetTriggers()
+    bool IsPlaying()
     {
-        anim.ResetTrigger("Idle");
-        anim.ResetTrigger("Reaction Hit");
-        anim.ResetTrigger("Rotate");
-        anim.ResetTrigger("Walk");
-        anim.ResetTrigger("Run");
-        anim.ResetTrigger("Attack");
-        anim.ResetTrigger("Bite");
-        anim.ResetTrigger("Death");
-     }
+        // Check if the specified animation is currently playing
+        AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+        return currentState.normalizedTime < 1.0f;
+    }
+
+    void PlayAnimation(string stateName)
+    {
+        // Play the specified animation
+        anim.Play(stateName, 0, 0f);
+    }
 
     void animate() 
     {
         switch (currentState)
         {
             case EnemyState.Idle:
-                anim.SetTrigger("Idle");
+                PlayAnimation("Idle");
                 break;
 
             case EnemyState.Staggering:
-                anim.SetTrigger("Reaction Hit");
-                anim.SetTrigger("Idle");
+                PlayAnimation("Reaction Hit");
                 break;
 
             case EnemyState.Rotating:
-                anim.SetTrigger("Rotate");
-                anim.SetTrigger("Idle");
+                PlayAnimation("Rotate");
                 break;
 
             case EnemyState.Walking:
-                anim.SetTrigger("Idle");
-                anim.SetTrigger("Walk");
+                PlayAnimation("Walk");
                 break;
 
             case EnemyState.Running:
-                anim.SetTrigger("Idle");
-                anim.SetTrigger("Run");
+                PlayAnimation("Run");
                 break;
 
             case EnemyState.Attack:
-                anim.SetTrigger("Idle");
-                anim.SetTrigger("Attack");
+                PlayAnimation("Attack");
                 break;
 
             case EnemyState.Biting:
-                anim.SetTrigger("Idle");
-                anim.SetTrigger("Bite");
+                PlayAnimation("Bite");
                 break;
 
             case EnemyState.Dead:
-                anim.SetTrigger("Idle");
-                anim.SetTrigger("Death");
+                PlayAnimation("Death");
                 break;
 
             default:
                 currentState = EnemyState.Idle;
-                stateChangeTime = 0;
                 break;
 
         }

@@ -41,6 +41,8 @@ public class EnemyCapsuleSmart : EnemySmart
     {
         base.Start();
 
+        SetCoins(enemyScriptableObject.coinsDropOnDeath);
+
         SetRotateSpeed(enemyScriptableObject.rotateSpeed);
         SetWalkSpeed(enemyScriptableObject.walkSpeed);
         SetRunSpeed(enemyScriptableObject.runSpeed);
@@ -82,7 +84,7 @@ public class EnemyCapsuleSmart : EnemySmart
                 break;
 
             case EnemyState.Staggering:
-                renderTextureColor();
+                animate();
                 UpdateStaggerTime();
                 break;
 
@@ -95,13 +97,13 @@ public class EnemyCapsuleSmart : EnemySmart
                 break;
 
             case EnemyState.Walking:
-                renderTextureColor();
+                animate();
                 RotateToTarget();
                 Transition2Position(GetWalkSpeed());
                 break;
 
             case EnemyState.Running:
-                renderTextureColor();
+                animate();
                 if (canExplode) RotateToTarget(25f);
                 else RotateToTarget(-25f);
                 Transition2Position(GetRunSpeed());
@@ -128,7 +130,7 @@ public class EnemyCapsuleSmart : EnemySmart
     public void SetAttackDamage(int val) { attackMelee.attackDamage = attackDamage = val; }
 
     public int GetAttackDamage() { return attackDamage; }
-    public void renderTextureColor() {
+    public override void animate() {
         // Ensure the object has a renderer component
         Renderer renderer = GetComponent<Renderer>();
         if (renderer == null) return;

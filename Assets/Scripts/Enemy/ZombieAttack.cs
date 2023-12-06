@@ -15,6 +15,11 @@ public class ZombieAttack : MonoBehaviour
     public bool isAttacking = false;
 
 
+    public void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
+
     public void SwingArm()
     {
         if (!isAttacking)
@@ -35,32 +40,30 @@ public class ZombieAttack : MonoBehaviour
 
     IEnumerator Attacking()
     {
-        anim.SetTrigger("Transition I");
-        yield return new WaitForSeconds(0.5f);
-        anim.SetTrigger("Attack");
+        PlayAnimation("Attack");
         isAttacking = true;
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(4f);
         ResolveHit();
         yield return new WaitForSeconds(0.3f);
         isAttacking = false;
-        anim.SetTrigger("Transition II");
-        yield return new WaitForSeconds(0.5f);
 
     }
 
     IEnumerator Biting()
     {
-        anim.SetTrigger("Transition I");
-        yield return new WaitForSeconds(0.5f);
-        anim.SetTrigger("Bite");
+        PlayAnimation("Bite");
         isAttacking = true;
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(4f);
         ResolveHit();
         yield return new WaitForSeconds(0.3f);
         isAttacking = false;
-        anim.SetTrigger("Transition II");
-        yield return new WaitForSeconds(0.5f);
 
+    }
+
+    void PlayAnimation(string stateName)
+    {
+        // Play the specified animation
+        anim.Play(stateName, 0, 0f);
     }
 
     void ResolveHit()
