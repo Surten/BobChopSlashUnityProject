@@ -15,8 +15,8 @@ MonoBehaviour:
   maxHealth: 20
   coinsDropOnDeath: 2
   rotateSpeed: 360
-  walkSpeed: 3
-  runSpeed: 9
+  walkSpeed: 1
+  runSpeed: 5
   awarenessAwareRange: 40
   awarenessChaseRange: 15
   awarenessAttackRange: 2

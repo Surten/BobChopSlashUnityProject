@@ -95,11 +95,13 @@ public class EnemyZombieSmart : EnemySmart
                 break;
 
             case EnemyState.Walking:
+                if (!animState.IsName("Walk")) animate();
                 RotateToTarget();
                 Transition2Position(GetWalkSpeed());
                 break;
 
             case EnemyState.Running:
+                if (!animState.IsName("Run")) animate();
                 RotateToTarget();
                 Transition2Position(GetRunSpeed());
                 break;
@@ -227,6 +229,7 @@ public class EnemyZombieSmart : EnemySmart
 
     public override void animate()
     {
+        anim.speed = 1.0f;
         switch (currentState)
         {
             case EnemyState.Idle:
@@ -245,11 +248,13 @@ public class EnemyZombieSmart : EnemySmart
                 break;
 
             case EnemyState.Walking:
+                anim.speed = GetWalkSpeed();
                 PlayAnimation("Walk");
                 LoadWavFile(Sound2Int(SoundState.Walking));
                 break;
 
             case EnemyState.Running:
+                anim.speed = GetRunSpeed();
                 PlayAnimation("Run");
                 LoadWavFile(Sound2Int(SoundState.Running));
                 break;
