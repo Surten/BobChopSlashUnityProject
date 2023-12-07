@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   coinsDropOnDeath: 2
-  rotateSpeed: 360
+  rotateSpeed: 60
   walkSpeed: 1
-  runSpeed: 5
+  runSpeed: 3
+  movingMemoryFrame: 1
   awarenessAwareRange: 40
   awarenessChaseRange: 15
   awarenessAttackRange: 2
@@ -28,4 +29,5 @@ MonoBehaviour:
   despawnTime: 3
   quickDespawnTime: 0.2
   staggerTime: 2
+  fieldOfViewAngle: 45
   biteProbability: 0.25

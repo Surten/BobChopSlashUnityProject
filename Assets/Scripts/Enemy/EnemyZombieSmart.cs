@@ -57,6 +57,7 @@ public class EnemyZombieSmart : EnemySmart
         isCharging = Prob2Bool(enemyScriptableObject.chargeProbability);
 
         SetMovingMemoryFrame(enemyScriptableObject.movingMemoryFrame);
+        SetForgetMemoryFrame(enemyScriptableObject.forgottenMemoryFrame);
         SetFieldOfViewAngle(enemyScriptableObject.fieldOfViewAngle);
 
         SetStaggerProb(enemyScriptableObject.staggerProbability);
@@ -188,21 +189,25 @@ public class EnemyZombieSmart : EnemySmart
             return;
         }
 
+        bool detected = EnemyDetected();
         float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
+        
+        if (detected) ResetForgetMemoryTime();
+        else SetForgetMemoryTime(Time.deltaTime);
 
-        if (targetDistance > enemyScriptableObject.awarenessAwareRange ) // No movement
+        if ((!detected & HasForgottenPlayer()) | (targetDistance > GetAwarenessAwareRange())) // No movement
         {
             if (isStateChanged) ResetIsStateChanged();
             SetEnemyState(EnemyState.Idle);
             return;
         }
-        else if (targetDistance > enemyScriptableObject.awarenessChaseRange) // Rotate towards player
+        else if (targetDistance > GetAwarenessChaseRange()) // Rotate towards player
         {
             if (isStateChanged) ResetIsStateChanged();
             SetEnemyState(EnemyState.Rotating);
             return;
         }
-        else if (targetDistance > enemyScriptableObject.awarenessAttackRange) // Chase Player
+        else if (targetDistance > GetAwarenessAttackRange()) // Chase Player
         {
             if (isStateChanged) ResetIsStateChanged();
             if (isCharging) SetEnemyState(EnemyState.Running);

@@ -22,6 +22,7 @@ public class EnemySmart : MonoBehaviour
     private float groundDistance = 0.2f; //enemy's height from origin
     private float jumpRange = 1.0f;
     private float staggerProb = 0.0f;
+    private float height = 0f;
 
     protected float attackRadius;
     protected int attackDamage;
@@ -51,10 +52,13 @@ public class EnemySmart : MonoBehaviour
     private float stateChangeTime;
     private float movingMemoryTime;
     private float movingMemoryFrame;
+    private float forgetMemoryTime;
+    private float forgetMemoryFrame;
 
     public GameObject FloatingTextPrefab;
     public AudioSource audioSource;
     public List<AudioClip> clips;
+    private Collider enemyCollider;
 
 
     //public enum EnemyState { Dead=0, Idle, Staggering, Rotating, Walking, Charging, Attack, Frozen }
@@ -76,6 +80,14 @@ public class EnemySmart : MonoBehaviour
         ResetMovingMemoryTime();
 
         SetRigidBody(GetComponent<Rigidbody>());
+        SetCollider(GetComponent<Collider>());
+        SetHeight(CalculateHeight());
+
+        if (enemyCollider == null)
+        {
+            UnityEngine.Debug.LogError("Collider not found on the enemy GameObject.");
+        }
+
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
@@ -153,6 +165,10 @@ public class EnemySmart : MonoBehaviour
 
     public Rigidbody GetRigidbody() { return rb; }
 
+    public void SetCollider(Collider collider) { enemyCollider = collider; }
+
+    public Collider GetCollider() { return enemyCollider;  }
+
     public void SetCoins(int val) { coins = val; }
 
     public int GetCoins() { return coins;}
@@ -171,9 +187,25 @@ public class EnemySmart : MonoBehaviour
 
     public float GetMovingMemoryFrame() { return movingMemoryFrame; }
 
+    public void SetForgetMemoryTime(float val) { forgetMemoryTime -= val; }
+
+    public float GetForgetMemoryTime() { return forgetMemoryTime; }
+
+    public void ResetForgetMemoryTime() { forgetMemoryTime = forgetMemoryFrame; }
+
+    public void SetForgetMemoryFrame(float val) { forgetMemoryFrame = val; }
+
+    public float GetForgetMemoryFrame() { return forgetMemoryFrame; }
+
+    public bool HasForgottenPlayer() { return forgetMemoryTime < 0f; }
+
     public void SetFieldOfViewAngle(float val) { fieldOfViewAngle = val; }
 
     public float GetFieldOfViewAngle() { return fieldOfViewAngle; }
+
+    public void SetHeight(float val) { height = val; }
+
+    public float GetHeight() { return height; }
 
     /* Status Functions */
 
@@ -292,19 +324,34 @@ public class EnemySmart : MonoBehaviour
     public bool EnemyDetected() //Needs Improvements
     {
         RaycastHit hit;
-        Vector3 directionToPlayer = target.position - transform.position;
+        Vector3 enemyPos = transform.position;
+        enemyPos.y += height;
+        Vector3 directionToPlayer = target.position - enemyPos;
 
         // Perform a raycast to check for obstacles between the enemy and the player
-        if (Physics.Raycast(transform.position, directionToPlayer, out hit))
+        if (Physics.Raycast(enemyPos, directionToPlayer, out hit))
         {
             // Adjust this condition based on your game's logic
+
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
+                UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * hit.distance, Color.yellow);
+                UnityEngine.Debug.Log("Did Hit");
                 // The player is not obstructed by an obstacle
                 return true;
             }
+            else
+            {
+                UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * 1000, Color.white);
+                UnityEngine.Debug.Log("Did not Hit");
+            }
         }
         return false;
+    }
+
+    protected float CalculateHeight() {
+        CapsuleCollider capsuleCollider = (CapsuleCollider)enemyCollider;
+        return capsuleCollider.height * 0.7f;
     }
 
     /* Sound Functions */
@@ -340,4 +387,5 @@ public class EnemySmart : MonoBehaviour
     {
         return value * value;
     }
+
 }

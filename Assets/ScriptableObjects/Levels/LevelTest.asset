@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LevelTest
   m_EditorClassIdentifier: 
   waveTime: 200
-  enemyOneLimit: 3
-  spawnSpeed: 3
+  enemyOneLimit: 1
+  spawnSpeed: 1

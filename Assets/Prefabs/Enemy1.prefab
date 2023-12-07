@@ -267,7 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  attackMelee: {fileID: 8641910739825661456}
   groundCheck: {fileID: 8694882785508843062}
   groundLayerMask:
     serializedVersion: 2
@@ -284,7 +283,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 45e87874ed496374d911e1118d09a2c0, type: 3}
   - {fileID: 8300000, guid: 795ef758d4dad0a4a883fa6b72385702, type: 3}
   enemyScriptableObject: {fileID: 11400000, guid: d3edeab79edba6149a2ba53b2e98e7f1, type: 2}
-  attackMelee: {fileID: 8641910739825661456}
   isIdleJumping: 0
   canExplode: 0
 --- !u!114 &2243029562777809383
@@ -347,10 +345,14 @@ MonoBehaviour:
   attackPoint: {fileID: 3673441973139217634}
   attackRadius: 1
   attackDamage: 5
+  attackRadiusHeavy: 3
+  attackDamageHeavy: 15
+  attackSpeed: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  swingingSwordCR: 0
+  swingingSword: 0
+  swingingSwordHeavy: 0
 --- !u!95 &6246163056076911573
 Animator:
   serializedVersion: 5

@@ -10,6 +10,7 @@ public class EnemyBaseScriptableObject : ScriptableObject
     public float walkSpeed = 3f;
     public float runSpeed = 9f;
     public float movingMemoryFrame = 1f;
+    public float forgottenMemoryFrame = 3f;
     public float awarenessAwareRange = 40f;
     public float awarenessChaseRange = 15f;
     public float awarenessAttackRange = 2f;
