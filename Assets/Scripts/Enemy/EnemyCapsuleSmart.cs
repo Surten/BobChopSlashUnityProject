@@ -60,6 +60,9 @@ public class EnemyCapsuleSmart : EnemySmart
         if (canExplode) attackMelee.attackDamage *= 3;
         isIdleJumping = Prob2Bool(enemyScriptableObject.idleJumpProbability);
 
+        SetMovingMemoryFrame(enemyScriptableObject.movingMemoryFrame);
+        SetFieldOfViewAngle(enemyScriptableObject.fieldOfViewAngle);
+
         SetStaggerProb(enemyScriptableObject.staggerProbability);
         SetStaggerTimeMax(enemyScriptableObject.staggerTime);
 

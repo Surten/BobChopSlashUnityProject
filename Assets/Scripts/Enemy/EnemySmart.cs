@@ -18,6 +18,7 @@ public class EnemySmart : MonoBehaviour
     private float awarenessAwareRange;
     private float awarenessChaseRange;
     private float awarenessAttackRange;
+    private float fieldOfViewAngle;
     private float groundDistance = 0.2f; //enemy's height from origin
     private float jumpRange = 1.0f;
     private float staggerProb = 0.0f;
@@ -42,11 +43,14 @@ public class EnemySmart : MonoBehaviour
     private bool isGrounded;
     private bool isStaggering;
     private bool isStateChanged;
+    private bool isMoving;
 
     private float staggerTimeMax;
     protected float staggerTime;
     private float despawnTime;
     private float stateChangeTime;
+    private float movingMemoryTime;
+    private float movingMemoryFrame;
 
     public GameObject FloatingTextPrefab;
     public AudioSource audioSource;
@@ -64,10 +68,12 @@ public class EnemySmart : MonoBehaviour
     protected virtual void Start()
     {
         //UnityEngine.Debug.Log("Base Start");
-
         SetIsStateChanged(false);
         SetIsStaggering(false);
         SetStaggerTime(0);
+
+        SetIsMoving(false);
+        ResetMovingMemoryTime();
 
         SetRigidBody(GetComponent<Rigidbody>());
         audioSource = GetComponent<AudioSource>();
@@ -151,6 +157,24 @@ public class EnemySmart : MonoBehaviour
 
     public int GetCoins() { return coins;}
 
+    public void SetIsMoving(bool val) { isMoving = val;}
+
+    public bool GetIsMoving() { return isMoving; }
+
+    public void SetMovingMemoryTime(float val) { movingMemoryTime += val; }
+
+    public float GetMovingMemoryTime() { return movingMemoryTime; }
+
+    public void ResetMovingMemoryTime() { movingMemoryTime = 0f; }
+
+    public void SetMovingMemoryFrame(float val) { movingMemoryFrame = val; }
+
+    public float GetMovingMemoryFrame() { return movingMemoryFrame; }
+
+    public void SetFieldOfViewAngle(float val) { fieldOfViewAngle = val; }
+
+    public float GetFieldOfViewAngle() { return fieldOfViewAngle; }
+
     /* Status Functions */
 
     public void SetNewTarget(Transform newTarget)
@@ -191,6 +215,11 @@ public class EnemySmart : MonoBehaviour
 
     /* Action Functions */
 
+    public float EnemyNPlayerAngle() {
+        Vector3 directionToPlayer = target.position - transform.position;
+        return Vector3.Angle(transform.forward, directionToPlayer);
+    }
+
     public void RotateToTarget()
     {
         Vector3 v = target.position - transform.position;
@@ -198,6 +227,28 @@ public class EnemySmart : MonoBehaviour
         var q = Quaternion.LookRotation(v);
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, q, GetRotateSpeed() * Time.deltaTime);
+    }
+
+    public void Transition2Position(float speed)
+    {
+        transform.position += transform.forward * Time.deltaTime * speed;
+    }
+
+    public void RotateNMove2Position(float speed) 
+    {
+        if (!GetIsMoving())
+        {
+            RotateToTarget();
+            if (EnemyNPlayerAngle() < GetFieldOfViewAngle() * 0.5f) SetIsMoving(true);
+        }
+        else {
+            SetMovingMemoryTime(Time.deltaTime);
+            if (GetMovingMemoryTime() > GetMovingMemoryFrame()) {
+                SetIsMoving(false);
+                ResetMovingMemoryTime();
+            }
+        }
+        Transition2Position(speed);
     }
 
     public void Jump()
@@ -211,11 +262,6 @@ public class EnemySmart : MonoBehaviour
             // Set the rigidbody's velocity directly
             rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
         }
-    }
-
-    public void Transition2Position(float speed)
-    {
-        transform.position += transform.forward * Time.deltaTime * speed;
     }
 
     public bool Prob2Bool(float prob) { return (prob > UnityEngine.Random.value);}
@@ -241,6 +287,24 @@ public class EnemySmart : MonoBehaviour
             isStaggering = false;
             return;
         }
+    }
+
+    public bool EnemyDetected() //Needs Improvements
+    {
+        RaycastHit hit;
+        Vector3 directionToPlayer = target.position - transform.position;
+
+        // Perform a raycast to check for obstacles between the enemy and the player
+        if (Physics.Raycast(transform.position, directionToPlayer, out hit))
+        {
+            // Adjust this condition based on your game's logic
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                // The player is not obstructed by an obstacle
+                return true;
+            }
+        }
+        return false;
     }
 
     /* Sound Functions */

@@ -9,6 +9,7 @@ public class EnemyBaseScriptableObject : ScriptableObject
     public float rotateSpeed = 360f;
     public float walkSpeed = 3f;
     public float runSpeed = 9f;
+    public float movingMemoryFrame = 1f;
     public float awarenessAwareRange = 40f;
     public float awarenessChaseRange = 15f;
     public float awarenessAttackRange = 2f;
@@ -23,5 +24,7 @@ public class EnemyBaseScriptableObject : ScriptableObject
     public float despawnTime = 1f;
     public float quickDespawnTime = 0.2f;
     public float staggerTime = 3f;
+
+    public float fieldOfViewAngle = 45f;
 
 }

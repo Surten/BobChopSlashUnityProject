@@ -56,6 +56,9 @@ public class EnemyZombieSmart : EnemySmart
 
         isCharging = Prob2Bool(enemyScriptableObject.chargeProbability);
 
+        SetMovingMemoryFrame(enemyScriptableObject.movingMemoryFrame);
+        SetFieldOfViewAngle(enemyScriptableObject.fieldOfViewAngle);
+
         SetStaggerProb(enemyScriptableObject.staggerProbability);
         SetStaggerTimeMax(enemyScriptableObject.staggerTime);
 
@@ -90,20 +93,20 @@ public class EnemyZombieSmart : EnemySmart
                 UpdateStaggerTime();
                 break;
 
-            case EnemyState.Rotating:
+            case EnemyState.Rotating://Must modify Rotate animation so it animates correct direction in animation
+                if (!animState.IsName("Rotate")) animate();
+                if (!IsPlaying("Rotate")) PlayAnimation("Rotate"); 
                 RotateToTarget();
                 break;
 
             case EnemyState.Walking:
                 if (!animState.IsName("Walk")) animate();
-                RotateToTarget();
-                Transition2Position(GetWalkSpeed());
+                RotateNMove2Position(GetWalkSpeed());
                 break;
 
             case EnemyState.Running:
                 if (!animState.IsName("Run")) animate();
-                RotateToTarget();
-                Transition2Position(GetRunSpeed());
+                RotateNMove2Position(GetRunSpeed());
                 break;
 
             case EnemyState.Attack:
@@ -186,7 +189,8 @@ public class EnemyZombieSmart : EnemySmart
         }
 
         float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
-        if (targetDistance > enemyScriptableObject.awarenessAwareRange) // No movement
+
+        if (targetDistance > enemyScriptableObject.awarenessAwareRange ) // No movement
         {
             if (isStateChanged) ResetIsStateChanged();
             SetEnemyState(EnemyState.Idle);
