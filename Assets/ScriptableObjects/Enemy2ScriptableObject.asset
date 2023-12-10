@@ -17,13 +17,14 @@ MonoBehaviour:
   rotateSpeed: 60
   walkSpeed: 1
   runSpeed: 3
-  movingMemoryFrame: 1
+  movingMemoryFrame: 0
+  forgottenMemoryFrame: 3
   awarenessAwareRange: 40
   awarenessChaseRange: 15
   awarenessAttackRange: 2
   attackDamage: 1
   attackRadius: 1
-  chargeProbability: 0.25
+  chargeProbability: 1
   kamikazeProbability: 0.25
   staggerProbability: 0.5
   despawnTime: 3
