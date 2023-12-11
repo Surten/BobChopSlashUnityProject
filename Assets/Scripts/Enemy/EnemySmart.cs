@@ -29,6 +29,7 @@ public class EnemySmart : MonoBehaviour
 
     protected int coins;
     protected int exp;
+    protected bool isBoss;
 
     protected EnemyState currentState = EnemyState.Idle;
 
@@ -72,7 +73,6 @@ public class EnemySmart : MonoBehaviour
     /* Initialization and Updates per Frame */
     protected virtual void Start()
     {
-        //UnityEngine.Debug.Log("Base Start");
         SetIsStateChanged(false);
         SetIsStaggering(false);
         SetStaggerTime(0);
@@ -130,6 +130,10 @@ public class EnemySmart : MonoBehaviour
     public void SetIsStateChanged(bool val) { isStateChanged = val; }
 
     public bool GetIsStateChanged() { return isStateChanged; }
+
+    public void SetIsBoss(bool val) { isBoss = val;}
+
+    public bool GetIsBoss() { return isBoss; }
 
     public void ResetIsStateChanged(){ isStateChanged = false; }
     public void SetIsStaggering(bool val) { isStaggering = val; }

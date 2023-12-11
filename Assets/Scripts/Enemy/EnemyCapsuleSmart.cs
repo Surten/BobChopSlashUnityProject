@@ -44,6 +44,8 @@ public class EnemyCapsuleSmart : EnemySmart
         SetCoins(enemyScriptableObject.coinsDropOnDeath);
         SetExp(enemyScriptableObject.expDropOnDeath);
 
+        SetIsBoss(enemyScriptableObject.isBoss);
+
         SetRotateSpeed(enemyScriptableObject.rotateSpeed);
         SetWalkSpeed(enemyScriptableObject.walkSpeed);
         SetRunSpeed(enemyScriptableObject.runSpeed);

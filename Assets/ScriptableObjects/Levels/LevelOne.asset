@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LevelOne
   m_EditorClassIdentifier: 
   waveTime: 10
-  enemyOneLimit: 0
-  spawnSpeed: 1
+  enemyOneLimit: 20
+  spawnSpeed: 2
