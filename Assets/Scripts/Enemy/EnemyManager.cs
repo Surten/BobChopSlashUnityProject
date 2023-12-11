@@ -100,7 +100,7 @@ public class EnemyManager : MonoBehaviour
     public void _randomDropGameObjectAroundPos(GameObject dropItem, Vector3 pos_init, int amount, float radius) {
         for (int i0 = 0; i0 < amount; i0++)
         {
-            Vector3 pos_temp = pos_init + new Vector3(radius * UnityEngine.Random.value, 0f, radius * UnityEngine.Random.value);
+            Vector3 pos_temp = pos_init + new Vector3(radius * 2*(UnityEngine.Random.value - 0.5f), 0f, radius * 2*(UnityEngine.Random.value - 0.5f));
             Instantiate(dropItem, pos_temp, Quaternion.identity);
         }
     }

@@ -11,7 +11,7 @@ using System.Collections.Specialized;
 
 public class EnemyCapsuleSmart : EnemySmart
 {
-    public new Enemy1ScriptableObject enemyScriptableObject;
+    public Enemy1ScriptableObject enemyScriptableObject;
     protected AttackMelee attackMelee;
 
     public bool isIdleJumping;
