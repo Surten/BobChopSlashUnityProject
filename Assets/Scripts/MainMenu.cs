@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     public void onSliderChange()
     {
         GameManager.masterVolume = volumeSlider.value;
+        audioSource.volume = volumeSlider.value;
     }
 
     private void Start()
@@ -19,8 +20,8 @@ public class MainMenu : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.Play();
         Cursor.lockState = CursorLockMode.None;
+        volumeSlider.value = volumeSlider.maxValue = 1f;
     }
-
     public void PlayGame()
     {
         Cursor.lockState = CursorLockMode.Locked;

@@ -336,14 +336,14 @@ public class EnemySmart : MonoBehaviour
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * hit.distance, Color.yellow);
-                UnityEngine.Debug.Log("Did Hit");
+                //UnityEngine.Debug.Log("Did Hit");
                 // The player is not obstructed by an obstacle
                 return true;
             }
             else
             {
                 UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * 1000, Color.white);
-                UnityEngine.Debug.Log("Did not Hit");
+                //UnityEngine.Debug.Log("Did not Hit");
             }
         }
         return false;

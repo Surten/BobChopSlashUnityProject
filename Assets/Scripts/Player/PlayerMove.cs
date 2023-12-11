@@ -61,7 +61,7 @@ public class PlayerMove : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-        
+        if (playerAttack.swingingSwordHeavy) x = y = 0;
 
         Vector3 move = transform.right * x + transform.forward * y;
         if (Input.GetKey(KeyCode.LeftShift))

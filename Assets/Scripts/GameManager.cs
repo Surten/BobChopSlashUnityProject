@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     int currentLevel;
     int timeLeft;
     int spawnSpeed;
-    public static float masterVolume;
+    public static float masterVolume = 0.5f;
 
     void Start()
     {
