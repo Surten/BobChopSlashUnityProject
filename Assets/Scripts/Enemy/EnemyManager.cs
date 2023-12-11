@@ -71,7 +71,6 @@ public class EnemyManager : MonoBehaviour
                 if (e2.GetEnemyState() == EnemySmart.EnemyState.Dead) // If dead, remove data and remove body
                 {
                     if (isStateChanged) e2.ResetIsStateChanged();
-                    //UnityEngine.Debug.Log("Despawn Time" + e2.GetDespawnTime());
                     e2.animate();
                     onEnemyDeath(go, e2.GetDespawnTime(), e2.GetCoins(), e2.GetExp());
                     continue;
@@ -182,7 +181,6 @@ public class EnemyManager : MonoBehaviour
 
     public void onEnemyDeath(GameObject enemy, float despawnTime, int addedCoins, int addedExp)
     {
-        //ShopManager.Instance.AddCoins(addedCoins);
         float r = 0.3f;
         _randomDropGameObjectAroundPos(coinDrop, enemy.transform.position, addedCoins, r);
         _randomDropGameObjectAroundPos(expDrop, enemy.transform.position, addedExp, r);
