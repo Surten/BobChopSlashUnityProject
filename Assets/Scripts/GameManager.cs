@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = masterVolume;
         currentLevel = 0;
+        enemyManager.SetPrefabsTypes();
         StartWave();
     }
 
@@ -83,9 +84,9 @@ public class GameManager : MonoBehaviour
         // spawn enemies up to a limit
         // limit will be defined in a scriptable object for each wave
         
-        if (levelScriptableObjects[currentLevel].enemyOneLimit > enemyManager.getNumEnemies())
+        if (enemyManager.getNumEnemies() < levelScriptableObjects[currentLevel].enemyOneLimit  )
         {
-            enemyManager.SpawnEnemiesRandomly(spawnSpeed);
+            enemyManager.SpawnEnemiesRandomly(spawnSpeed, levelScriptableObjects[currentLevel].enemyOneLimit);
         }
     }
 

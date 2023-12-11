@@ -32,13 +32,13 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        SetPrefabsTypes();
     }
 
     void Update()
     {
         if (spawnOneEnemy) spawnOnEditorDemand();
-        foreach (GameObject go in enemies) // Loop through each enemy
+        // Loop through each enemy
+        foreach (GameObject go in new List<GameObject>(enemies)) // Avoid error of removing enemy from a collection while in use
         {
             EnemyCapsuleSmart e1 = go.GetComponent<EnemyCapsuleSmart>();
             if (e1 != null)
@@ -84,7 +84,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     /* Load Prefabs */
-    private void SetPrefabsTypes()
+    public void SetPrefabsTypes()
     {
         foreach (GameObject go in enemyPrefab)
         {
@@ -94,10 +94,11 @@ public class EnemyManager : MonoBehaviour
             }
             else
             {
-                //UnityEngine.Debug.Log("Common Enemy Detected!!!");
                 commonEnemyPrefab.Add(go);
             }
         }
+        //Debug.Log("Boss Enemy Count: " + bossEnemyPrefab.Count);
+        //Debug.Log("Common Enemy Count: " + commonEnemyPrefab.Count);
     }
 
     /* Spawn and Despawn Functions */
@@ -110,14 +111,15 @@ public class EnemyManager : MonoBehaviour
     public void SpawnEnemy(Vector3 position)
     {
         // Check if the list is not empty
-        if (enemyPrefab.Count > 0)
+        if (enemyPrefab.Count != 0) 
         {
-            if (bossEnemyPrefab.Count > 0 && curBossCount < maxBossCount)
+            if ((bossEnemyPrefab.Count != 0) && curBossCount < maxBossCount)
             {
+                
                 _SpawnPrefabEnemy(bossEnemyPrefab, position);
                 curBossCount++;
             }
-            else if (commonEnemyPrefab.Count > 0)
+            else if (commonEnemyPrefab.Count != 0)
             {
                 _SpawnPrefabEnemy(commonEnemyPrefab, position);
             }
@@ -145,10 +147,16 @@ public class EnemyManager : MonoBehaviour
         enemies.Add(newEnemy);
     }
 
-    public void SpawnEnemiesRandomly(int numEnemies)
+    public void SpawnEnemiesRandomly(int numEnemies, int maxEnemies)
     {
         float x, z;
-        for(int i0 = 0; i0 < numEnemies; i0++)
+        //Debug.Log("Number of Enemies " + numEnemies);
+        //Debug.Log("Current Enemies " + enemies.Count);
+        if (enemies.Count >= maxEnemies) return;
+
+        if ((enemies.Count + numEnemies) > maxEnemies) numEnemies = maxEnemies - enemies.Count;
+
+        for (int i0 = 0; i0 < numEnemies; i0++)
         {
             x = 2 * arenaRadius * (UnityEngine.Random.value - 0.5f);
             z = 2 * arenaRadius * (UnityEngine.Random.value - 0.5f);
