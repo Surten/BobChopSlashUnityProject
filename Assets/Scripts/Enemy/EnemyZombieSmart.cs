@@ -13,7 +13,7 @@ public class EnemyZombieSmart : EnemySmart
 {
     private bool isBiting;
 
-    public Enemy2ScriptableObject enemyScriptableObject;
+    public new Enemy2ScriptableObject enemyScriptableObject;
     protected ZombieAttack attackMelee;
 
     public new enum SoundState
@@ -40,6 +40,7 @@ public class EnemyZombieSmart : EnemySmart
         base.Start();
 
         SetCoins(enemyScriptableObject.coinsDropOnDeath);
+        SetExp(enemyScriptableObject.expDropOnDeath);
 
         SetRotateSpeed(enemyScriptableObject.rotateSpeed);
         SetWalkSpeed(enemyScriptableObject.walkSpeed);

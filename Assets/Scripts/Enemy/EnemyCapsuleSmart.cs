@@ -11,7 +11,7 @@ using System.Collections.Specialized;
 
 public class EnemyCapsuleSmart : EnemySmart
 {
-    public Enemy1ScriptableObject enemyScriptableObject;
+    public new Enemy1ScriptableObject enemyScriptableObject;
     protected AttackMelee attackMelee;
 
     public bool isIdleJumping;
@@ -42,6 +42,7 @@ public class EnemyCapsuleSmart : EnemySmart
         base.Start();
 
         SetCoins(enemyScriptableObject.coinsDropOnDeath);
+        SetExp(enemyScriptableObject.expDropOnDeath);
 
         SetRotateSpeed(enemyScriptableObject.rotateSpeed);
         SetWalkSpeed(enemyScriptableObject.walkSpeed);

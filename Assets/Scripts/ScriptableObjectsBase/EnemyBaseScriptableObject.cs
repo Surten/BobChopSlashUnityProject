@@ -5,6 +5,7 @@ public class EnemyBaseScriptableObject : ScriptableObject
 {
     public int maxHealth = 20;
     public int coinsDropOnDeath = 2;
+    public int expDropOnDeath = 1;
 
     public float rotateSpeed = 360f;
     public float walkSpeed = 3f;
@@ -19,7 +20,6 @@ public class EnemyBaseScriptableObject : ScriptableObject
     public float attackRadius = 1f;
 
     public float chargeProbability = 0.25f;
-    public float kamikazeProbability = 0.25f;
     public float staggerProbability = 0.50f;
 
     public float despawnTime = 1f;
@@ -27,5 +27,7 @@ public class EnemyBaseScriptableObject : ScriptableObject
     public float staggerTime = 3f;
 
     public float fieldOfViewAngle = 45f;
+
+    public bool isBoss = false;
 
 }

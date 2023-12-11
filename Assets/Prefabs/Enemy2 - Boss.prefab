@@ -294,7 +294,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9de996077b329bf45a574163a97b85bc, type: 3}
   - {fileID: 8300000, guid: b99797294c937294f8ade8aeeefed6d2, type: 3}
   - {fileID: 8300000, guid: 45f9d594e64295e498c7bc300264d87a, type: 3}
-  enemyScriptableObject: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
+  enemyScriptableObject: {fileID: 11400000, guid: 2706c60b1b69cd741b108aa7dce04a90, type: 2}
   anim: {fileID: 0}
 --- !u!114 &7492936425186309022
 MonoBehaviour:
@@ -312,7 +312,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  enemyInfo: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
+  enemyInfo: {fileID: 11400000, guid: 2706c60b1b69cd741b108aa7dce04a90, type: 2}
 --- !u!1001 &3450613315656646150
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class EnemySmart : MonoBehaviour
     protected int attackDamage;
 
     protected int coins;
+    protected int exp;
 
     protected EnemyState currentState = EnemyState.Idle;
 
@@ -172,6 +173,10 @@ public class EnemySmart : MonoBehaviour
     public void SetCoins(int val) { coins = val; }
 
     public int GetCoins() { return coins;}
+
+    public void SetExp(int val){ exp = val; }
+
+    public int GetExp() { return exp; }
 
     public void SetIsMoving(bool val) { isMoving = val;}
 

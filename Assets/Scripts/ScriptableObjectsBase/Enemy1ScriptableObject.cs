@@ -4,4 +4,5 @@ using UnityEngine;
 public class Enemy1ScriptableObject : EnemyBaseScriptableObject
 {
     public float idleJumpProbability = 0.25f;
+    public float kamikazeProbability = 0.25f;
 }
