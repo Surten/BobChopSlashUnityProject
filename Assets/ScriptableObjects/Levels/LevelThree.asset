@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4483f7de88cb544a9a13711c5e34c3, type: 3}
   m_Name: LevelThree
   m_EditorClassIdentifier: 
-  waveTime: 50
-  enemyOneLimit: 40
-  spawnSpeed: 5
+  waveTime: 30
+  enemyOneLimit: 30
+  spawnSpeed: 2

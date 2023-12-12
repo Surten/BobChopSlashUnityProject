@@ -155,7 +155,7 @@ public class EnemyZombieSmart : EnemySmart
     public override void SetEnemyState(EnemyState state)
     {
         base.SetEnemyState(state);
-        ResetTriggers();
+        //ResetTriggers();
     }
 
     public new EnemyState GetEnemyState()
@@ -192,7 +192,7 @@ public class EnemyZombieSmart : EnemySmart
             return;
         }
 
-        bool detected = EnemyDetected();
+        bool detected = EnemyDetected(GetAwarenessAwareRange());
         float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
         
         if (detected) ResetForgetMemoryTime();

@@ -23,8 +23,8 @@ MonoBehaviour:
   awarenessAwareRange: 40
   awarenessChaseRange: 15
   awarenessAttackRange: 2
-  attackDamage: 1
-  attackRadius: 1
+  attackDamage: 2
+  attackRadius: 1.5
   chargeProbability: 0.5
   staggerProbability: 0.5
   despawnTime: 3

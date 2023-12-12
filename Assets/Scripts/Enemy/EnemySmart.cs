@@ -62,6 +62,8 @@ public class EnemySmart : MonoBehaviour
     public List<AudioClip> clips;
     private Collider enemyCollider;
 
+    private LayerMask detectableLayers;
+
 
     //public enum EnemyState { Dead=0, Idle, Staggering, Rotating, Walking, Charging, Attack, Frozen }
     public enum EnemyState { Dead = 0, Idle, Jumping, Staggering, Rotating, Walking, Running, Attack, Biting, Explode, Frozen }
@@ -73,6 +75,8 @@ public class EnemySmart : MonoBehaviour
     /* Initialization and Updates per Frame */
     protected virtual void Start()
     {
+        SetDetectableLayers(~(1 << LayerMask.NameToLayer("Enemy")));
+
         SetIsStateChanged(false);
         SetIsStaggering(false);
         SetStaggerTime(0);
@@ -216,6 +220,10 @@ public class EnemySmart : MonoBehaviour
 
     public float GetHeight() { return height; }
 
+    public void SetDetectableLayers(LayerMask val) { detectableLayers = val; }
+
+    public LayerMask GetDetectableLayers() { return detectableLayers; }
+
     /* Status Functions */
 
     public void SetNewTarget(Transform newTarget)
@@ -330,7 +338,7 @@ public class EnemySmart : MonoBehaviour
         }
     }
 
-    public bool EnemyDetected() //Needs Improvements
+    public bool EnemyDetected(float maxDistance) //Needs Improvements
     {
         RaycastHit hit;
         Vector3 enemyPos = transform.position;
@@ -338,7 +346,7 @@ public class EnemySmart : MonoBehaviour
         Vector3 directionToPlayer = target.position - enemyPos;
 
         // Perform a raycast to check for obstacles between the enemy and the player
-        if (Physics.Raycast(enemyPos, directionToPlayer, out hit))
+        if (Physics.Raycast(enemyPos, directionToPlayer, out hit, maxDistance, detectableLayers))
         {
             // Adjust this condition based on your game's logic
 
