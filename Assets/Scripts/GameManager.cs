@@ -8,6 +8,26 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    #region Singleton
+    private static GameManager mInstance;
+
+    private void Awake()
+    {
+        if (mInstance != null)
+            Debug.Log("More than one instance of Inventory");
+        mInstance = this;
+    }
+    public static GameManager Instance
+    {
+        get
+        {
+            return mInstance;
+        }
+    }
+    #endregion
+
+
     public LevelScriptableObject[] levelScriptableObjects;
     public TextMeshProUGUI timeLeftText;
     public GuiControl playerGui;

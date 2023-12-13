@@ -6,10 +6,10 @@ public class PlayerMove : MonoBehaviour
     public Animator anim;
     public PlayerScriptableObject playerInfo;
 
-    public Transform groundCheck;
+    //public Transform groundCheck;
     public LayerMask groundLayerMask;
 
-    public float groundDistance = 0.2f; //player height from origin
+    //public float groundDistance = 0.2f; //player height from origin
     private float moveSpeed;
     private float sprintMultiplier = 2f;
     private float resetYHeightTreshold = -200f;
@@ -46,7 +46,7 @@ public class PlayerMove : MonoBehaviour
 
     void Grounded()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayerMask);
+        isGrounded = ((rb.velocity.y < 0.00001) && (rb.velocity.y > -0.00001));
     }
     void Jump()
     {

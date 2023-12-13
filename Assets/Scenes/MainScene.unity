@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -858,14 +858,6 @@ PrefabInstance:
     - target: {fileID: 5368187608776937889, guid: 8666c2f72fc6f8941aed85993e3894f6, type: 3}
       propertyPath: m_Name
       value: Gui
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867019273849143285, guid: 8666c2f72fc6f8941aed85993e3894f6, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1785763332}
-    - target: {fileID: 5867019273849143285, guid: 8666c2f72fc6f8941aed85993e3894f6, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EnterNextWave
       objectReference: {fileID: 0}
     - target: {fileID: 8107503944201971163, guid: 8666c2f72fc6f8941aed85993e3894f6, type: 3}
       propertyPath: m_AnchorMax.x

@@ -119,6 +119,11 @@ public class ShopManager : MonoBehaviour
         b3.LoadNewItem(currentlySoldItems[rnd.Next(currentlySoldItems.Count)]);
     }
 
+    public void OnButtonNextWave()
+    {
+        GameManager.Instance.EnterNextWave();
+    }
+
 
     private void Update()
     {
