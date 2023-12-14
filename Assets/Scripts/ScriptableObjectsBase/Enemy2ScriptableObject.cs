@@ -4,4 +4,5 @@ using UnityEngine;
 public class Enemy2ScriptableObject : EnemyBaseScriptableObject
 {
     public float biteProbability = 0.25f;
+    public float crawlProbability = 0.25f;
 }

@@ -24,6 +24,10 @@ public class EnemySmart : MonoBehaviour
     private float staggerProb = 0.0f;
     private float height = 0f;
 
+    private float obstructionHeight = 0f;
+    private float obstructionDistance = 0f;
+    private Vector3 obstructionPoint;
+
     protected float attackRadius;
     protected int attackDamage;
 
@@ -66,7 +70,7 @@ public class EnemySmart : MonoBehaviour
 
 
     //public enum EnemyState { Dead=0, Idle, Staggering, Rotating, Walking, Charging, Attack, Frozen }
-    public enum EnemyState { Dead = 0, Idle, Jumping, Staggering, Rotating, Walking, Running, Attack, Biting, Explode, Frozen }
+    public enum EnemyState { Dead = 0, Idle, Jumping, Staggering, Rotating, Walking, Running, Crawling, Climbing, Attack, Biting, Explode, Frozen }
 
     public enum SoundState
     {
@@ -216,6 +220,17 @@ public class EnemySmart : MonoBehaviour
 
     public float GetFieldOfViewAngle() { return fieldOfViewAngle; }
 
+    public void SetObstructionHeight(float val) { obstructionHeight = val; }
+
+    public float GetObstructionHeight() { return obstructionHeight; }
+
+    public void SetObstructionDistance(float val) { obstructionDistance = val; }
+    public float GetObstructionDistance() { return obstructionDistance; }
+
+    public void SetObstructionPoint(Vector3 val) { obstructionPoint = val; }
+
+    public Vector3 GetObstructionPoint() { return obstructionPoint; }
+
     public void SetHeight(float val) { height = val; }
 
     public float GetHeight() { return height; }
@@ -223,6 +238,7 @@ public class EnemySmart : MonoBehaviour
     public void SetDetectableLayers(LayerMask val) { detectableLayers = val; }
 
     public LayerMask GetDetectableLayers() { return detectableLayers; }
+
 
     /* Status Functions */
 
@@ -313,6 +329,20 @@ public class EnemySmart : MonoBehaviour
         }
     }
 
+    public IEnumerator LerpObstacle(Vector3 targetPosition, float duration)
+    {
+        float time = 0;
+        Vector3 startPosition = transform.position;
+
+        while (time < duration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = targetPosition;
+    }
+
     public bool Prob2Bool(float prob) { return (prob > UnityEngine.Random.value);}
 
     public void StaggerCoinFlip()
@@ -361,6 +391,32 @@ public class EnemySmart : MonoBehaviour
             {
                 UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * 1000, Color.white);
                 //UnityEngine.Debug.Log("Did not Hit");
+            }
+        }
+        return false;
+    }
+
+    public bool CheckObstruction(float maxDistance) //Needs Improvements
+    {
+        RaycastHit hit;
+        Vector3 enemyPos = transform.position;
+        enemyPos.y += 0.1f;
+        Vector3 directionToPlayer = target.position - enemyPos;
+
+        // Perform a raycast to check for obstacles between the enemy and the player
+        if (Physics.Raycast(enemyPos, directionToPlayer, out hit, maxDistance, detectableLayers))
+        {
+            // Adjust this condition based on your game's logic
+
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+
+                // Retrieve the distance to the hit point
+                SetObstructionDistance(hit.distance);
+                SetObstructionPoint(hit.point);
+                SetObstructionHeight(hit.collider.bounds.size.y);
+                UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * hit.distance, Color.green);
+                return true;
             }
         }
         return false;

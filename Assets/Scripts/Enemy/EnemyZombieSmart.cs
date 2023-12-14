@@ -12,6 +12,7 @@ using System.Collections.Specialized;
 public class EnemyZombieSmart : EnemySmart
 {
     private bool isBiting;
+    private bool isCrawling;
 
     public Enemy2ScriptableObject enemyScriptableObject;
     protected ZombieAttack attackMelee;
@@ -25,6 +26,7 @@ public class EnemyZombieSmart : EnemySmart
         Rotating = 0,
         Walking = 3,
         Running = 3,
+        Crawling = 3,
         Attack = 4,
         Biting = 4,
         Dead = 0,
@@ -58,6 +60,7 @@ public class EnemyZombieSmart : EnemySmart
         isBiting = Prob2Bool(enemyScriptableObject.biteProbability);
 
         isCharging = Prob2Bool(enemyScriptableObject.chargeProbability);
+        isCrawling = isCharging && Prob2Bool(enemyScriptableObject.crawlProbability);
 
         SetMovingMemoryFrame(enemyScriptableObject.movingMemoryFrame);
         SetForgetMemoryFrame(enemyScriptableObject.forgottenMemoryFrame);
@@ -111,6 +114,18 @@ public class EnemyZombieSmart : EnemySmart
             case EnemyState.Running:
                 if (!animState.IsName("Run")) animate();
                 RotateNMove2Position(GetRunSpeed());
+                break;
+
+            case EnemyState.Crawling:
+                if (!animState.IsName("Crawl")) animate();
+                RotateNMove2Position(GetRunSpeed());
+                break;
+
+            case EnemyState.Climbing:
+                if (!animState.IsName("Climb")) animate();
+                Vector3 pos = GetObstructionPoint();
+                pos.y = GetObstructionHeight();
+                StartCoroutine(LerpObstacle(pos, 1f));
                 break;
 
             case EnemyState.Attack:
@@ -212,9 +227,19 @@ public class EnemyZombieSmart : EnemySmart
         }
         else if (targetDistance > GetAwarenessAttackRange()) // Chase Player
         {
-            if (isStateChanged) ResetIsStateChanged();
-            if (isCharging) SetEnemyState(EnemyState.Running);
-            else SetEnemyState(EnemyState.Walking);
+            bool obstructed = CheckObstruction(GetAwarenessChaseRange());
+
+            if (obstructed && GetObstructionDistance() < 0.6f)
+            {
+                if (isStateChanged) ResetIsStateChanged();
+                SetEnemyState(EnemyState.Climbing);
+            }
+            else {
+                if (isStateChanged) ResetIsStateChanged();
+                if (isCrawling) SetEnemyState(EnemyState.Crawling);
+                else if (isCharging) SetEnemyState(EnemyState.Running);
+                else SetEnemyState(EnemyState.Walking);
+            }
             return;
         }
         else // Attack player
@@ -237,6 +262,7 @@ public class EnemyZombieSmart : EnemySmart
         anim.ResetTrigger("Attack");
         anim.ResetTrigger("Bite");
         anim.ResetTrigger("Death");
+        anim.ResetTrigger("Climb");
     }
 
     public override void animate()
@@ -266,9 +292,19 @@ public class EnemyZombieSmart : EnemySmart
                 break;
 
             case EnemyState.Running:
-                anim.speed = GetRunSpeed();
+                anim.speed = GetRunSpeed()/2;
                 PlayAnimation("Run");
                 LoadWavFile(Sound2Int(SoundState.Running));
+                break;
+
+            case EnemyState.Crawling:
+                anim.speed = GetRunSpeed()/2;
+                PlayAnimation("Crawl");
+                LoadWavFile(Sound2Int(SoundState.Crawling));
+                break;
+
+            case EnemyState.Climbing:
+                PlayAnimation("Climb");
                 break;
 
             case EnemyState.Attack:
@@ -301,4 +337,5 @@ public class EnemyZombieSmart : EnemySmart
 
     /* List of Subfunctions (functions that are used as tools for other functions)*/
     private int Sound2Int(SoundState sound) { return (int)sound; }
+
 }

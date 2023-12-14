@@ -22,9 +22,9 @@ MonoBehaviour:
   forgottenMemoryFrame: 3
   awarenessAwareRange: 40
   awarenessChaseRange: 15
-  awarenessAttackRange: 2
+  awarenessAttackRange: 2.2
   attackDamage: 2
-  attackRadius: 1.5
+  attackRadius: 2.2
   chargeProbability: 0.5
   staggerProbability: 0.5
   despawnTime: 3
@@ -33,3 +33,4 @@ MonoBehaviour:
   fieldOfViewAngle: 45
   isBoss: 0
   biteProbability: 0.25
+  crawlProbability: 0.25
