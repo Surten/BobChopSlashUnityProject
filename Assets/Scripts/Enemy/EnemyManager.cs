@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+//using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -29,6 +30,9 @@ public class EnemyManager : MonoBehaviour
 
     public int maxBossCount = 1;
     private int curBossCount = 0;
+
+    public GameObject spawnEffectCommon;
+    public GameObject spawnEffectBoss;
 
     /* Start and Update Functions */
 
@@ -113,6 +117,7 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnEnemy(Vector3 position)
     {
+
         // Check if the list is not empty
         if (enemyPrefab.Count != 0) 
         {
@@ -120,11 +125,13 @@ public class EnemyManager : MonoBehaviour
             {
                 
                 _SpawnPrefabEnemy(bossEnemyPrefab, position);
+                _PlaySpawnEffect(spawnEffectBoss, position);
                 curBossCount++;
             }
             else if (commonEnemyPrefab.Count != 0)
             {
                 _SpawnPrefabEnemy(commonEnemyPrefab, position);
+                _PlaySpawnEffect(spawnEffectCommon, position);
             }
             else {
                 Debug.LogError("Common Enemy Type (non-boss) not available. Add prefabs to the list.");
@@ -194,6 +201,25 @@ public class EnemyManager : MonoBehaviour
         Destroy(enemy, despawnTime);
     }
 
+    /* Particle Effects */
+
+    void _PlaySpawnEffect(GameObject spawnEffect, Vector3 position)
+    {
+        // Instantiate the particle effect at the spawn location
+        GameObject particleEffectInstance = Instantiate(spawnEffect, position, Quaternion.Euler(-90f, 0f, 0f));
+
+        // Access the ParticleSystem component if needed
+        ParticleSystem particleSystem = particleEffectInstance.GetComponent<ParticleSystem>();
+
+        // Play the particle effect
+        if (particleSystem != null)
+        {
+            particleSystem.Play();
+
+            // Destroy the GameObject after the duration of the particle system
+            Destroy(particleEffectInstance, particleSystem.main.duration);
+        }
+    }
 
     /* List of Subfunctions (functions that are used as tools for other functions)*/
 

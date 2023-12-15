@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.05341591, g: 0.06962007, b: 0.0849443, a: 1}
+  m_IndirectSpecularColor: {r: 0.056708664, g: 0.07910747, b: 0.0969312, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12129,6 +12129,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1040062155800328837, guid: cccb6d714a92d4a44b865a183243156d, type: 3}
     - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: spawnEffect
+      value: 
+      objectReference: {fileID: 4587612047929739312, guid: 329b4493241a2584d957757aef17fbf5, type: 3}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
       propertyPath: DropContainer
       value: 
       objectReference: {fileID: 912106882}
@@ -12136,6 +12140,14 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 853851068}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: spawnEffectBoss
+      value: 
+      objectReference: {fileID: 4587612047929739312, guid: 78642aa5d54e41b489157454711d0d0a, type: 3}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: spawnEffectCommon
+      value: 
+      objectReference: {fileID: 4587612047929739312, guid: 329b4493241a2584d957757aef17fbf5, type: 3}
     - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
       propertyPath: enemyPrefab.Array.data[0]
       value: 
