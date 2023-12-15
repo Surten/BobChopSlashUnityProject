@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8395991385434204181, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: m_Volume
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8395991385434204181, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -1467,6 +1467,14 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1402047351}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: spawnEffectBoss
+      value: 
+      objectReference: {fileID: 4587612047929739312, guid: 78642aa5d54e41b489157454711d0d0a, type: 3}
+    - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
+      propertyPath: spawnEffectCommon
+      value: 
+      objectReference: {fileID: 4587612047929739312, guid: 329b4493241a2584d957757aef17fbf5, type: 3}
     - target: {fileID: 6093041581373892280, guid: 6fed2665e842154478430fbcd82a79f8, type: 3}
       propertyPath: enemyPrefab.Array.size
       value: 1
