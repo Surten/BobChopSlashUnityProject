@@ -26,11 +26,11 @@ MonoBehaviour:
   attackDamage: 1
   attackRadius: 1
   chargeProbability: 0.25
-  staggerProbability: 0.5
+  staggerProbability: 1
   despawnTime: 1
-  quickDespawnTime: 0.2
+  quickDespawnTime: 0.5
   staggerTime: 3
   fieldOfViewAngle: 45
   isBoss: 0
   idleJumpProbability: 0.25
-  kamikazeProbability: 0.25
+  kamikazeProbability: 0.5
