@@ -23,7 +23,9 @@ public class EnemyManager : MonoBehaviour
 
     public bool spawnOneEnemy = false;
 
-    public float arenaRadius = 13f;
+    public float spawnableRadius = 13f;
+    public float nonSpawnableRadius = 3f;
+    private float validRadius = 0f;
 
     public int maxBossCount = 1;
     private int curBossCount = 0;
@@ -32,6 +34,8 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
+        validRadius = spawnableRadius - nonSpawnableRadius;
+        if (validRadius < 0.5f) validRadius = 2f;
     }
 
     void Update()
@@ -157,10 +161,12 @@ public class EnemyManager : MonoBehaviour
 
         for (int i0 = 0; i0 < numEnemies; i0++)
         {
-            x = 2 * arenaRadius * (UnityEngine.Random.value - 0.5f);
-            z = 2 * arenaRadius * (UnityEngine.Random.value - 0.5f);
-            Vector3 v = new Vector3(x, 1f, z);
-            SpawnEnemy(v);
+            
+            x = 2 * validRadius * (UnityEngine.Random.value - 0.5f) + nonSpawnableRadius + playerTransform.position.x;
+            z = 2 * validRadius * (UnityEngine.Random.value - 0.5f) + nonSpawnableRadius + playerTransform.position.z;
+            Vector3 v = new Vector3(x, 0.1f, z);
+
+            if(_isSpawnLocationValid(v, 2f)) SpawnEnemy(v);
         }
     }
 
@@ -208,5 +214,14 @@ public class EnemyManager : MonoBehaviour
         EnemyZombieSmart e2 = go.GetComponent<EnemyZombieSmart>();
         if (e2 != null) return e2.enemyScriptableObject.isBoss;
         return false;
+    }
+
+    private bool _isSpawnLocationValid(Vector3 spawnPoint, float maxRaycastDistance = 2f)
+    {
+        // Create a ray from the spawn point in the upward direction
+        Ray ray = new Ray(spawnPoint, Vector3.up);
+
+        // Perform the raycast
+        return !Physics.Raycast(ray, maxRaycastDistance);
     }
 }
