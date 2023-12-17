@@ -7,7 +7,7 @@ public class AnimationTest : MonoBehaviour
 {
 
     public Animator anim;
-    public enum EnemyState { Idle, Staggering, Rotating, Walking, Running, Attack, Biting, Dead };
+    public enum EnemyState { Idle, Staggering, Rotating, Walking, Running, Crawling, Climbing, Attack, Biting, Dead };
     private EnemyState currentState;
     bool playStarted = false;
 
@@ -52,7 +52,17 @@ public class AnimationTest : MonoBehaviour
                 break;
 
             case EnemyState.Running:
-                UnityEngine.Debug.Log("Transition to Attack!");
+                UnityEngine.Debug.Log("Transition to Crawling!");
+                currentState = EnemyState.Crawling;
+                break;
+
+            case EnemyState.Crawling:
+                UnityEngine.Debug.Log("Transition to Climbing!");
+                currentState = EnemyState.Climbing;
+                break;
+
+            case EnemyState.Climbing:
+                UnityEngine.Debug.Log("Transition to Climbing!");
                 currentState = EnemyState.Attack;
                 break;
 
@@ -114,6 +124,14 @@ public class AnimationTest : MonoBehaviour
 
             case EnemyState.Running:
                 PlayAnimation("Run");
+                break;
+
+            case EnemyState.Crawling:
+                PlayAnimation("Crawl");
+                break;
+
+            case EnemyState.Climbing:
+                PlayAnimation("Climb");
                 break;
 
             case EnemyState.Attack:
