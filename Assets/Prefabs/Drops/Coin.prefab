@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5775380691575648265}
   - component: {fileID: 7333863914955980630}
   - component: {fileID: 2951246902124156420}
+  - component: {fileID: 5420329665003064777}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -151,3 +152,15 @@ MonoBehaviour:
   layerMaskPickable:
     serializedVersion: 2
     m_Bits: 256
+--- !u!122 &5420329665003064777
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5873790181712770139}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4284192146
+  m_Size: 0.2
