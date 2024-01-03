@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Wings
   icon: {fileID: 21300000, guid: 9232b8e3648ee0047b739c9885ddfbf0, type: 3}
-  description: Nothing Yet
-  bonusMovementSpeed: 0
-  bonusMaxHealth: 0
+  description: '+5% movement speed
+
+    +5 Max health'
+  bonusMovementSpeed: 5
+  bonusMaxHealth: 5
   bonusArmor: 0
   bonusAttackDamage: 0
   bonusAttackSpeedPercentage: 0
@@ -24,4 +26,4 @@ MonoBehaviour:
   addFireBallDamage: 0
   reduceFireBallCooldownbyPercent: 0
   freezeSpell: 0
-  price: 1
+  price: 4

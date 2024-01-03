@@ -10,8 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc4483f7de88cb544a9a13711c5e34c3, type: 3}
-  m_Name: LevelTwo
+  m_Name: Level_2
   m_EditorClassIdentifier: 
   waveTime: 25
   enemyOneLimit: 25
   spawnSpeed: 1
+  playerStartPosition: {x: 0, y: 1, z: 0}
+  fogEnabled: 1
+  enemieTypes:
+  - {fileID: 5330491977413527683, guid: bc287e098d5894d4c8ac5e2442d90c07, type: 3}
+  - {fileID: 1875268921558836089, guid: 438e5ba5bc353e748a50f842aa56c855, type: 3}
+  - {fileID: 1040062155800328837, guid: cccb6d714a92d4a44b865a183243156d, type: 3}

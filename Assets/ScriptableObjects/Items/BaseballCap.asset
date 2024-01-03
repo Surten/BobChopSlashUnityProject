@@ -24,4 +24,4 @@ MonoBehaviour:
   addFireBallDamage: 0
   reduceFireBallCooldownbyPercent: 0
   freezeSpell: 0
-  price: 1
+  price: 3

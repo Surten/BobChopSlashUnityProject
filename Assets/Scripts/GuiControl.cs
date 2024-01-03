@@ -16,6 +16,9 @@ public class GuiControl : MonoBehaviour
     public Image blackScreenImage;
     public TextMeshProUGUI youDiedText;
 
+    public Transform winScreen;
+    public Image blackWinScreenImage;
+    public TextMeshProUGUI youWinText;
 
     public void ShopAppear()
     {
@@ -54,6 +57,31 @@ public class GuiControl : MonoBehaviour
 
             youDiedTextColor.a += fadeSpeed * Time.deltaTime;
             youDiedText.color = youDiedTextColor;
+            notFaded = (youDiedTextColor.a < 1);
+
+            yield return null;
+        }
+    }
+
+    public void OnPlayerWin()
+    {
+        deathScreen.gameObject.SetActive(true);
+        StartCoroutine(fadeToBlackWinCoRoutine());
+    }
+
+    public IEnumerator fadeToBlackWinCoRoutine()
+    {
+        bool notFaded = true;
+        float fadeSpeed = 0.4f;
+        Color blackScreenImageColor = blackWinScreenImage.color;
+        Color youDiedTextColor = youWinText.color;
+        while (notFaded)
+        {
+            blackScreenImageColor.a += 2 * fadeSpeed * Time.deltaTime;
+            blackWinScreenImage.color = blackScreenImageColor;
+
+            youDiedTextColor.a += fadeSpeed * Time.deltaTime;
+            youWinText.color = youDiedTextColor;
             notFaded = (youDiedTextColor.a < 1);
 
             yield return null;

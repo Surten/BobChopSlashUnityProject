@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timeLeftText;
     public GuiControl playerGui;
     public EnemyManager enemyManager;
+    public Transform playerTransform;
     private AudioSource audioSource;
     public AudioClip[] soundtracks;
 
@@ -55,9 +56,15 @@ public class GameManager : MonoBehaviour
     {
         timeLeft = levelScriptableObjects[currentLevel].waveTime;
         spawnSpeed = levelScriptableObjects[currentLevel].spawnSpeed;
+        playerTransform.position = levelScriptableObjects[currentLevel].playerStartPosition;
+        RenderSettings.fog = levelScriptableObjects[currentLevel].fogEnabled;
+
+        enemyManager.enemyPrefab = levelScriptableObjects[currentLevel].enemieTypes;
+        enemyManager.SetPrefabsTypes();
 
         audioSource.clip = soundtracks[0];
         audioSource.Play();
+
 
         gameLoopCoroutine = StartCoroutine(LoopTimer());
     }
@@ -87,7 +94,8 @@ public class GameManager : MonoBehaviour
         currentLevel++;
         if(levelScriptableObjects.Length == currentLevel)
         {
-            // end game
+            playerGui.OnPlayerWin();
+            OnPlayerDeath();
             return;
         }
 

@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc4483f7de88cb544a9a13711c5e34c3, type: 3}
-  m_Name: LevelOne
+  m_Name: Level_1
   m_EditorClassIdentifier: 
   waveTime: 20
   enemyOneLimit: 20
   spawnSpeed: 2
+  playerStartPosition: {x: 0, y: 1, z: 0}
+  fogEnabled: 1
+  enemieTypes:
+  - {fileID: 7734015270792813225, guid: e8e74c5527b0e1345800032b63c5b4a8, type: 3}

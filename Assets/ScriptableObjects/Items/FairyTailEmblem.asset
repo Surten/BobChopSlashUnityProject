@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Fairy Tail Emblem
   icon: {fileID: 21300000, guid: 5f8cf3c3b7cd46140b46479a3491352c, type: 3}
-  description: Nothing Yet
+  description: Reduce Fireball cooldown by 30%
   bonusMovementSpeed: 0
   bonusMaxHealth: 0
   bonusArmor: 0
   bonusAttackDamage: 0
+  bonusAttackSpeedPercentage: 0
+  bonusAttackRadiusPercentage: 0
   addFireBallDamage: 0
-  reduceFireBallCooldownbyPercent: 0
+  reduceFireBallCooldownbyPercent: 30
   freezeSpell: 0
-  price: 1
+  price: 5

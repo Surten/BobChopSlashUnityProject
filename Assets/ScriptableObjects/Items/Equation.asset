@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Equation
   icon: {fileID: 21300000, guid: 1c675462e2ccf0f45b56f978a2ea2e3c, type: 3}
-  description: Nothing Yet
-  bonusMovementSpeed: 0
-  bonusMaxHealth: 0
+  description: '+ 10 Max HP
+
+    + 5% Movement speed'
+  bonusMovementSpeed: 5
+  bonusMaxHealth: 10
   bonusArmor: 0
   bonusAttackDamage: 0
+  bonusAttackSpeedPercentage: 0
+  bonusAttackRadiusPercentage: 0
   addFireBallDamage: 0
   reduceFireBallCooldownbyPercent: 0
   freezeSpell: 0
-  price: 1
+  price: 2

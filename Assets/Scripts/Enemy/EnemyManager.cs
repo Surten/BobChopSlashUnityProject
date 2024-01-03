@@ -12,7 +12,7 @@ using static UnityEngine.CullingGroup;
 
 public class EnemyManager : MonoBehaviour
 {
-    public List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> enemies;
     public GameObject expDrop;
     public GameObject coinDrop;
     public GameObject DropContainer;
@@ -93,6 +93,8 @@ public class EnemyManager : MonoBehaviour
     /* Load Prefabs */
     public void SetPrefabsTypes()
     {
+        bossEnemyPrefab.Clear();
+        commonEnemyPrefab.Clear();
         foreach (GameObject go in enemyPrefab)
         {
             if (_checkIsBoss(go))
