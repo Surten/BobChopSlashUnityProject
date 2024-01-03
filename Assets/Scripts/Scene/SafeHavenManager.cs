@@ -26,7 +26,7 @@ public class SafeHavenManager : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (!activeHaven)
+        if (!activeHaven) // Randomly Activate a Safe Haven
         {
             index = Random.Range(0, safeHavens.Count);
             SafeHaven sf = safeHavens[index].GetComponent<SafeHaven>();
@@ -34,7 +34,7 @@ public class SafeHavenManager : MonoBehaviour
             activeHaven = true;
         }
 
-        if (timer > maxSafeTime)
+        if (timer > maxSafeTime) // Deativate a Safe Haven
         {
             SafeHaven sf = safeHavens[index].GetComponent<SafeHaven>();
             sf.deactivateHaven();
