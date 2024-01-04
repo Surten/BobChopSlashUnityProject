@@ -24,6 +24,8 @@ public class PlayerMove : MonoBehaviour
         playerAttack = GetComponent<AttackMelee>();
 
         moveSpeed = playerInfo.moveSpeed * 0.01f;
+        float animSpeedModifier = 1.5f;
+        anim.SetFloat("MovementSpeed", moveSpeed * animSpeedModifier);
         playerAttack.attackDamageBase = playerAttack.attackDamage = playerInfo.attackDamage;
         
         ShopManager.Instance.onItemPickUpEvent += OnItemPickUp;
@@ -64,6 +66,8 @@ public class PlayerMove : MonoBehaviour
         if (playerAttack.swingingSwordHeavy) x = y = 0;
 
         Vector3 move = transform.right * x + transform.forward * y;
+
+        move.Normalize();
         if (Input.GetKey(KeyCode.LeftShift))
         {
             move *= sprintMultiplier;
@@ -76,9 +80,7 @@ public class PlayerMove : MonoBehaviour
         anim.SetFloat("horizontal", x);
         anim.SetFloat("vertical", y);
 
-        move.Normalize();
-
-        transform.position += move * Time.deltaTime * (moveSpeed * 5f);
+        transform.position += move * Time.deltaTime * (moveSpeed * 3f);
         if(transform.position.y < resetYHeightTreshold)
         {
             transform.position += Vector3.up * (resetYHeightTreshold + 20f);
