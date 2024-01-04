@@ -8,6 +8,7 @@ using static UnityEngine.CullingGroup;
 using System.Net;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using TMPro;
 
 public class EnemyHumanoidSmart : EnemySmart
 {
@@ -119,7 +120,8 @@ public class EnemyHumanoidSmart : EnemySmart
                 if (!animState.IsName("Climb")) animate();
                 Vector3 pos = GetObstructionPoint();
                 pos.y = GetObstructionHeight();
-                StartCoroutine(LerpObstacle(pos, 1f));
+                UnityEngine.Debug.Log("Obstacle Height: " + pos.y);
+                StartCoroutine(LerpObstacle(pos, 1.0f));
                 break;
 
             case EnemyState.Attacking:
@@ -318,5 +320,4 @@ public class EnemyHumanoidSmart : EnemySmart
 
     /* List of Subfunctions (functions that are used as tools for other functions)*/
     private int Sound2Int(SoundState sound) { return (int)sound; }
-
 }

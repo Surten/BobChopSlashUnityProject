@@ -125,6 +125,7 @@ public class EnemyZombieSmart : EnemySmart
                 if (!animState.IsName("Climb")) animate();
                 Vector3 pos = GetObstructionPoint();
                 pos.y = GetObstructionHeight();
+                UnityEngine.Debug.Log("Obstacle Height: " + pos.y);
                 StartCoroutine(LerpObstacle(pos, 1f));
                 break;
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   waveTime: 60
-  enemyOneLimit: 60
+  enemyOneLimit: 2
   spawnSpeed: 2
   playerStartPosition: {x: 0, y: 1, z: 0}
   fogEnabled: 1
