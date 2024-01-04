@@ -24,7 +24,7 @@ public class PlayerMove : MonoBehaviour
         playerAttack = GetComponent<AttackMelee>();
 
         moveSpeed = playerInfo.moveSpeed * 0.01f;
-        playerAttack.attackDamage = playerInfo.attackDamage;
+        playerAttack.attackDamageBase = playerAttack.attackDamage = playerInfo.attackDamage;
         
         ShopManager.Instance.onItemPickUpEvent += OnItemPickUp;
     }
@@ -89,7 +89,7 @@ public class PlayerMove : MonoBehaviour
     private void OnItemPickUp(Item item)
     {
         moveSpeed += (item.bonusMovementSpeed * 0.01f * moveSpeed);
-        playerAttack.attackDamage += item.bonusAttackDamage;
+        playerAttack.UpdateAttackDamage(item.bonusAttackDamage);
         playerAttack.UpdateAttackSpeed(item.bonusAttackSpeedPercentage);
         playerAttack.UpdateAttackRadius(item.bonusAttackRadiusPercentage);
     }

@@ -8,13 +8,23 @@ public class AttackMelee : MonoBehaviour
     public Animator anim;
     public Transform attackPoint;
 
+    public float attackDamagePercentage = 100f;
+    public float attackSpeedPercentage = 100f;
+    public float attackRadiusPercentage = 100f;
+
+    public float attackRadiusBase = 1f;
     public float attackRadius = 1f;
+    public int attackDamageBase = 5;
     public int attackDamage = 5;
 
-    public float attackRadiusHeavy = 3f;
-    public int attackDamageHeavy = 15;
+
+    public float attackRadiusHeavyBase = 2f;
+    public float attackRadiusHeavy = 2f;
+    public int attackDamageHeavyBase = 12;
+    public int attackDamageHeavy = 12;
 
     public float attackSpeed = 1f;
+    public float attackSpeedBase = 1f;
     public LayerMask layerMask;
 
     public bool swingingSword = false;
@@ -22,15 +32,28 @@ public class AttackMelee : MonoBehaviour
 
     public void UpdateAttackSpeed(float percentageAdded)
     {
-        attackSpeed += (percentageAdded * attackSpeed * 0.01f);
+        attackSpeedPercentage += percentageAdded;
+        attackSpeed = (attackSpeedPercentage * attackSpeedBase * 0.01f);
         anim.SetFloat("AttackSpeed", attackSpeed);
     }
 
     public void UpdateAttackRadius(float percentageAdded)
     {
-        float volume = 4.0f / 3.0f * Mathf.PI * Mathf.Pow(attackRadius, 3);
-        volume = volume + (percentageAdded * 0.01f * volume);
+        attackRadiusPercentage += percentageAdded;
+        float volume = 4.0f / 3.0f * Mathf.PI * Mathf.Pow(attackRadiusBase, 3);
+        volume = (attackRadiusPercentage * 0.01f * volume);
         attackRadius = Mathf.Pow((3.0f * volume)/(4 * Mathf.PI), 1.0f / 3.0f);
+
+        float volumeHeavy = 4.0f / 3.0f * Mathf.PI * Mathf.Pow(attackRadiusHeavyBase, 3);
+        volumeHeavy = (attackRadiusPercentage * 0.01f * volumeHeavy);
+        attackRadiusHeavy = Mathf.Pow((3.0f * volumeHeavy) / (4 * Mathf.PI), 1.0f / 3.0f);
+    }
+
+    public void UpdateAttackDamage(float percentageAdded)
+    {
+        attackDamagePercentage += percentageAdded;
+        attackDamage = (int)(attackDamagePercentage * attackDamageBase * 0.01f);
+        attackDamageHeavy = (int)(attackDamagePercentage * attackDamageHeavyBase * 0.01f);
     }
 
 
