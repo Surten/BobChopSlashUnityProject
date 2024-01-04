@@ -11,26 +11,29 @@ public class SafeHaven : MonoBehaviour
     public Material activeMaterial;
     public Material inactiveMaterial;
 
-    void Start()
+    private float blinkInterval = 0.5f; // Time interval between blinks
+    private float timeToBlink = 5f; // Time until the Safe Haven disappears
+    private Coroutine blinkingCoroutine;
+
+    public void setBlinkInterval(float val) { blinkInterval = val; }
+
+    public float getBlinkInterval() { return blinkInterval; }
+
+    public void setTimeToBlink(float val) { timeToBlink = val; }
+
+    public float getTimeToBlink() { return timeToBlink; }
+
+    public void activateHaven(float maxSafeTime) 
     {
-        //activateHaven();
-
-        //Invoke("deactivateHaven", 10f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void activateHaven() {
         StartParticlesSystem();
         EnableMeshCollider();
         SetMaterial(activeMaterial);
+        Invoke("StartBlinking", maxSafeTime - timeToBlink);
     }
 
-    public void deactivateHaven() {
+    public void deactivateHaven() 
+    {
+        StopBlinking();
         StopParticleSystems();
         DisableMeshCollider();
         SetMaterial(inactiveMaterial);
@@ -116,5 +119,44 @@ public class SafeHaven : MonoBehaviour
         }
     }
 
+    /* Blinking Coroutine */
+
+    void StartBlinking()
+    {
+        if (blinkingCoroutine == null)
+        {
+            blinkingCoroutine = StartCoroutine(BlinkCoroutine());
+        }
+    }
+
+    void StopBlinking()
+    {
+        if (blinkingCoroutine != null)
+        {
+            StopCoroutine(blinkingCoroutine);
+            blinkingCoroutine = null;
+        }
+    }
+
+    IEnumerator BlinkCoroutine()
+    {
+        Material[] materials = { activeMaterial, inactiveMaterial };
+        int currentMaterialIndex = 0;
+
+        float timer = 0f;
+        while (true)
+        {
+            SetMaterial(materials[currentMaterialIndex]); // Change material
+            currentMaterialIndex = (currentMaterialIndex + 1) % materials.Length; // Toggle between 0 and 1
+            yield return new WaitForSeconds(blinkInterval);
+
+            if (timer >= timeToBlink)
+            {
+                SetMaterial(inactiveMaterial); // Ensure it's inactive before disappearing
+                break;
+            }
+            timer += Time.deltaTime;
+        }
+    }
 
 }

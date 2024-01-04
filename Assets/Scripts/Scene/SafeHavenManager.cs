@@ -30,7 +30,8 @@ public class SafeHavenManager : MonoBehaviour
         {
             index = Random.Range(0, safeHavens.Count);
             SafeHaven sf = safeHavens[index].GetComponent<SafeHaven>();
-            sf.activateHaven();
+            sf.setTimeToBlink(3f);
+            sf.activateHaven(maxSafeTime);
             activeHaven = true;
         }
 
