@@ -477,7 +477,19 @@ MonoBehaviour:
   bloodParticle: {fileID: 8936737025924419503, guid: 422120f37b9ad264bbaa3d1220eb8d13, type: 3}
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1784823082680604490}
+        m_TargetAssemblyTypeName: HumanoidAttack, Assembly-CSharp
+        m_MethodName: StopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   enemyInfo: {fileID: 11400000, guid: e6b230ec032cf8049bd317f25c6eb30d, type: 2}
 --- !u!114 &4717388116122563316
 MonoBehaviour:

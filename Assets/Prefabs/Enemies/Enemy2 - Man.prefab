@@ -311,7 +311,19 @@ MonoBehaviour:
   bloodParticle: {fileID: 8936737025924419503, guid: 422120f37b9ad264bbaa3d1220eb8d13, type: 3}
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8881705601630458511}
+        m_TargetAssemblyTypeName: ZombieAttack, Assembly-CSharp
+        m_MethodName: StopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   enemyInfo: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
 --- !u!1001 &5244326790726503951
 PrefabInstance:

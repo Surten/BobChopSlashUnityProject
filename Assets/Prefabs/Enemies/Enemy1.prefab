@@ -300,7 +300,19 @@ MonoBehaviour:
   bloodParticle: {fileID: 8936737025924419503, guid: 422120f37b9ad264bbaa3d1220eb8d13, type: 3}
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8641910739825661456}
+        m_TargetAssemblyTypeName: AttackMelee, Assembly-CSharp
+        m_MethodName: StopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   enemyInfo: {fileID: 11400000, guid: d3edeab79edba6149a2ba53b2e98e7f1, type: 2}
 --- !u!54 &8817201514410182763
 Rigidbody:
@@ -343,11 +355,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 6246163056076911573}
   attackPoint: {fileID: 3673441973139217634}
+  attackDamagePercentage: 100
+  attackSpeedPercentage: 100
+  attackRadiusPercentage: 100
+  attackRadiusBase: 1
   attackRadius: 1
+  attackDamageBase: 5
   attackDamage: 5
+  attackRadiusHeavyBase: 2
   attackRadiusHeavy: 3
+  attackDamageHeavyBase: 12
   attackDamageHeavy: 15
   attackSpeed: 1
+  attackSpeedBase: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 256

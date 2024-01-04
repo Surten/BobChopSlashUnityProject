@@ -111,7 +111,7 @@ public class EnemyHumanoidSmart : EnemySmart
                 break;
 
             case EnemyState.Running:
-                if (!animState.IsName("Run")) animate();
+                if (!(animState.IsName("Run") | animState.IsName("Fast Run"))) animate();
                 RotateNMove2Position(GetRunSpeed());
                 break;
 
@@ -275,6 +275,7 @@ public class EnemyHumanoidSmart : EnemySmart
                 anim.speed = 1; // GetRunSpeed();
                 if (GetIsBoss()) { PlayAnimation("Fast Run"); }
                 else { PlayAnimation("Run"); }
+                //PlayAnimation("Run");
                 LoadWavFile(Sound2Int(SoundState.Running));
                 break;
 

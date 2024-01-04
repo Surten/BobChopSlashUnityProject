@@ -17,7 +17,7 @@ MonoBehaviour:
   expDropOnDeath: 15
   rotateSpeed: 360
   walkSpeed: 1
-  runSpeed: 5
+  runSpeed: 3
   movingMemoryFrame: 0
   forgottenMemoryFrame: 10
   awarenessAwareRange: 40

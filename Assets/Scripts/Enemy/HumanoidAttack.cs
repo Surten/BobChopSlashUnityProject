@@ -13,9 +13,10 @@ public class HumanoidAttack : MonoBehaviour
     public LayerMask layerMask;
 
     public bool isAttacking = false;
+    private Coroutine attackRoutine;
 
 
-    public void Start()
+    protected void Start()
     {
         anim = GetComponentInChildren<Animator>();
     }
@@ -24,7 +25,7 @@ public class HumanoidAttack : MonoBehaviour
     {
         if (!isAttacking)
         {
-            StartCoroutine(Attacking());
+            attackRoutine = StartCoroutine(Attacking());
         }
 
     }
@@ -33,7 +34,7 @@ public class HumanoidAttack : MonoBehaviour
     {
         if (!isAttacking) 
         {
-            StartCoroutine(Kicking());
+            attackRoutine = StartCoroutine(Kicking());
         }
     }
 
@@ -102,5 +103,10 @@ public class HumanoidAttack : MonoBehaviour
         if (attackPoint == null) return;
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+    }
+
+    public void StopAttack()
+    {
+        StopCoroutine(attackRoutine);
     }
 }

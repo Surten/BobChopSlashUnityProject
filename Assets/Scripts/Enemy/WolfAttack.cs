@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Worlf : MonoBehaviour
+public class WolfAttack: MonoBehaviour
 {
 
     public Animator anim;
@@ -13,9 +13,10 @@ public class Worlf : MonoBehaviour
     public LayerMask layerMask;
 
     public bool isAttacking = false;
+    private Coroutine attackRoutine;
 
 
-    public void Start()
+    protected void Start()
     {
         anim = GetComponentInChildren<Animator>();
     }
@@ -24,7 +25,7 @@ public class Worlf : MonoBehaviour
     {
         if (!isAttacking)
         {
-            StartCoroutine(Biting());
+            attackRoutine = StartCoroutine(Biting());
         }
 
     }
@@ -33,7 +34,7 @@ public class Worlf : MonoBehaviour
     {
         if (!isAttacking)
         {
-            StartCoroutine(Chowing());
+            attackRoutine = StartCoroutine(Chowing());
         }
 
     }
@@ -82,5 +83,10 @@ public class Worlf : MonoBehaviour
         if (attackPoint == null) return;
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+    }
+
+    public void StopAttack()
+    {
+        StopCoroutine(attackRoutine);
     }
 }

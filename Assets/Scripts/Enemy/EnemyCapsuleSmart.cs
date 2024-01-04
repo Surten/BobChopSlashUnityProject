@@ -292,7 +292,7 @@ public class EnemyCapsuleSmart : EnemySmart
 
     public void Explode()
     {
-        attackMelee.MeleeAttackLight();
+        attackMelee.ImmediateDamage();
         if (GetComponent<ParticleSystem>() != null) // Play explosion particles
         {
             explosionEffect.Play();

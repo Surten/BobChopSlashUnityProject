@@ -13,9 +13,10 @@ public class ZombieAttack : MonoBehaviour
     public LayerMask layerMask;
 
     public bool isAttacking = false;
+    private Coroutine attackRoutine;
 
 
-    public void Start()
+    protected void Start()
     {
         anim = GetComponentInChildren<Animator>();
     }
@@ -24,7 +25,7 @@ public class ZombieAttack : MonoBehaviour
     {
         if (!isAttacking)
         {
-            StartCoroutine(Attacking());
+            attackRoutine = StartCoroutine(Attacking());
         }
 
     }
@@ -33,7 +34,7 @@ public class ZombieAttack : MonoBehaviour
     {
         if (!isAttacking)
         {
-            StartCoroutine(Biting());
+            attackRoutine = StartCoroutine(Biting());
         }
 
     }
@@ -82,5 +83,10 @@ public class ZombieAttack : MonoBehaviour
         if (attackPoint == null) return;
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+    }
+
+    public void StopAttack()
+    {
+        StopCoroutine(attackRoutine);
     }
 }

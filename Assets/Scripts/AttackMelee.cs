@@ -30,6 +30,8 @@ public class AttackMelee : MonoBehaviour
     public bool swingingSword = false;
     public bool swingingSwordHeavy = false;
 
+    private Coroutine attackRoutine;
+
     public void UpdateAttackSpeed(float percentageAdded)
     {
         attackSpeedPercentage += percentageAdded;
@@ -56,12 +58,16 @@ public class AttackMelee : MonoBehaviour
         attackDamageHeavy = (int)(attackDamagePercentage * attackDamageHeavyBase * 0.01f);
     }
 
+    public void ImmediateDamage() {
+        Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, attackRadius, layerMask);
+        ResolveSwordHit(enemiesHit, attackDamage);
+    }
 
     public void MeleeAttackLight()
     {
         if (!swingingSword)
         {
-            StartCoroutine(LightAttackCoroutine());
+            attackRoutine = StartCoroutine(LightAttackCoroutine());
         }
     }
 
@@ -81,7 +87,7 @@ public class AttackMelee : MonoBehaviour
     {
         if (!swingingSword)
         {
-            StartCoroutine(HeavyAttackCoroutine());
+            attackRoutine = StartCoroutine(HeavyAttackCoroutine());
         }
     }
 
@@ -111,5 +117,8 @@ public class AttackMelee : MonoBehaviour
         if (attackPoint == null) return;
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+    }
+    public void StopAttack() {
+        StopCoroutine(attackRoutine);
     }
 }
