@@ -499,7 +499,9 @@ GameObject:
   - component: {fileID: 5924273904346578660}
   - component: {fileID: 6978930706464183095}
   - component: {fileID: 971716189420249964}
+  - component: {fileID: 5668773041600271516}
   - component: {fileID: 7326269541458559101}
+  - component: {fileID: 3247686213183468622}
   m_Layer: 0
   m_Name: Enemy3 - Boss
   m_TagString: Untagged
@@ -671,6 +673,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5668773041600271516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931018242820440963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e2417f0dc7c0746a623336383af218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  attackPoint: {fileID: 7867757240427166756}
+  attackRadius: 1
+  attackDamage: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  isAttacking: 0
 --- !u!114 &7326269541458559101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,7 +709,31 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  enemyInfo: {fileID: 0}
+  enemyInfo: {fileID: 11400000, guid: c40caf9fee2ed1440a673bc6d86bfa81, type: 2}
+--- !u!114 &3247686213183468622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931018242820440963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b757ecbcba7d1ea4b88dd97c1f293232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  groundCheck: {fileID: 5312414914777461304}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  isCharging: 0
+  FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
+  audioSource: {fileID: 0}
+  clips:
+  - {fileID: 0}
+  enemyScriptableObject: {fileID: 11400000, guid: c40caf9fee2ed1440a673bc6d86bfa81, type: 2}
+  anim: {fileID: 0}
 --- !u!1 &2186388282869952322
 GameObject:
   m_ObjectHideFlags: 0

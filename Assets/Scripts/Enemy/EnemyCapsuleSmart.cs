@@ -116,7 +116,7 @@ public class EnemyCapsuleSmart : EnemySmart
                 Transition2Position(GetRunSpeed());
                 break;
 
-            case EnemyState.Attack:
+            case EnemyState.Attacking:
                 RotateToTarget();
                 attackMelee.MeleeAttackLight();
                 break;
@@ -261,7 +261,7 @@ public class EnemyCapsuleSmart : EnemySmart
             }
             else
             {
-                SetEnemyState(EnemyState.Attack);
+                SetEnemyState(EnemyState.Attacking);
             }
 
             return;
