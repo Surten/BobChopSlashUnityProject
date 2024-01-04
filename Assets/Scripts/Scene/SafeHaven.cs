@@ -160,4 +160,11 @@ public class SafeHaven : MonoBehaviour
         }
     }
 
+    /*
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+    */
+
 }

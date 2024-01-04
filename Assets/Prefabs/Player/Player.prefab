@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1809017304367703443}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,11 +106,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 9107392748529271900}
   playerInfo: {fileID: 11400000, guid: 99360efc98b82024a8b2e755a7a343ff, type: 2}
-  groundCheck: {fileID: 3664621616406123648}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  groundDistance: 0.2
 --- !u!114 &921311878424000449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,11 +123,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 9107392748529271900}
   attackPoint: {fileID: 1329374540679650051}
+  attackDamagePercentage: 100
+  attackSpeedPercentage: 100
+  attackRadiusPercentage: 100
+  attackRadiusBase: 1
   attackRadius: 1
+  attackDamageBase: 5
   attackDamage: 5
+  attackRadiusHeavyBase: 2
   attackRadiusHeavy: 3
+  attackDamageHeavyBase: 12
   attackDamageHeavy: 15
   attackSpeed: 1
+  attackSpeedBase: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 128

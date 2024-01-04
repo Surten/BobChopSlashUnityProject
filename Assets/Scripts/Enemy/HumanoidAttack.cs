@@ -107,6 +107,6 @@ public class HumanoidAttack : MonoBehaviour
 
     public void StopAttack()
     {
-        StopCoroutine(attackRoutine);
+        if (attackRoutine != null) StopCoroutine(attackRoutine);
     }
 }

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4693968406678561364}
+  - component: {fileID: 8601452476694876660}
   m_Layer: 0
   m_Name: Torch
   m_TagString: Untagged
@@ -33,6 +34,21 @@ Transform:
   - {fileID: 8345570452331377026}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8601452476694876660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2499898816003281612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06373c497df69c14d95bb871d7942ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flame: {fileID: 2646674114169405900}
+  lightSource: {fileID: 5598721118749437611}
+  detectionRange: 6
 --- !u!1 &4865584204020265027
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +172,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3919608993269192289, guid: 9a208b412e59de3469f44fd09117f335, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919608993269192289, guid: 9a208b412e59de3469f44fd09117f335, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 2
       objectReference: {fileID: 0}
@@ -215,11 +235,25 @@ PrefabInstance:
       propertyPath: m_Range
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8518798491946520912, guid: 9a208b412e59de3469f44fd09117f335, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a208b412e59de3469f44fd09117f335, type: 3}
+--- !u!1 &2646674114169405900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2247469095976484407, guid: 9a208b412e59de3469f44fd09117f335, type: 3}
+  m_PrefabInstance: {fileID: 4290379213259849723}
+  m_PrefabAsset: {fileID: 0}
+--- !u!108 &5598721118749437611 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 8518798491946520912, guid: 9a208b412e59de3469f44fd09117f335, type: 3}
+  m_PrefabInstance: {fileID: 4290379213259849723}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8345570452331377026 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5213779915847470713, guid: 9a208b412e59de3469f44fd09117f335, type: 3}

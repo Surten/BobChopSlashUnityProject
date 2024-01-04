@@ -87,6 +87,6 @@ public class WolfAttack: MonoBehaviour
 
     public void StopAttack()
     {
-        StopCoroutine(attackRoutine);
+        if (attackRoutine != null) StopCoroutine(attackRoutine);
     }
 }

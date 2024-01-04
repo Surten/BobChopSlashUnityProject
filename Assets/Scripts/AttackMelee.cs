@@ -118,7 +118,8 @@ public class AttackMelee : MonoBehaviour
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
-    public void StopAttack() {
-        StopCoroutine(attackRoutine);
+    public void StopAttack() 
+    {
+        if (attackRoutine != null) StopCoroutine(attackRoutine);
     }
 }
