@@ -206,6 +206,7 @@ public class EnemyHumanoidSmart : EnemySmart
         float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
         
         if (detected) ResetForgetMemoryTime();
+        else if (GetSafeHavenDetected()) SetForgetPlayer();
         else SetForgetMemoryTime(Time.deltaTime);
 
         if ((!detected & HasForgottenPlayer()) | (targetDistance > GetAwarenessAwareRange())) // No movement
@@ -265,13 +266,13 @@ public class EnemyHumanoidSmart : EnemySmart
                 break;
 
             case EnemyState.Walking:
-                anim.speed = GetWalkSpeed();
+                anim.speed = 1;// GetWalkSpeed();
                 PlayAnimation("Walk");
                 LoadWavFile(Sound2Int(SoundState.Walking));
                 break;
 
             case EnemyState.Running:
-                anim.speed = GetRunSpeed();
+                anim.speed = 1; // GetRunSpeed();
                 if (GetIsBoss()) { PlayAnimation("Fast Run"); }
                 else { PlayAnimation("Run"); }
                 LoadWavFile(Sound2Int(SoundState.Running));

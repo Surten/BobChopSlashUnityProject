@@ -15,9 +15,9 @@ MonoBehaviour:
   maxHealth: 30
   coinsDropOnDeath: 15
   expDropOnDeath: 15
-  rotateSpeed: 120
+  rotateSpeed: 360
   walkSpeed: 1
-  runSpeed: 9
+  runSpeed: 5
   movingMemoryFrame: 0
   forgottenMemoryFrame: 10
   awarenessAwareRange: 40
@@ -32,5 +32,5 @@ MonoBehaviour:
   staggerTime: 3
   fieldOfViewAngle: 60
   isBoss: 1
-  biteProbability: 0.25
-  crawlProbability: 0.25
+  kickProbability: 0
+  chokeProbability: 1

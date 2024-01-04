@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 10
   coinsDropOnDeath: 5
   expDropOnDeath: 5
-  rotateSpeed: 120
+  rotateSpeed: 360
   walkSpeed: 1
   runSpeed: 3
   movingMemoryFrame: 0
@@ -32,5 +32,5 @@ MonoBehaviour:
   staggerTime: 3
   fieldOfViewAngle: 60
   isBoss: 0
-  biteProbability: 0.25
-  crawlProbability: 0.25
+  kickProbability: 0.25
+  chokeProbability: 0

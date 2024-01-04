@@ -143,6 +143,10 @@ PrefabInstance:
       propertyPath: enemyScriptableObject
       value: 
       objectReference: {fileID: 11400000, guid: d1a4f2e01d4c2ad4796e2cf26054e9b6, type: 2}
+    - target: {fileID: 5718392944966894081, guid: 438e5ba5bc353e748a50f842aa56c855, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8881705601630458511, guid: 438e5ba5bc353e748a50f842aa56c855, type: 3}
       propertyPath: layerMask.m_Bits
       value: 256
@@ -765,7 +769,7 @@ PrefabInstance:
       objectReference: {fileID: 4190919126261003461, guid: 7f764b67227f3384197a875b1c182fa4, type: 3}
     - target: {fileID: 5389079292198007113, guid: 2dd415465a2375049b34dead13c44ad4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.048
+      value: 2.28
       objectReference: {fileID: 0}
     - target: {fileID: 5389079292198007113, guid: 2dd415465a2375049b34dead13c44ad4, type: 3}
       propertyPath: m_LocalPosition.y

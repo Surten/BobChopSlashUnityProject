@@ -86,6 +86,23 @@ public class EnemyManager : MonoBehaviour
                 e2.Behaviour();
                 continue;
             }
+
+            EnemyHumanoidSmart e3 = go.GetComponent<EnemyHumanoidSmart>();
+            if (e3 != null)
+            {
+                bool isStateChanged = e3.GetIsStateChanged();
+
+                if (e3.GetEnemyState() == EnemySmart.EnemyState.Dead) // If dead, remove data and remove body
+                {
+                    if (isStateChanged) e3.ResetIsStateChanged();
+                    e3.animate();
+                    onEnemyDeath(go, e3.GetDespawnTime(), e3.GetCoins(), e3.GetExp());
+                    continue;
+                }
+
+                e3.Behaviour();
+                continue;
+            }
         }
     }
 
@@ -105,8 +122,8 @@ public class EnemyManager : MonoBehaviour
                 commonEnemyPrefab.Add(go);
             }
         }
-        //Debug.Log("Boss Enemy Count: " + bossEnemyPrefab.Count);
-        //Debug.Log("Common Enemy Count: " + commonEnemyPrefab.Count);
+        Debug.Log("Boss Enemy Count: " + bossEnemyPrefab.Count);
+        Debug.Log("Common Enemy Count: " + commonEnemyPrefab.Count);
     }
 
     /* Spawn and Despawn Functions */
@@ -128,6 +145,7 @@ public class EnemyManager : MonoBehaviour
                 _SpawnPrefabEnemy(bossEnemyPrefab, position);
                 _PlaySpawnEffect(spawnEffectBoss, position);
                 curBossCount++;
+                //Debug.LogError("Boss Detected. Add prefabs to the list.");
             }
             else if (commonEnemyPrefab.Count != 0)
             {
@@ -240,6 +258,8 @@ public class EnemyManager : MonoBehaviour
         if (e1 != null) return e1.enemyScriptableObject.isBoss;
         EnemyZombieSmart e2 = go.GetComponent<EnemyZombieSmart>();
         if (e2 != null) return e2.enemyScriptableObject.isBoss;
+        EnemyHumanoidSmart e3 = go.GetComponent<EnemyHumanoidSmart>();
+        if (e3 != null) return e3.enemyScriptableObject.isBoss;
         return false;
     }
 

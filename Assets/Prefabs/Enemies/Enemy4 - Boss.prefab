@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 8409413166938719197}
   - component: {fileID: 2733102004715813967}
   - component: {fileID: 4819225564706915231}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy4 - Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &493534658415095526
 CapsuleCollider:

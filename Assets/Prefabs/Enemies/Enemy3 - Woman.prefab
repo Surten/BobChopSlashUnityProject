@@ -265,13 +265,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1785459403639581133}
-  - component: {fileID: 1799454755750917454}
   - component: {fileID: 2360859704210354096}
+  - component: {fileID: 1799454755750917454}
   - component: {fileID: 6795625503493678630}
   - component: {fileID: 1784823082680604490}
   - component: {fileID: 4107383316627239842}
   - component: {fileID: 4717388116122563316}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy3 - Woman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,6 +296,29 @@ Transform:
   - {fileID: 1137619468551395001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2360859704210354096
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078503825653776014}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &1799454755750917454
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -321,31 +344,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &2360859704210354096
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078503825653776014}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &6795625503493678630
 AudioSource:
   m_ObjectHideFlags: 0

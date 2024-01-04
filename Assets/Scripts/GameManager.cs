@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = masterVolume;
         currentLevel = 0;
-        enemyManager.SetPrefabsTypes();
         StartWave();
     }
 
