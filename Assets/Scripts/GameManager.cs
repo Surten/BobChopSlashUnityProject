@@ -56,7 +56,10 @@ public class GameManager : MonoBehaviour
     {
         timeLeft = levelScriptableObjects[currentLevel].waveTime;
         spawnSpeed = levelScriptableObjects[currentLevel].spawnSpeed;
-        playerTransform.position = levelScriptableObjects[currentLevel].playerStartPosition;
+        if (levelScriptableObjects[currentLevel].enforceNewPosition)
+        {
+            playerTransform.position = levelScriptableObjects[currentLevel].playerStartPosition;
+        }
         RenderSettings.fog = levelScriptableObjects[currentLevel].fogEnabled;
 
         enemyManager.enemyPrefab = levelScriptableObjects[currentLevel].enemieTypes;

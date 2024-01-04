@@ -28,9 +28,9 @@ public class EnemyHumanoidSmart : EnemySmart
         Running = 0,
         Crawling = 0,
         Attacking = 0,
-        Kicking = 0,
-        Choking = 0,
-        Dead = 0,
+        Kicking = 1,
+        Choking = 2,
+        Dead = 3,
         Frozen = 0,
     }
 

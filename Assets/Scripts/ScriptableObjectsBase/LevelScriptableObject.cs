@@ -16,4 +16,6 @@ public class LevelScriptableObject : ScriptableObject
 
     public float enemyScalingFactor = 1f;
 
+    public bool enforceNewPosition = true;
+
 }

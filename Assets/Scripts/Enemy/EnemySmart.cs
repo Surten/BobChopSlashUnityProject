@@ -67,6 +67,7 @@ public class EnemySmart : MonoBehaviour
     private Collider enemyCollider;
 
     private LayerMask detectableLayers;
+    private bool safeHavenDetected;
 
 
     //public enum EnemyState { Dead=0, Idle, Staggering, Rotating, Walking, Charging, Attack, Frozen }
@@ -80,6 +81,7 @@ public class EnemySmart : MonoBehaviour
     protected virtual void Start()
     {
         SetDetectableLayers(~(1 << LayerMask.NameToLayer("Enemy")));
+        SetSafeHavenDetected(false);
 
         SetIsStateChanged(false);
         SetIsStaggering(false);
@@ -216,6 +218,8 @@ public class EnemySmart : MonoBehaviour
 
     public bool HasForgottenPlayer() { return forgetMemoryTime < 0f; }
 
+    public void SetForgetPlayer() { forgetMemoryTime = -1f; }
+
     public void SetFieldOfViewAngle(float val) { fieldOfViewAngle = val; }
 
     public float GetFieldOfViewAngle() { return fieldOfViewAngle; }
@@ -238,6 +242,10 @@ public class EnemySmart : MonoBehaviour
     public void SetDetectableLayers(LayerMask val) { detectableLayers = val; }
 
     public LayerMask GetDetectableLayers() { return detectableLayers; }
+
+    public void SetSafeHavenDetected(bool val) { safeHavenDetected = val; }
+
+    public bool GetSafeHavenDetected() { return safeHavenDetected; }
 
 
     /* Status Functions */
@@ -382,13 +390,19 @@ public class EnemySmart : MonoBehaviour
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
+                SetSafeHavenDetected(false);
                 UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * hit.distance, Color.yellow);
                 //UnityEngine.Debug.Log("Did Hit");
                 // The player is not obstructed by an obstacle
                 return true;
             }
+            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("SafeHaven")) {
+                SetSafeHavenDetected(true);
+                UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * hit.distance, Color.blue);
+            }
             else
             {
+                SetSafeHavenDetected(false);
                 UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * 1000, Color.white);
                 //UnityEngine.Debug.Log("Did not Hit");
             }

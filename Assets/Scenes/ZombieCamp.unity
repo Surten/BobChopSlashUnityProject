@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.052129306, g: 0.0657136, b: 0.07988804, a: 1}
+  m_IndirectSpecularColor: {r: 0.055697486, g: 0.076376535, b: 0.09354264, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8923,7 +8923,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 98b01cfc35d1fa849bbd7690838a4444, type: 3}
     - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: levelScriptableObjects.Array.size
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: levelScriptableObjects.Array.data[0]
@@ -8932,23 +8932,31 @@ PrefabInstance:
     - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: levelScriptableObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 9e7b50e6c2859cb4d980f2b0be46f1f0, type: 2}
+      objectReference: {fileID: 11400000, guid: 8138f0e18760efa45aebe0bf3338d66b, type: 2}
     - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: levelScriptableObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 8dec6abe558ac3e46a87f8137d73f56d, type: 2}
+      objectReference: {fileID: 11400000, guid: ca61076007a162046b4265d76bedd2e9, type: 2}
     - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: levelScriptableObjects.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 81f0454c871deea43afec5919cc85dd5, type: 2}
+      objectReference: {fileID: 11400000, guid: 9e7b50e6c2859cb4d980f2b0be46f1f0, type: 2}
     - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: levelScriptableObjects.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: e11a17668d72c0c489c6363bf31dc811, type: 2}
+      objectReference: {fileID: 11400000, guid: 8dec6abe558ac3e46a87f8137d73f56d, type: 2}
     - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: levelScriptableObjects.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: 22f6b8f9cc2dcf846958950b886aef9d, type: 2}
+      objectReference: {fileID: 11400000, guid: 81f0454c871deea43afec5919cc85dd5, type: 2}
+    - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
+      propertyPath: levelScriptableObjects.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: e11a17668d72c0c489c6363bf31dc811, type: 2}
+    - target: {fileID: 1835420888119434245, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
+      propertyPath: levelScriptableObjects.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: e11a17668d72c0c489c6363bf31dc811, type: 2}
     - target: {fileID: 7647200129415517790, guid: 49647b0dbe53ddc49af98f5ac9b9fbfa, type: 3}
       propertyPath: m_Name
       value: GameManager

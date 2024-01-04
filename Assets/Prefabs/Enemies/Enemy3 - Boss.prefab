@@ -732,6 +732,9 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   clips:
   - {fileID: 0}
+  - {fileID: 8300000, guid: 85846af501b1bd048a17f245909c585f, type: 3}
+  - {fileID: 8300000, guid: db2bf4d155ffd3c4ea2addcf76db2432, type: 3}
+  - {fileID: 8300000, guid: faea75f81efc8b24f9c3a294caf948d6, type: 3}
   enemyScriptableObject: {fileID: 11400000, guid: c40caf9fee2ed1440a673bc6d86bfa81, type: 2}
   anim: {fileID: 0}
 --- !u!1 &2186388282869952322

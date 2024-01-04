@@ -209,8 +209,9 @@ public class EnemyZombieSmart : EnemySmart
 
         bool detected = EnemyDetected(GetAwarenessAwareRange());
         float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
-        
+
         if (detected) ResetForgetMemoryTime();
+        else if (GetSafeHavenDetected()) SetForgetPlayer();
         else SetForgetMemoryTime(Time.deltaTime);
 
         if ((!detected & HasForgottenPlayer()) | (targetDistance > GetAwarenessAwareRange())) // No movement
