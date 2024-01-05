@@ -16,7 +16,7 @@ MonoBehaviour:
   enemyOneLimit: 2
   spawnSpeed: 2
   playerStartPosition: {x: 0, y: 1, z: 0}
-  fogEnabled: 1
+  fogEnabled: 0
   enemieTypes:
   - {fileID: 1931018242820440963, guid: d2f46e737a569e443bfa8014a7c50a84, type: 3}
   - {fileID: 7877243010098553075, guid: a0c1058e9770ab541b011fa35c385f26, type: 3}
