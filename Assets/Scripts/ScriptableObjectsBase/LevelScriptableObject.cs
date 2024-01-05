@@ -9,13 +9,11 @@ public class LevelScriptableObject : ScriptableObject
     public int enemyOneLimit = 10;
     public int spawnSpeed = 1;
 
-    public Vector3 playerStartPosition;
+    public int sceneLevel = 1;
     public bool fogEnabled = false;
 
     public List<GameObject> enemieTypes;
 
     public float enemyScalingFactor = 1f;
-
-    public bool enforceNewPosition = true;
 
 }

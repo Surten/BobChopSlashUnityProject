@@ -35,9 +35,11 @@ public class GameManager : MonoBehaviour
     public Transform playerTransform;
     private AudioSource audioSource;
     public AudioClip[] soundtracks;
+    public GameObject[] scenes;
 
     private Coroutine gameLoopCoroutine;
 
+    int currentScene;
     int currentLevel;
     int timeLeft;
     int spawnSpeed;
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = masterVolume;
         currentLevel = 0;
+        currentScene = -1;
+        deactivateAllScenes();
         StartWave();
     }
 
@@ -61,12 +65,38 @@ public class GameManager : MonoBehaviour
 
     private void StartWave()
     {
+        
         timeLeft = levelScriptableObjects[currentLevel].waveTime;
         spawnSpeed = levelScriptableObjects[currentLevel].spawnSpeed;
-        if (levelScriptableObjects[currentLevel].enforceNewPosition)
+
+        // Activate the New Scene
+        if (currentScene != levelScriptableObjects[currentLevel].sceneLevel)
         {
-            playerTransform.position = levelScriptableObjects[currentLevel].playerStartPosition;
+            // Deativate Previous Scene
+            if(currentScene != -1) scenes[currentScene].SetActive(false);
+
+            // Activate Current Scene
+            currentScene = levelScriptableObjects[currentLevel].sceneLevel;
+            GameObject newScene = scenes[currentScene];
+            newScene.SetActive(true);
+            
+            // Get Spawn Point for Player
+            Transform childTransform = newScene.transform.Find("SpawnPoint");
+
+            // Check if the child object was found
+            if (childTransform != null)
+            {
+                // Access the child object
+                GameObject childObject = childTransform.gameObject;
+                playerTransform.position = childTransform.position;
+                playerTransform.rotation = childTransform.rotation;
+            }
+            else
+            {
+                Debug.LogError("Child object not found.");
+            }
         }
+
         RenderSettings.fog = levelScriptableObjects[currentLevel].fogEnabled;
 
         enemyManager.enemyPrefab = levelScriptableObjects[currentLevel].enemieTypes;
@@ -144,6 +174,12 @@ public class GameManager : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    private void deactivateAllScenes() {
+        for (int i0 = 0; i0 < scenes.Length; i0++) {
+            scenes[i0].SetActive(false);
+        }
     }
 
 }

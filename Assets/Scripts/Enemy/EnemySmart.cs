@@ -71,7 +71,7 @@ public class EnemySmart : MonoBehaviour
 
 
     //public enum EnemyState { Dead=0, Idle, Staggering, Rotating, Walking, Charging, Attack, Frozen }
-    public enum EnemyState { Dead = 0, Idle, Jumping, Staggering, Rotating, Walking, Running, Crawling, Climbing, Attacking, Biting, Kicking, Choking, Explode, Frozen }
+    public enum EnemyState { Dead = 0, Idle, Jumping, Staggering, Rotating, Wandering, Walking, Running, Crawling, Climbing, Attacking, Biting, Kicking, Choking, Explode, Frozen }
 
     public enum SoundState
     {

@@ -106,6 +106,13 @@ public class EnemyHumanoidSmart : EnemySmart
                 RotateToTarget();
                 break;
 
+            /*
+            case EnemyState.Wandering:
+                if (!animState.IsName("Walk")) animate();
+                RandomWalk(GetWalkSpeed());
+                break;
+            */
+
             case EnemyState.Walking:
                 if (!animState.IsName("Walk")) animate();
                 RotateNMove2Position(GetWalkSpeed());
