@@ -51,6 +51,14 @@ public class GameManager : MonoBehaviour
         StartWave();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            timeLeft = -1;
+        }
+    }
+
     private void StartWave()
     {
         timeLeft = levelScriptableObjects[currentLevel].waveTime;
