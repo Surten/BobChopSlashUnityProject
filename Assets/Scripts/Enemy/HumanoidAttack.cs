@@ -50,7 +50,6 @@ public class HumanoidAttack : MonoBehaviour
     IEnumerator Attacking()
     {
         PlayAnimation("Attack");
-        //Debug.Log("Attacking");
         isAttacking = true;
         yield return new WaitForSeconds(2f);
         ResolveHit();
@@ -62,7 +61,6 @@ public class HumanoidAttack : MonoBehaviour
     IEnumerator Kicking()
     {
         PlayAnimation("Kick");
-        //Debug.Log("Kick");
         isAttacking = true;
         yield return new WaitForSeconds(1.35f);
         ResolveHit();
@@ -74,7 +72,6 @@ public class HumanoidAttack : MonoBehaviour
     IEnumerator Choking()
     {
         PlayAnimation("Choke");
-        //Debug.Log("Choke");
         isAttacking = true;
         yield return new WaitForSeconds(6.2f);
         ResolveHit();

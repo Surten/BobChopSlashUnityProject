@@ -16,8 +16,8 @@ MonoBehaviour:
   coinsDropOnDeath: 10
   expDropOnDeath: 10
   rotateSpeed: 240
-  walkSpeed: 5
-  runSpeed: 12
+  walkSpeed: 2
+  runSpeed: 5
   movingMemoryFrame: 0.5
   forgottenMemoryFrame: 10
   awarenessAwareRange: 40
@@ -25,7 +25,7 @@ MonoBehaviour:
   awarenessAttackRange: 2.5
   attackDamage: 10
   attackRadius: 2.5
-  chargeProbability: 0
+  chargeProbability: 1
   staggerProbability: 0.25
   despawnTime: 3
   quickDespawnTime: 0.2

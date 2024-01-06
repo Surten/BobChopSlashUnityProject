@@ -20,15 +20,15 @@ public class EnemyWolfSmart : EnemySmart
     {
         Idle = 0,
         Alert = 0,
-        Staggering = 0,
+        Staggering = 3,
         Jumping = 0,
         Rotating = 0,
         Walking = 0,
         Running = 0,
-        Attack = 0,
-        Biting = 0,
-        Howling = 0,
-        Dead = 0,
+        Attack = 1,
+        Biting = 1,
+        Howling = 3,
+        Dead = 2,
         Frozen = 0,
     }
 
@@ -75,7 +75,7 @@ public class EnemyWolfSmart : EnemySmart
         ResetStateChangeTime();
 
         anim = GetComponentInChildren<Animator>();
-        
+
     }
 
     protected override void Update()
@@ -188,6 +188,7 @@ public class EnemyWolfSmart : EnemySmart
     /* Action Functions */
     public void Behaviour()
     {
+
         bool isStateChanged = GetIsStateChanged();
 
         if (GetEnemyState() == EnemyState.Staggering)
@@ -205,18 +206,21 @@ public class EnemyWolfSmart : EnemySmart
 
         if ((!detected & HasForgottenPlayer()) | (targetDistance > GetAwarenessAwareRange())) // No movement
         {
+            UnityEngine.Debug.Log("No Movement");
             if (isStateChanged) ResetIsStateChanged();
             SetEnemyState(EnemyState.Idle);
             return;
         }
-        else if (targetDistance > GetAwarenessChaseRange()) // Rotate towards player
+        else if (targetDistance > GetAwarenessChaseRange()) // Howl towards player
         {
+            UnityEngine.Debug.Log("Howling");
             if (isStateChanged) ResetIsStateChanged();
             SetEnemyState(EnemyState.Howling);
             return;
         }
         else if (targetDistance > GetAwarenessAttackRange()) // Chase Player
         {
+            UnityEngine.Debug.Log("Chase");
             bool obstructed = CheckObstruction(GetAwarenessChaseRange());
 
             if (obstructed && GetObstructionDistance() < 0.6f)
@@ -233,6 +237,7 @@ public class EnemyWolfSmart : EnemySmart
         }
         else // Attack player
         {
+            UnityEngine.Debug.Log("Attack");
             if (isStateChanged) ResetIsStateChanged();
             if (isBiting) SetEnemyState(EnemyState.Biting);
             else SetEnemyState(EnemyState.Attacking);

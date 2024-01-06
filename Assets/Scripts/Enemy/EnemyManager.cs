@@ -45,6 +45,7 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         if (spawnOneEnemy) spawnOnEditorDemand();
+
         // Loop through each enemy
         foreach (GameObject go in new List<GameObject>(enemies)) // Avoid error of removing enemy from a collection while in use
         {
@@ -281,7 +282,7 @@ public class EnemyManager : MonoBehaviour
         EnemyHumanoidSmart e3 = go.GetComponent<EnemyHumanoidSmart>();
         if (e3 != null) return e3.enemyScriptableObject.isBoss;
         EnemyWolfSmart e4 = go.GetComponent<EnemyWolfSmart>();
-        if (e4 != null) return e3.enemyScriptableObject.isBoss;
+        if (e4 != null) return e4.enemyScriptableObject.isBoss;
         return false;
     }
 

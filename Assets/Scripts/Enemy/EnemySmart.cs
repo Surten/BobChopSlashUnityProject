@@ -70,9 +70,26 @@ public class EnemySmart : MonoBehaviour
     private LayerMask detectableLayers;
     private bool safeHavenDetected;
 
-
-    //public enum EnemyState { Dead=0, Idle, Staggering, Rotating, Walking, Charging, Attack, Frozen }
-    public enum EnemyState { Dead = 0, Idle, Jumping, Staggering, Rotating, Wandering, Walking, Running, Crawling, Climbing, Attacking, Biting, Kicking, Choking, Howling, Explode, Frozen }
+    public enum EnemyState 
+    { 
+        Dead = 0, 
+        Idle, 
+        Jumping, 
+        Staggering, 
+        Rotating, 
+        Wandering, 
+        Walking, 
+        Running, 
+        Crawling, 
+        Climbing, 
+        Attacking, 
+        Biting, 
+        Kicking, 
+        Choking, 
+        Howling, 
+        Explode, 
+        Frozen 
+    }
 
     public enum SoundState
     {
@@ -108,11 +125,8 @@ public class EnemySmart : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
-    {
-        //UnityEngine.Debug.Log("Base Update");
-        SetStateChangeTime(Time.deltaTime);
-    }
+    protected virtual void Update() { SetStateChangeTime(Time.deltaTime); }
+
     /* Get, Set, Reset Functions*/
     public void SetRotateSpeed(float val) { rotateSpeed = val;}
 
@@ -398,7 +412,6 @@ public class EnemySmart : MonoBehaviour
             {
                 SetSafeHavenDetected(false);
                 UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * hit.distance, Color.yellow);
-                //UnityEngine.Debug.Log("Did Hit");
                 // The player is not obstructed by an obstacle
                 return true;
             }
@@ -410,7 +423,6 @@ public class EnemySmart : MonoBehaviour
             {
                 SetSafeHavenDetected(false);
                 UnityEngine.Debug.DrawRay(enemyPos, directionToPlayer * 1000, Color.white);
-                //UnityEngine.Debug.Log("Did not Hit");
             }
         }
         return false;

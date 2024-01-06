@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
 
     private void StartWave()
     {
-        
         timeLeft = levelScriptableObjects[currentLevel].waveTime;
         spawnSpeed = levelScriptableObjects[currentLevel].spawnSpeed;
 
@@ -73,7 +72,7 @@ public class GameManager : MonoBehaviour
         if (currentScene != levelScriptableObjects[currentLevel].sceneLevel)
         {
             // Deativate Previous Scene
-            if(currentScene != -1) scenes[currentScene].SetActive(false);
+            if (currentScene != -1) scenes[currentScene].SetActive(false);
 
             // Activate Current Scene
             currentScene = levelScriptableObjects[currentLevel].sceneLevel;
@@ -102,7 +101,7 @@ public class GameManager : MonoBehaviour
         enemyManager.enemyPrefab = levelScriptableObjects[currentLevel].enemieTypes;
         enemyManager.SetPrefabsTypes();
 
-        audioSource.clip = soundtracks[0];
+        audioSource.clip = soundtracks[currentScene + 1];
         audioSource.Play();
 
 
@@ -120,7 +119,7 @@ public class GameManager : MonoBehaviour
         }
 
         // enter shop
-        audioSource.clip = soundtracks[1];
+        audioSource.clip = soundtracks[0];
         audioSource.Play();
         playerGui.ShopAppear();
         ShopManager.Instance.LoadNewItemsToShop();

@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 2733102004715813967}
   - component: {fileID: 4819225564706915231}
   - component: {fileID: 2474249738561986037}
+  - component: {fileID: 4320223771971855144}
   m_Layer: 7
   m_Name: Enemy4 - Boss
   m_TagString: Untagged
@@ -110,7 +111,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5271292583246286734}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -146,7 +147,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1.3
   m_Height: 5
@@ -276,7 +277,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enemyInfo: {fileID: 0}
+  enemyInfo: {fileID: 11400000, guid: eff9e669b3d312348be5de29011f1c3c, type: 2}
 --- !u!114 &4819225564706915231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,9 +318,35 @@ MonoBehaviour:
   isCharging: 0
   FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
   audioSource: {fileID: 0}
-  clips: []
+  clips:
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 86340f57362eb414abfb89faa461d059, type: 3}
+  - {fileID: 8300000, guid: dd9047cc9aec5cb42aeef09180f7d58f, type: 3}
+  - {fileID: 8300000, guid: f8a183a02dc6991478aab61f401370ea, type: 3}
+  - {fileID: 8300000, guid: 9cfcc6cee6350f242b195b503a70393b, type: 3}
   enemyScriptableObject: {fileID: 11400000, guid: eff9e669b3d312348be5de29011f1c3c, type: 2}
   anim: {fileID: 0}
+--- !u!65 &4320223771971855144
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271292583246286734}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.484389, z: 4.0366445}
+  m_Center: {x: 0, y: 1.2841944, z: -0.35199332}
 --- !u!1001 &4134116936385993096
 PrefabInstance:
   m_ObjectHideFlags: 0

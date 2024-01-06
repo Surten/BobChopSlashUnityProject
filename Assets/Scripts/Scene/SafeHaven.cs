@@ -159,6 +159,10 @@ public class SafeHaven : MonoBehaviour
         }
     }
 
+    public void OnTriggerExit(Collider other)
+    {
+        StopBlinking();
+    }
     /*
     private void OnTriggerEnter(Collider other)
     {

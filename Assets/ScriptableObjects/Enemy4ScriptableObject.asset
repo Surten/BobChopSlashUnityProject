@@ -16,8 +16,8 @@ MonoBehaviour:
   coinsDropOnDeath: 3
   expDropOnDeath: 3
   rotateSpeed: 120
-  walkSpeed: 3
-  runSpeed: 9
+  walkSpeed: 2
+  runSpeed: 5
   movingMemoryFrame: 0.5
   forgottenMemoryFrame: 3
   awarenessAwareRange: 40

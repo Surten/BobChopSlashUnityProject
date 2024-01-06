@@ -214,7 +214,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enemyInfo: {fileID: 0}
+  enemyInfo: {fileID: 11400000, guid: 08510bb556687aa4288d77b7f6d2ad37, type: 2}
 --- !u!114 &1198279923163717309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +255,12 @@ MonoBehaviour:
   isCharging: 0
   FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
   audioSource: {fileID: 0}
-  clips: []
+  clips:
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 86340f57362eb414abfb89faa461d059, type: 3}
+  - {fileID: 8300000, guid: dd9047cc9aec5cb42aeef09180f7d58f, type: 3}
+  - {fileID: 8300000, guid: f8a183a02dc6991478aab61f401370ea, type: 3}
+  - {fileID: 8300000, guid: 9cfcc6cee6350f242b195b503a70393b, type: 3}
   enemyScriptableObject: {fileID: 11400000, guid: 08510bb556687aa4288d77b7f6d2ad37, type: 2}
   anim: {fileID: 0}
 --- !u!1 &8612141283568429121
