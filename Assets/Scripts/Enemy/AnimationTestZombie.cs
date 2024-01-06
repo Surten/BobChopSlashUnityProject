@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.CullingGroup;
 
-public class AnimationTest : MonoBehaviour
+public class AnimationTestZombie : MonoBehaviour
 {
 
     public Animator anim;
