@@ -117,26 +117,26 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
             timeLeft -= 1;
         }
-
-        // enter shop
-        audioSource.clip = soundtracks[0];
-        audioSource.Play();
-        playerGui.ShopAppear();
-        ShopManager.Instance.LoadNewItemsToShop();
-        enemyManager.DespawnAllEnemies();
-
+        if (levelScriptableObjects.Length == currentLevel + 1)
+        {
+            playerGui.OnPlayerWin();
+            OnPlayerDeathOrWin();
+        }
+        else
+        {
+            // enter shop
+            audioSource.clip = soundtracks[0];
+            audioSource.Play();
+            playerGui.ShopAppear();
+            ShopManager.Instance.LoadNewItemsToShop();
+            enemyManager.DespawnAllEnemies();
+        }
     }
 
 
     public void EnterNextWave()
     {
         currentLevel++;
-        if(levelScriptableObjects.Length == currentLevel)
-        {
-            playerGui.OnPlayerWin();
-            OnPlayerDeath();
-            return;
-        }
 
 
         playerGui.ShopDisappear();
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnPlayerDeath()
+    public void OnPlayerDeathOrWin()
     {
         StartCoroutine(afterDeathTimer());
     }

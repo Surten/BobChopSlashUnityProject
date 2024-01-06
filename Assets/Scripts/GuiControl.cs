@@ -65,7 +65,7 @@ public class GuiControl : MonoBehaviour
 
     public void OnPlayerWin()
     {
-        deathScreen.gameObject.SetActive(true);
+        winScreen.gameObject.SetActive(true);
         StartCoroutine(fadeToBlackWinCoRoutine());
     }
 
