@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8533981227215091267}
   - component: {fileID: 506080525220771477}
   - component: {fileID: 1198279923163717309}
+  - component: {fileID: 9185422755564746039}
   m_Layer: 7
   m_Name: Enemy4 - Wolf
   m_TagString: Untagged
@@ -227,13 +228,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  attackPoint: {fileID: 0}
+  attackPoint: {fileID: 7355929610954901107}
   attackRadius: 1
   attackDamage: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   isAttacking: 0
+--- !u!114 &9185422755564746039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3267599499345899320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025d7ff75e40a104ead77fb3438efbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  groundCheck: {fileID: 23968913416103166}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  isCharging: 0
+  FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
+  audioSource: {fileID: 0}
+  clips: []
+  enemyScriptableObject: {fileID: 11400000, guid: 08510bb556687aa4288d77b7f6d2ad37, type: 2}
+  anim: {fileID: 0}
 --- !u!1 &8612141283568429121
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23968913416103166}
   m_Layer: 0
-  m_Name: groundCheck (1)
+  m_Name: groundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,7 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7355929610954901107}
   m_Layer: 0
-  m_Name: AttackPoint (1)
+  m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

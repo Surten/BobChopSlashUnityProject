@@ -142,8 +142,6 @@ public class GameManager : MonoBehaviour
 
         playerGui.ShopDisappear();
 
-        //reset playerPosition???
-
         StartWave();
     }
 
@@ -154,7 +152,7 @@ public class GameManager : MonoBehaviour
         
         if (enemyManager.getNumEnemies() < levelScriptableObjects[currentLevel].enemyOneLimit  )
         {
-            enemyManager.SpawnEnemiesRandomly(spawnSpeed, levelScriptableObjects[currentLevel].enemyOneLimit);
+            enemyManager.SpawnEnemiesRandomly(spawnSpeed, levelScriptableObjects[currentLevel].enemyOneLimit, levelScriptableObjects[currentLevel].enemyScalingFactor);
         }
     }
 

@@ -14,7 +14,7 @@ public class Torch : MonoBehaviour
     private bool isOn;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         fire = flame.GetComponent<ParticleSystem>();
 

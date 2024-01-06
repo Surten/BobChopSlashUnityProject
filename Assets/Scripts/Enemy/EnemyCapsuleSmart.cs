@@ -57,6 +57,7 @@ public class EnemyCapsuleSmart : EnemySmart
         attackMelee = GetComponent<AttackMelee>();
         SetAtackRadius(enemyScriptableObject.attackRadius);
         SetAttackDamage(enemyScriptableObject.attackDamage);
+        ScaleAttackDamage(GetScalingFactor());
 
         isCharging = Prob2Bool(enemyScriptableObject.chargeProbability);
         canExplode = Prob2Bool(enemyScriptableObject.kamikazeProbability) && isCharging;

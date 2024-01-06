@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 9071059039099200809}
   - component: {fileID: 4345802905936592906}
   - component: {fileID: 8935650383162457818}
-  - component: {fileID: 1571338176742499519}
   - component: {fileID: 5775628136772466116}
   m_Layer: 7
   m_Name: Enemy2 - Woman
@@ -235,19 +234,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isAttacking: 0
---- !u!114 &1571338176742499519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1040062155800328837}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 005066f338256064bbac9fee2f1f13df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
 --- !u!114 &5775628136772466116
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 8409413166938719197}
   - component: {fileID: 2733102004715813967}
   - component: {fileID: 4819225564706915231}
+  - component: {fileID: 2474249738561986037}
   m_Layer: 7
   m_Name: Enemy4 - Boss
   m_TagString: Untagged
@@ -289,13 +290,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  attackPoint: {fileID: 0}
+  attackPoint: {fileID: 1749978182069730003}
   attackRadius: 1
   attackDamage: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   isAttacking: 0
+--- !u!114 &2474249738561986037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271292583246286734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025d7ff75e40a104ead77fb3438efbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  groundCheck: {fileID: 404516530305607270}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  isCharging: 0
+  FloatingTextPrefab: {fileID: 395812393913792647, guid: c6bcd42e6ec52194a9fbe309314f08fa, type: 3}
+  audioSource: {fileID: 0}
+  clips: []
+  enemyScriptableObject: {fileID: 11400000, guid: eff9e669b3d312348be5de29011f1c3c, type: 2}
+  anim: {fileID: 0}
 --- !u!1001 &4134116936385993096
 PrefabInstance:
   m_ObjectHideFlags: 0

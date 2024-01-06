@@ -22,13 +22,13 @@ public class EnemyHumanoidSmart : EnemySmart
     {
         Idle = 0,
         Alert = 0,
-        Staggering = 0,
+        Staggering = 4,
         Jumping = 0,
         Rotating = 0,
         Walking = 0,
         Running = 0,
         Crawling = 0,
-        Attacking = 0,
+        Attacking = 5,
         Kicking = 1,
         Choking = 2,
         Dead = 3,
@@ -59,6 +59,7 @@ public class EnemyHumanoidSmart : EnemySmart
         attackMelee = GetComponent<HumanoidAttack>();
         SetAtackRadius(enemyScriptableObject.attackRadius);
         SetAttackDamage(enemyScriptableObject.attackDamage);
+        ScaleAttackDamage(GetScalingFactor());
         isKicking = Prob2Bool(enemyScriptableObject.kickProbability);
 
         isCharging = Prob2Bool(enemyScriptableObject.chargeProbability);
@@ -127,7 +128,6 @@ public class EnemyHumanoidSmart : EnemySmart
                 if (!animState.IsName("Climb")) animate();
                 Vector3 pos = GetObstructionPoint();
                 pos.y = GetObstructionHeight();
-                UnityEngine.Debug.Log("Obstacle Height: " + pos.y);
                 StartCoroutine(LerpObstacle(pos, 1.0f));
                 break;
 
@@ -284,7 +284,6 @@ public class EnemyHumanoidSmart : EnemySmart
                 anim.speed = 1; // GetRunSpeed();
                 if (GetIsBoss()) { PlayAnimation("Fast Run"); }
                 else { PlayAnimation("Run"); }
-                //PlayAnimation("Run");
                 LoadWavFile(Sound2Int(SoundState.Running));
                 break;
 
@@ -313,7 +312,7 @@ public class EnemyHumanoidSmart : EnemySmart
                 break;
 
             case EnemyState.Frozen:
-                PlayAnimation("Frozen");
+                //PlayAnimation("Frozen");
                 LoadWavFile(Sound2Int(SoundState.Frozen));
                 break;
 

@@ -30,6 +30,7 @@ public class EnemySmart : MonoBehaviour
 
     protected float attackRadius;
     protected int attackDamage;
+    protected float scalingFactor = 1.0f;
 
     protected int coins;
     protected int exp;
@@ -71,7 +72,7 @@ public class EnemySmart : MonoBehaviour
 
 
     //public enum EnemyState { Dead=0, Idle, Staggering, Rotating, Walking, Charging, Attack, Frozen }
-    public enum EnemyState { Dead = 0, Idle, Jumping, Staggering, Rotating, Wandering, Walking, Running, Crawling, Climbing, Attacking, Biting, Kicking, Choking, Explode, Frozen }
+    public enum EnemyState { Dead = 0, Idle, Jumping, Staggering, Rotating, Wandering, Walking, Running, Crawling, Climbing, Attacking, Biting, Kicking, Choking, Howling, Explode, Frozen }
 
     public enum SoundState
     {
@@ -247,6 +248,11 @@ public class EnemySmart : MonoBehaviour
 
     public bool GetSafeHavenDetected() { return safeHavenDetected; }
 
+    public void ScaleAttackDamage(float val) { attackDamage = (int)(attackDamage * val); }
+
+    public void SetScalingFactor(float val) { scalingFactor = val; }
+
+    public float GetScalingFactor() { return scalingFactor; }
 
     /* Status Functions */
 
@@ -416,6 +422,7 @@ public class EnemySmart : MonoBehaviour
         Vector3 enemyPos = transform.position;
         enemyPos.y += 0.1f;
         Vector3 directionToPlayer = target.position - enemyPos;
+        directionToPlayer.y = enemyPos.y; //Debug
 
         // Perform a raycast to check for obstacles between the enemy and the player
         if (Physics.Raycast(enemyPos, directionToPlayer, out hit, maxDistance, detectableLayers))

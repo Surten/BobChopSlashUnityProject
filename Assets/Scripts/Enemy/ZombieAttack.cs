@@ -42,7 +42,6 @@ public class ZombieAttack : MonoBehaviour
     IEnumerator Attacking()
     {
         PlayAnimation("Attack");
-        Debug.Log("Attacking");
         isAttacking = true;
         yield return new WaitForSeconds(4f);
         ResolveHit();
@@ -54,7 +53,6 @@ public class ZombieAttack : MonoBehaviour
     IEnumerator Biting()
     {
         PlayAnimation("Bite");
-        Debug.Log("Biting");
         isAttacking = true;
         yield return new WaitForSeconds(4f);
         ResolveHit();

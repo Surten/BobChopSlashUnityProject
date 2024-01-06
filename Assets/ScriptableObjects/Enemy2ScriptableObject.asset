@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Enemy2ScriptableObject
   m_EditorClassIdentifier: 
   maxHealth: 10
-  coinsDropOnDeath: 3
-  expDropOnDeath: 3
+  coinsDropOnDeath: 5
+  expDropOnDeath: 5
   rotateSpeed: 60
   walkSpeed: 1
   runSpeed: 3

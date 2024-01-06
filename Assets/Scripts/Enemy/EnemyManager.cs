@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -103,6 +104,23 @@ public class EnemyManager : MonoBehaviour
                 e3.Behaviour();
                 continue;
             }
+
+            EnemyWolfSmart e4 = go.GetComponent<EnemyWolfSmart>();
+            if (e4 != null)
+            {
+                bool isStateChanged = e4.GetIsStateChanged();
+
+                if (e4.GetEnemyState() == EnemySmart.EnemyState.Dead) // If dead, remove data and remove body
+                {
+                    if (isStateChanged) e4.ResetIsStateChanged();
+                    e4.animate();
+                    onEnemyDeath(go, e4.GetDespawnTime(), e4.GetCoins(), e4.GetExp());
+                    continue;
+                }
+
+                e4.Behaviour();
+                continue;
+            }
         }
     }
 
@@ -122,8 +140,8 @@ public class EnemyManager : MonoBehaviour
                 commonEnemyPrefab.Add(go);
             }
         }
-        Debug.Log("Boss Enemy Count: " + bossEnemyPrefab.Count);
-        Debug.Log("Common Enemy Count: " + commonEnemyPrefab.Count);
+        // Debug.Log("Boss Enemy Count: " + bossEnemyPrefab.Count);
+        // Debug.Log("Common Enemy Count: " + commonEnemyPrefab.Count);
     }
 
     /* Spawn and Despawn Functions */
@@ -133,7 +151,7 @@ public class EnemyManager : MonoBehaviour
         spawnOneEnemy = false;
     }
 
-    public void SpawnEnemy(Vector3 position)
+    public void SpawnEnemy(Vector3 position, float scalingFactor = 1.0f)
     {
 
         // Check if the list is not empty
@@ -142,14 +160,14 @@ public class EnemyManager : MonoBehaviour
             if ((bossEnemyPrefab.Count != 0) && curBossCount < maxBossCount)
             {
                 
-                _SpawnPrefabEnemy(bossEnemyPrefab, position);
+                _SpawnPrefabEnemy(bossEnemyPrefab, position, scalingFactor);
                 _PlaySpawnEffect(spawnEffectBoss, position);
                 curBossCount++;
                 //Debug.LogError("Boss Detected. Add prefabs to the list.");
             }
             else if (commonEnemyPrefab.Count != 0)
             {
-                _SpawnPrefabEnemy(commonEnemyPrefab, position);
+                _SpawnPrefabEnemy(commonEnemyPrefab, position, scalingFactor);
                 _PlaySpawnEffect(spawnEffectCommon, position);
             }
             else {
@@ -162,7 +180,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    private void _SpawnPrefabEnemy(List<GameObject> prefab, Vector3 position) {
+    private void _SpawnPrefabEnemy(List<GameObject> prefab, Vector3 position, float scalingFactor = 1.0f) {
         // Generate a random index
         int randomIndex = Random.Range(0, prefab.Count);
 
@@ -173,14 +191,40 @@ public class EnemyManager : MonoBehaviour
         GameObject newEnemy = Instantiate(randomEnemyPrefab, position, Quaternion.identity);
         newEnemy.transform.parent = transform;
         newEnemy.GetComponent<EnemySmart>().SetNewTarget(playerTransform);
+        //newEnemy.GetComponent<EnemySmart>().ScaleAttackDamage(scalingFactor);
+        //_ScaleAttackDamage(newEnemy, scalingFactor);
+        newEnemy.GetComponent<EnemySmart>().SetScalingFactor(scalingFactor);
+        newEnemy.GetComponent<EnemyHitable>().ScaleHealth(scalingFactor);
+
         enemies.Add(newEnemy);
     }
 
-    public void SpawnEnemiesRandomly(int numEnemies, int maxEnemies)
+    private void _ScaleAttackDamage(GameObject go, float scalingFactor = 1.0f) {
+        EnemyCapsuleSmart e1 = go.GetComponent<EnemyCapsuleSmart>();
+        if (e1 != null) { 
+            e1.ScaleAttackDamage(scalingFactor);
+            return;
+        }
+        EnemyZombieSmart e2 = go.GetComponent<EnemyZombieSmart>();
+        if (e2 != null) { 
+            e2.ScaleAttackDamage(scalingFactor);
+            return;
+        }
+        EnemyHumanoidSmart e3 = go.GetComponent<EnemyHumanoidSmart>();
+        if (e3 != null) { 
+            e3.ScaleAttackDamage(scalingFactor);
+            return;
+        }
+        EnemyWolfSmart e4 = go.GetComponent<EnemyWolfSmart>();
+        if (e4 != null) { 
+            e4.ScaleAttackDamage(scalingFactor);
+            return;
+        }
+    }
+
+    public void SpawnEnemiesRandomly(int numEnemies, int maxEnemies, float scalingFactor = 1.0f)
     {
         float x, z;
-        //Debug.Log("Number of Enemies " + numEnemies);
-        //Debug.Log("Current Enemies " + enemies.Count);
         if (enemies.Count >= maxEnemies) return;
 
         if ((enemies.Count + numEnemies) > maxEnemies) numEnemies = maxEnemies - enemies.Count;
@@ -192,7 +236,7 @@ public class EnemyManager : MonoBehaviour
             z = 2 * validRadius * (UnityEngine.Random.value - 0.5f) + nonSpawnableRadius + playerTransform.position.z;
             Vector3 v = new Vector3(x, 0.1f, z);
 
-            if(_isSpawnLocationValid(v, 2f)) SpawnEnemy(v);
+            if(_isSpawnLocationValid(v, 2f)) SpawnEnemy(v, scalingFactor);
         }
     }
 
@@ -261,6 +305,8 @@ public class EnemyManager : MonoBehaviour
         if (e2 != null) return e2.enemyScriptableObject.isBoss;
         EnemyHumanoidSmart e3 = go.GetComponent<EnemyHumanoidSmart>();
         if (e3 != null) return e3.enemyScriptableObject.isBoss;
+        EnemyWolfSmart e4 = go.GetComponent<EnemyWolfSmart>();
+        if (e4 != null) return e3.enemyScriptableObject.isBoss;
         return false;
     }
 

@@ -37,16 +37,22 @@ public class EnemyHitable : Hitable
         base.Heal(value);
     }
 
+    public void ScaleHealth(float val) {
+        currentHealth = maxHealth = (int)(enemyInfo.maxHealth * val);
+    }
 
     protected override void Die()
     {
         base.Die();
-        Rigidbody rb = GetComponent<Rigidbody>();
         EnemySmart e = GetComponent<EnemySmart>();
-        rb.constraints = RigidbodyConstraints.None;
-        rb.mass = 0.1f;
         e.SetEnemyState(EnemySmart.EnemyState.Dead);
+        Invoke("MassLess", 2.9f);
     }
 
+    protected void MassLess() {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.None;
+        rb.mass = 0.1f;
+    }
 
 }

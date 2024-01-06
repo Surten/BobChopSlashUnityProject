@@ -11,12 +11,13 @@ public class SafeHavenManager : MonoBehaviour
     private int index;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         activeHaven = false;
         foreach (GameObject go in safeHavens) {
             SafeHaven sf = go.GetComponent<SafeHaven>();
             sf.deactivateHaven();
+            go.SetActive(false);
         }
 
     }
@@ -29,6 +30,7 @@ public class SafeHavenManager : MonoBehaviour
         if (!activeHaven) // Randomly Activate a Safe Haven
         {
             index = Random.Range(0, safeHavens.Count);
+            safeHavens[index].SetActive(true);
             SafeHaven sf = safeHavens[index].GetComponent<SafeHaven>();
             sf.setTimeToBlink(3f);
             sf.activateHaven(maxSafeTime);
@@ -37,6 +39,7 @@ public class SafeHavenManager : MonoBehaviour
 
         if (timer > maxSafeTime) // Deativate a Safe Haven
         {
+            safeHavens[index].SetActive(false);
             SafeHaven sf = safeHavens[index].GetComponent<SafeHaven>();
             sf.deactivateHaven();
             activeHaven = false;

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8042c293aef7b1b42a13d4abf8c56280, type: 3}
+  m_Name: Enemy4ScriptableObjectBoss
+  m_EditorClassIdentifier: 
+  maxHealth: 25
+  coinsDropOnDeath: 10
+  expDropOnDeath: 10
+  rotateSpeed: 240
+  walkSpeed: 5
+  runSpeed: 12
+  movingMemoryFrame: 0.5
+  forgottenMemoryFrame: 10
+  awarenessAwareRange: 40
+  awarenessChaseRange: 15
+  awarenessAttackRange: 2.5
+  attackDamage: 10
+  attackRadius: 2.5
+  chargeProbability: 0
+  staggerProbability: 0.25
+  despawnTime: 3
+  quickDespawnTime: 0.2
+  staggerTime: 3
+  fieldOfViewAngle: 45
+  isBoss: 1
+  biteProbability: 1

@@ -57,6 +57,7 @@ public class EnemyZombieSmart : EnemySmart
         attackMelee = GetComponent<ZombieAttack>();
         SetAtackRadius(enemyScriptableObject.attackRadius);
         SetAttackDamage(enemyScriptableObject.attackDamage);
+        ScaleAttackDamage(GetScalingFactor());
         isBiting = Prob2Bool(enemyScriptableObject.biteProbability);
 
         isCharging = Prob2Bool(enemyScriptableObject.chargeProbability);
@@ -125,7 +126,6 @@ public class EnemyZombieSmart : EnemySmart
                 if (!animState.IsName("Climb")) animate();
                 Vector3 pos = GetObstructionPoint();
                 pos.y = GetObstructionHeight();
-                UnityEngine.Debug.Log("Obstacle Height: " + pos.y);
                 StartCoroutine(LerpObstacle(pos, 1f));
                 break;
 
@@ -138,10 +138,6 @@ public class EnemyZombieSmart : EnemySmart
                 RotateToTarget();
                 attackMelee.Bite();
                 break;
-
-            //case EnemyState.Dead:
-            //    if (!animState.IsName("Death")) animate();
-            //    break;
 
             default:
                 break;
@@ -171,7 +167,6 @@ public class EnemyZombieSmart : EnemySmart
     public override void SetEnemyState(EnemyState state)
     {
         base.SetEnemyState(state);
-        //ResetTriggers();
     }
 
     public new EnemyState GetEnemyState()
@@ -254,19 +249,6 @@ public class EnemyZombieSmart : EnemySmart
     }
 
     /* Animation Functions */
-    private void ResetTriggers()
-    {
-        anim.ResetTrigger("Idle");
-        anim.ResetTrigger("Reaction Hit");
-        anim.ResetTrigger("Rotate");
-        anim.ResetTrigger("Walk");
-        anim.ResetTrigger("Run");
-        anim.ResetTrigger("Attack");
-        anim.ResetTrigger("Bite");
-        anim.ResetTrigger("Death");
-        anim.ResetTrigger("Climb");
-    }
-
     public override void animate()
     {
         anim.speed = 1.0f;
@@ -325,7 +307,7 @@ public class EnemyZombieSmart : EnemySmart
                 break;
 
             case EnemyState.Frozen:
-                PlayAnimation("Frozen");
+                //PlayAnimation("Frozen");
                 LoadWavFile(Sound2Int(SoundState.Frozen));
                 break;
 

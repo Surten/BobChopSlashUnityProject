@@ -7,8 +7,7 @@ public class SafeHaven : MonoBehaviour
 
     public ParticleSystem particleSystem1;
     public ParticleSystem particleSystem2;
-    //public MeshCollider meshCollider;
-    public CapsuleCollider collider;
+    public CapsuleCollider colliderHaven;
     public Material activeMaterial;
     public Material inactiveMaterial;
 
@@ -61,17 +60,17 @@ public class SafeHaven : MonoBehaviour
     void EnableMeshCollider()
     {
         // Enable the Mesh Collider
-        if (collider != null)
+        if (colliderHaven != null)
         {
-            collider.enabled = true;
+            colliderHaven.enabled = true;
         }
     }
     void DisableMeshCollider()
     {
         // Disable the Mesh Collider
-        if (collider != null)
+        if (colliderHaven != null)
         {
-            collider.enabled = false;
+            colliderHaven.enabled = false;
         }
     }
 
