@@ -191,35 +191,10 @@ public class EnemyManager : MonoBehaviour
         GameObject newEnemy = Instantiate(randomEnemyPrefab, position, Quaternion.identity);
         newEnemy.transform.parent = transform;
         newEnemy.GetComponent<EnemySmart>().SetNewTarget(playerTransform);
-        //newEnemy.GetComponent<EnemySmart>().ScaleAttackDamage(scalingFactor);
-        //_ScaleAttackDamage(newEnemy, scalingFactor);
         newEnemy.GetComponent<EnemySmart>().SetScalingFactor(scalingFactor);
         newEnemy.GetComponent<EnemyHitable>().ScaleHealth(scalingFactor);
 
         enemies.Add(newEnemy);
-    }
-
-    private void _ScaleAttackDamage(GameObject go, float scalingFactor = 1.0f) {
-        EnemyCapsuleSmart e1 = go.GetComponent<EnemyCapsuleSmart>();
-        if (e1 != null) { 
-            e1.ScaleAttackDamage(scalingFactor);
-            return;
-        }
-        EnemyZombieSmart e2 = go.GetComponent<EnemyZombieSmart>();
-        if (e2 != null) { 
-            e2.ScaleAttackDamage(scalingFactor);
-            return;
-        }
-        EnemyHumanoidSmart e3 = go.GetComponent<EnemyHumanoidSmart>();
-        if (e3 != null) { 
-            e3.ScaleAttackDamage(scalingFactor);
-            return;
-        }
-        EnemyWolfSmart e4 = go.GetComponent<EnemyWolfSmart>();
-        if (e4 != null) { 
-            e4.ScaleAttackDamage(scalingFactor);
-            return;
-        }
     }
 
     public void SpawnEnemiesRandomly(int numEnemies, int maxEnemies, float scalingFactor = 1.0f)
