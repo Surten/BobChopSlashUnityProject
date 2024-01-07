@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
+//using static UnityEditor.Progress;
+//using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class ShopManager : MonoBehaviour
 {

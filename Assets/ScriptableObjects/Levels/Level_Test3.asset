@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4483f7de88cb544a9a13711c5e34c3, type: 3}
+  m_Name: Level_Test3
+  m_EditorClassIdentifier: 
+  waveTime: 30
+  enemyOneLimit: 20
+  spawnSpeed: 1
+  sceneLevel: 2
+  fogEnabled: 0
+  enemieTypes:
+  - {fileID: 1931018242820440963, guid: d2f46e737a569e443bfa8014a7c50a84, type: 3}
+  - {fileID: 7877243010098553075, guid: a0c1058e9770ab541b011fa35c385f26, type: 3}
+  - {fileID: 1078503825653776014, guid: 79a02256b925f1447880b8c586ffe95d, type: 3}
+  enemyScalingFactor: 1

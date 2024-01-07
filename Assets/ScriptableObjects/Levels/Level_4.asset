@@ -20,4 +20,4 @@ MonoBehaviour:
   enemieTypes:
   - {fileID: 5271292583246286734, guid: 672c06042ddff114ab37005125cf2960, type: 3}
   - {fileID: 3267599499345899320, guid: bb543b14ab1cb23439ae67398e494520, type: 3}
-  enemyScalingFactor: 1.75
+  enemyScalingFactor: 2.5
