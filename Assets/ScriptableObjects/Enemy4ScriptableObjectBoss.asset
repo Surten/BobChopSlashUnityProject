@@ -17,14 +17,14 @@ MonoBehaviour:
   expDropOnDeath: 10
   rotateSpeed: 240
   walkSpeed: 2
-  runSpeed: 5
+  runSpeed: 4
   movingMemoryFrame: 0.5
   forgottenMemoryFrame: 10
-  awarenessAwareRange: 40
-  awarenessChaseRange: 15
+  awarenessAwareRange: 50
+  awarenessChaseRange: 30
   awarenessAttackRange: 2.5
   attackDamage: 10
-  attackRadius: 2.5
+  attackRadius: 2.2
   chargeProbability: 1
   staggerProbability: 0.25
   despawnTime: 3

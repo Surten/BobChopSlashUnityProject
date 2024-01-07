@@ -20,8 +20,8 @@ MonoBehaviour:
   runSpeed: 7
   movingMemoryFrame: 0
   forgottenMemoryFrame: 10
-  awarenessAwareRange: 40
-  awarenessChaseRange: 15
+  awarenessAwareRange: 50
+  awarenessChaseRange: 30
   awarenessAttackRange: 2.5
   attackDamage: 10
   attackRadius: 2.5
