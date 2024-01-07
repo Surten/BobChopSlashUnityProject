@@ -434,7 +434,7 @@ public class EnemySmart : MonoBehaviour
         Vector3 enemyPos = transform.position;
         enemyPos.y += 0.1f;
         Vector3 directionToPlayer = target.position - enemyPos;
-        directionToPlayer.y = enemyPos.y; //Debug
+        //directionToPlayer.y = enemyPos.y; //Debug
 
         // Perform a raycast to check for obstacles between the enemy and the player
         if (Physics.Raycast(enemyPos, directionToPlayer, out hit, maxDistance, detectableLayers))
