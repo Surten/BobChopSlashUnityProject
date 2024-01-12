@@ -133,7 +133,7 @@ public class EnemyHumanoidSmart : EnemySmart
 
             case EnemyState.Attacking:
                 RotateToTarget();
-                attackMelee.SwingArm();
+                attackMelee.Punch();
                 break;
 
             case EnemyState.Kicking:
@@ -187,6 +187,7 @@ public class EnemyHumanoidSmart : EnemySmart
         SetEnemyState(EnemyState.Staggering);
         LoadWavFile(Sound2Int(SoundState.Staggering));
         base.SetStagger();
+        attackMelee.StopAttack();
     }
 
     public override void UpdateStaggerTime()
@@ -213,7 +214,9 @@ public class EnemyHumanoidSmart : EnemySmart
 
         bool detected = EnemyDetected(GetAwarenessAwareRange());
         float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
-        
+
+        if (attackMelee.isAttacking) { return; }
+
         if (detected) ResetForgetMemoryTime();
         else if (GetSafeHavenDetected()) SetForgetPlayer();
         else SetForgetMemoryTime(Time.deltaTime);

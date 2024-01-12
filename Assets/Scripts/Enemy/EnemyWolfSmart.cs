@@ -172,6 +172,7 @@ public class EnemyWolfSmart : EnemySmart
         SetEnemyState(EnemyState.Staggering);
         LoadWavFile(Sound2Int(SoundState.Staggering));
         base.SetStagger();
+        attackMelee.StopAttack();
     }
 
     public override void UpdateStaggerTime()
@@ -203,6 +204,8 @@ public class EnemyWolfSmart : EnemySmart
         if (detected) ResetForgetMemoryTime();
         else if (GetSafeHavenDetected()) SetForgetPlayer();
         else SetForgetMemoryTime(Time.deltaTime);
+
+        if (attackMelee.isAttacking) { return; }
 
         if ((!detected & HasForgottenPlayer()) | (targetDistance > GetAwarenessAwareRange())) // No movement
         {

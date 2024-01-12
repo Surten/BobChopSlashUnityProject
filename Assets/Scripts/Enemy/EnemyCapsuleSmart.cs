@@ -196,6 +196,8 @@ public class EnemyCapsuleSmart : EnemySmart
         if (detected) ResetForgetMemoryTime();
         else SetForgetMemoryTime(Time.deltaTime);
 
+        if (attackMelee.swingingSword) { return; }
+
         if ((!detected & HasForgottenPlayer()) | (targetDistance > GetAwarenessAwareRange())) // No movement
         {
             if (isIdleJumping)
@@ -289,6 +291,7 @@ public class EnemyCapsuleSmart : EnemySmart
         SetEnemyState(EnemyState.Staggering);
         LoadWavFile(Sound2Int(SoundState.Staggering));
         base.SetStagger();
+        attackMelee.StopAttack();
     }
 
     public void Explode()

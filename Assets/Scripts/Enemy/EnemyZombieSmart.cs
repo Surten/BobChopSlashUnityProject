@@ -179,6 +179,7 @@ public class EnemyZombieSmart : EnemySmart
         SetEnemyState(EnemyState.Staggering);
         LoadWavFile(Sound2Int(SoundState.Staggering));
         base.SetStagger();
+        attackMelee.StopAttack();
     }
 
     public override void UpdateStaggerTime()
@@ -205,6 +206,8 @@ public class EnemyZombieSmart : EnemySmart
 
         bool detected = EnemyDetected(GetAwarenessAwareRange());
         float targetDistance = (target.position - transform.position).magnitude; // Check for the distance between player and enemy
+
+        if (attackMelee.isAttacking) { return; }
 
         if (detected) ResetForgetMemoryTime();
         else if (GetSafeHavenDetected()) SetForgetPlayer();

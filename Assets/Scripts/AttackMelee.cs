@@ -121,5 +121,6 @@ public class AttackMelee : MonoBehaviour
     public void StopAttack() 
     {
         if (attackRoutine != null) StopCoroutine(attackRoutine);
+        swingingSword = false;
     }
 }

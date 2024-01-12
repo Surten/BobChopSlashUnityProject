@@ -16,17 +16,16 @@ public class EnemyHitable : Hitable
     public override void TakeDamage(int value)
     {
         float textSizeMult = 1f;
-        Color textColor = Color.white;
+        Color textColor = Color.red;
         bool showflg = true;
 
         //sound effect
         base.TakeDamage(value);
+        GetComponent<EnemySmart>().ShowFloatingText("- " + (value).ToString(), textColor, textSizeMult, showflg);
         if (currentHealth <= 0) {
-            GetComponent<EnemySmart>().ShowFloatingText("0", textColor, textSizeMult, showflg);
             Die();
             return;
         }
-        GetComponent<EnemySmart>().ShowFloatingText(currentHealth.ToString(), textColor, textSizeMult, showflg);
 
         EnemySmart.EnemyState currentState = GetComponent<EnemySmart>().GetEnemyState();
         if (currentState != EnemySmart.EnemyState.Dead) GetComponent<EnemySmart>().StaggerCoinFlip();
@@ -46,7 +45,7 @@ public class EnemyHitable : Hitable
         base.Die();
         EnemySmart e = GetComponent<EnemySmart>();
         e.SetEnemyState(EnemySmart.EnemyState.Dead);
-        Invoke("MassLess", 2.9f);
+        Invoke("MassLess", 2.5f);
     }
 
     protected void MassLess() {
