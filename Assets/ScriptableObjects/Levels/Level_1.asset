@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4483f7de88cb544a9a13711c5e34c3, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
-  waveTime: 15
+  waveTime: 25
   enemyOneLimit: 3
   spawnSpeed: 1
   sceneLevel: 0
   fogEnabled: 0
   enemieTypes:
-  - {fileID: 5271292583246286734, guid: 672c06042ddff114ab37005125cf2960, type: 3}
   - {fileID: 3267599499345899320, guid: bb543b14ab1cb23439ae67398e494520, type: 3}
   enemyScalingFactor: 1
